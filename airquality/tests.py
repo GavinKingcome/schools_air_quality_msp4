@@ -26,6 +26,9 @@ class AirQualityReadingModelTest(TestCase):
             pm25=Decimal("12.5"),
             pm10=Decimal("20.3"),
             no2=Decimal("35.2"),
+            o3=Decimal("45.0"),
+            co=Decimal("0.5"),
+            so2=Decimal("8.0"),
             aqi=45,
             source="Test API"
         )
@@ -34,7 +37,13 @@ class AirQualityReadingModelTest(TestCase):
         """Test that an air quality reading can be created"""
         self.assertEqual(self.reading.school, self.school)
         self.assertEqual(self.reading.pm25, Decimal("12.5"))
+        self.assertEqual(self.reading.pm10, Decimal("20.3"))
+        self.assertEqual(self.reading.no2, Decimal("35.2"))
+        self.assertEqual(self.reading.o3, Decimal("45.0"))
+        self.assertEqual(self.reading.co, Decimal("0.5"))
+        self.assertEqual(self.reading.so2, Decimal("8.0"))
         self.assertEqual(self.reading.aqi, 45)
+        self.assertEqual(self.reading.source, "Test API")
     
     def test_reading_str_method(self):
         """Test the string representation"""
@@ -53,5 +62,9 @@ class AirQualityReadingModelTest(TestCase):
             pm25=Decimal("10.0"),
             # Other pollutants are optional
         )
+        self.assertIsNone(reading.pm10)
         self.assertIsNone(reading.no2)
         self.assertIsNone(reading.o3)
+        self.assertIsNone(reading.co)
+        self.assertIsNone(reading.so2)
+        self.assertIsNone(reading.aqi)
