@@ -1,0 +1,2399 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.109907,
+          51.4567
+        ]
+      },
+      "properties": {
+        "name": "Triangle Nursery School",
+        "urn": 100550,
+        "type": "type        Local authority nursery school\ntype    Local authority maintained schools\nName: 548, dtype: object",
+        "phase": "Nursery",
+        "postcode": "SW2 1PL",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.109496,
+          51.457233
+        ]
+      },
+      "properties": {
+        "name": "Effra Nursery School and Children's Centre",
+        "urn": 100551,
+        "type": "type        Local authority nursery school\ntype    Local authority maintained schools\nName: 549, dtype: object",
+        "phase": "Nursery",
+        "postcode": "SW2 1PL",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.111661,
+          51.490918
+        ]
+      },
+      "properties": {
+        "name": "Ethelred Nursery School and Children's Centre",
+        "urn": 100552,
+        "type": "type        Local authority nursery school\ntype    Local authority maintained schools\nName: 550, dtype: object",
+        "phase": "Nursery",
+        "postcode": "SE11 6BG",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.131075,
+          51.451563
+        ]
+      },
+      "properties": {
+        "name": "Maytree Nursery School",
+        "urn": 100553,
+        "type": "type        Local authority nursery school\ntype    Local authority maintained schools\nName: 551, dtype: object",
+        "phase": "Nursery",
+        "postcode": "SW4 8EG",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.120014,
+          51.447519
+        ]
+      },
+      "properties": {
+        "name": "Holmewood Nursery School",
+        "urn": 100554,
+        "type": "type        Local authority nursery school\ntype    Local authority maintained schools\nName: 552, dtype: object",
+        "phase": "Nursery",
+        "postcode": "SW2 2RW",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.114938,
+          51.482014
+        ]
+      },
+      "properties": {
+        "name": "Ashmole Primary School",
+        "urn": 100556,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 554, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW8 1NT",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.137561,
+          51.464408
+        ]
+      },
+      "properties": {
+        "name": "Clapham Manor Primary School",
+        "urn": 100560,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 558, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW4 0BZ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.14225,
+          51.414511
+        ]
+      },
+      "properties": {
+        "name": "Granton Primary School",
+        "urn": 100564,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 562, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW16 5AN",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.143174,
+          51.470118
+        ]
+      },
+      "properties": {
+        "name": "Heathbrook Primary School",
+        "urn": 100566,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 564, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW8 3EH",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.142808,
+          51.444744
+        ]
+      },
+      "properties": {
+        "name": "Henry Cavendish Primary School",
+        "urn": 100567,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 565, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW12 0JA",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.101425,
+          51.459899
+        ]
+      },
+      "properties": {
+        "name": "Jessop Primary School",
+        "urn": 100572,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 570, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE24 0BJ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.09042,
+          51.426969
+        ]
+      },
+      "properties": {
+        "name": "Kingswood Primary School",
+        "urn": 100574,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 572, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE27 9RD",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.129732,
+          51.470668
+        ]
+      },
+      "properties": {
+        "name": "Larkhall Primary Campus",
+        "urn": 100576,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 574, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW4 6PH",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.081193,
+          51.421962
+        ]
+      },
+      "properties": {
+        "name": "Paxton Primary School",
+        "urn": 100577,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 575, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE19 1PA",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.126957,
+          51.448089
+        ]
+      },
+      "properties": {
+        "name": "Richard Atkins Primary School",
+        "urn": 100578,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 576, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW2 4JP",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.118064,
+          51.466606
+        ]
+      },
+      "properties": {
+        "name": "Stockwell Primary School",
+        "urn": 100582,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 580, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW9 9TG",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.119322,
+          51.458416
+        ]
+      },
+      "properties": {
+        "name": "Sudbourne Primary School",
+        "urn": 100584,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 582, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW2 5EF",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.120109,
+          51.429095
+        ]
+      },
+      "properties": {
+        "name": "Sunnyhill Primary School",
+        "urn": 100585,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 583, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW16 2UW",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.137097,
+          51.442558
+        ]
+      },
+      "properties": {
+        "name": "Telferscot Primary School",
+        "urn": 100586,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 584, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW12 0HW",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.117692,
+          51.488929
+        ]
+      },
+      "properties": {
+        "name": "Vauxhall Primary School",
+        "urn": 100588,
+        "type": "type                     Foundation school\ntype    Local authority maintained schools\nName: 586, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE11 5LG",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.113337,
+          51.493939
+        ]
+      },
+      "properties": {
+        "name": "Walnut Tree Walk Primary School",
+        "urn": 100589,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 587, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE11 6DS",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.125481,
+          51.481293
+        ]
+      },
+      "properties": {
+        "name": "Wyvil Primary School and Resource Bases for Speech, Language and Communication Needs, and Autism",
+        "urn": 100591,
+        "type": "type                     Foundation school\ntype    Local authority maintained schools\nName: 589, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW8 2TJ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.109258,
+          51.423614
+        ]
+      },
+      "properties": {
+        "name": "Crown Lane Primary School",
+        "urn": 100593,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 591, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW16 3HX",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.11364,
+          51.442255
+        ]
+      },
+      "properties": {
+        "name": "Fenstanton Primary School",
+        "urn": 100595,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 593, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW2 3PW",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.091979,
+          51.432012
+        ]
+      },
+      "properties": {
+        "name": "Elm Wood School",
+        "urn": 100597,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 595, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE27 9RR",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.127223,
+          51.472868
+        ]
+      },
+      "properties": {
+        "name": "Allen Edwards Primary School",
+        "urn": 100598,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 596, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW4 6RP",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.132153,
+          51.453001
+        ]
+      },
+      "properties": {
+        "name": "Glenbrook Primary School",
+        "urn": 100601,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 599, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW4 8LD",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.105506,
+          51.431233
+        ]
+      },
+      "properties": {
+        "name": "Julian's School",
+        "urn": 100602,
+        "type": "type                     Foundation school\ntype    Local authority maintained schools\nName: 600, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE27 0JF",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.125892,
+          51.478655
+        ]
+      },
+      "properties": {
+        "name": "Herbert Morrison Primary School",
+        "urn": 100604,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 602, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW8 2HP",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.109962,
+          51.491601
+        ]
+      },
+      "properties": {
+        "name": "Archbishop Sumner Church of England Primary School",
+        "urn": 100609,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 607, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE11 4PH",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.108149,
+          51.47623
+        ]
+      },
+      "properties": {
+        "name": "Christ Church Primary SW9",
+        "urn": 100610,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 608, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW9 6HN",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.147439,
+          51.463657
+        ]
+      },
+      "properties": {
+        "name": "Macaulay Church of England Primary School",
+        "urn": 100612,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 610, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW4 0NU",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.122355,
+          51.468347
+        ]
+      },
+      "properties": {
+        "name": "St Andrew's Church of England Primary School",
+        "urn": 100613,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 611, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW9 9DE",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.103719,
+          51.478892
+        ]
+      },
+      "properties": {
+        "name": "St John the Divine Church of England Primary School",
+        "urn": 100614,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 612, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 0SX",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.108545,
+          51.468053
+        ]
+      },
+      "properties": {
+        "name": "St John's Angell Town Church of England Primary School",
+        "urn": 100615,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 613, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW9 7HH",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.105039,
+          51.454319
+        ]
+      },
+      "properties": {
+        "name": "St Jude's Church of England Primary School",
+        "urn": 100616,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 614, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE24 0EL",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.11731,
+          51.48457
+        ]
+      },
+      "properties": {
+        "name": "St Mark's Church of England Primary School",
+        "urn": 100619,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 617, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE11 5SL",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.097927,
+          51.463709
+        ]
+      },
+      "properties": {
+        "name": "St Saviour's Church of England Primary School",
+        "urn": 100620,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 618, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE24 0AY",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.122319,
+          51.47974
+        ]
+      },
+      "properties": {
+        "name": "St Stephen's Church of England Primary School",
+        "urn": 100621,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 619, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW8 1EJ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.118372,
+          51.447556
+        ]
+      },
+      "properties": {
+        "name": "Holy Trinity Church of England Primary School",
+        "urn": 100622,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 620, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW2 2RL",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.113421,
+          51.467116
+        ]
+      },
+      "properties": {
+        "name": "St Helen's Catholic Primary School",
+        "urn": 100623,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 621, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW9 0TQ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.119357,
+          51.485565
+        ]
+      },
+      "properties": {
+        "name": "St Anne's Catholic Primary School",
+        "urn": 100629,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 627, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE11 5JA",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.135593,
+          51.444521
+        ]
+      },
+      "properties": {
+        "name": "St Bede's Catholic Primary School",
+        "urn": 100631,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 629, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW12 0LF",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.125814,
+          51.424321
+        ]
+      },
+      "properties": {
+        "name": "St Andrew's Catholic Primary School",
+        "urn": 100632,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 630, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW16 2ET",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.13154,
+          51.419349
+        ]
+      },
+      "properties": {
+        "name": "Immanuel and St Andrew Church of England Primary School",
+        "urn": 100633,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 631, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW16 5SL",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.115124,
+          51.477503
+        ]
+      },
+      "properties": {
+        "name": "Reay Primary School",
+        "urn": 100634,
+        "type": "type                     Foundation school\ntype    Local authority maintained schools\nName: 632, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW9 0EN",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.138064,
+          51.45912
+        ]
+      },
+      "properties": {
+        "name": "St Mary's Roman Catholic Primary School",
+        "urn": 100636,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 634, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW4 9QJ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.076079,
+          51.494377
+        ]
+      },
+      "properties": {
+        "name": "Kintore Way Nursery School and Children's Centre",
+        "urn": 100767,
+        "type": "type        Local authority nursery school\ntype    Local authority maintained schools\nName: 765, dtype: object",
+        "phase": "Nursery",
+        "postcode": "SE1 3BW",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.079849,
+          51.431382
+        ]
+      },
+      "properties": {
+        "name": "Dulwich Wood Nursery School",
+        "urn": 100769,
+        "type": "type        Local authority nursery school\ntype    Local authority maintained schools\nName: 767, dtype: object",
+        "phase": "Nursery",
+        "postcode": "SE21 8QS",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.06453,
+          51.474871
+        ]
+      },
+      "properties": {
+        "name": "Nell Gwynn Nursery School",
+        "urn": 100770,
+        "type": "type        Local authority nursery school\ntype    Local authority maintained schools\nName: 768, dtype: object",
+        "phase": "Nursery",
+        "postcode": "SE15 2TT",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.081963,
+          51.480499
+        ]
+      },
+      "properties": {
+        "name": "The Grove Nursery School",
+        "urn": 100771,
+        "type": "type        Local authority nursery school\ntype    Local authority maintained schools\nName: 769, dtype: object",
+        "phase": "Nursery",
+        "postcode": "SE15 6BY",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.051653,
+          51.499945
+        ]
+      },
+      "properties": {
+        "name": "Albion Primary School",
+        "urn": 100774,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 772, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 7JD",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.067774,
+          51.464889
+        ]
+      },
+      "properties": {
+        "name": "Bellenden Primary School",
+        "urn": 100775,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 773, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 4JP",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.063431,
+          51.480428
+        ]
+      },
+      "properties": {
+        "name": "Bird In Bush School",
+        "urn": 100780,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 778, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 1QP",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.10094,
+          51.489971
+        ]
+      },
+      "properties": {
+        "name": "Crampton Primary",
+        "urn": 100784,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 782, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE17 3LE",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.095677,
+          51.472108
+        ]
+      },
+      "properties": {
+        "name": "Crawford Primary School",
+        "urn": 100785,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 783, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 9NF",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.068103,
+          51.449939
+        ]
+      },
+      "properties": {
+        "name": "Goodrich Community Primary School",
+        "urn": 100790,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 788, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE22 0EP",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.08194,
+          51.496146
+        ]
+      },
+      "properties": {
+        "name": "Grange Primary School",
+        "urn": 100791,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 789, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 4RP",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.073608,
+          51.452863
+        ]
+      },
+      "properties": {
+        "name": "Heber Primary School",
+        "urn": 100793,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 791, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE22 9LA",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.052538,
+          51.467685
+        ]
+      },
+      "properties": {
+        "name": "Hollydale Primary School",
+        "urn": 100794,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 792, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 2AR",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.054379,
+          51.485008
+        ]
+      },
+      "properties": {
+        "name": "Ilderton Primary School",
+        "urn": 100795,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 793, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 3LA",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.046246,
+          51.459613
+        ]
+      },
+      "properties": {
+        "name": "Ivydale Primary School",
+        "urn": 100796,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 794, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 3BU",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.09718,
+          51.483058
+        ]
+      },
+      "properties": {
+        "name": "John Ruskin Primary School and Language Classes",
+        "urn": 100798,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 796, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 0PQ",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.104691,
+          51.486696
+        ]
+      },
+      "properties": {
+        "name": "Keyworth Primary School",
+        "urn": 100800,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 798, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE17 3TR",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.082876,
+          51.431927
+        ]
+      },
+      "properties": {
+        "name": "Dulwich Wood Primary School",
+        "urn": 100801,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 799, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE21 8NS",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.088389,
+          51.485253
+        ]
+      },
+      "properties": {
+        "name": "Michael Faraday School",
+        "urn": 100803,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 801, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE17 2HR",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.064811,
+          51.499524
+        ]
+      },
+      "properties": {
+        "name": "Riverside Primary School",
+        "urn": 100808,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 806, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 4PS",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.092603,
+          51.488838
+        ]
+      },
+      "properties": {
+        "name": "Robert Browning Primary School",
+        "urn": 100809,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 807, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE17 1DQ",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.083876,
+          51.50151
+        ]
+      },
+      "properties": {
+        "name": "Snowsfields Primary School",
+        "urn": 100811,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 809, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 3TD",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.058023,
+          51.494142
+        ]
+      },
+      "properties": {
+        "name": "Southwark Park Primary School",
+        "urn": 100812,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 810, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 2JH",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.077014,
+          51.501587
+        ]
+      },
+      "properties": {
+        "name": "Tower Bridge Primary School",
+        "urn": 100813,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 811, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 2AE",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.092836,
+          51.492933
+        ]
+      },
+      "properties": {
+        "name": "Victory Primary School",
+        "urn": 100815,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 813, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE17 1PT",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0687,
+          51.486261
+        ]
+      },
+      "properties": {
+        "name": "Phoenix Primary School",
+        "urn": 100817,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 815, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 5JT",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.055939,
+          51.480484
+        ]
+      },
+      "properties": {
+        "name": "Pilgrims' Way Primary School",
+        "urn": 100818,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 816, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 1EF",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.043571,
+          51.499604
+        ]
+      },
+      "properties": {
+        "name": "Alfred Salter Primary School",
+        "urn": 100819,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 817, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 7LP",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.078197,
+          51.474844
+        ]
+      },
+      "properties": {
+        "name": "Oliver Goldsmith Primary School",
+        "urn": 100821,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 819, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 8UH",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.076231,
+          51.493849
+        ]
+      },
+      "properties": {
+        "name": "Boutcher Church of England Primary School",
+        "urn": 100822,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 820, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 3BW",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.086591,
+          51.452158
+        ]
+      },
+      "properties": {
+        "name": "Dulwich Village Church of England Infants' School",
+        "urn": 100823,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 821, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE21 7BU",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.088322,
+          51.490639
+        ]
+      },
+      "properties": {
+        "name": "English Martyrs' Roman Catholic Primary School",
+        "urn": 100824,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 822, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE17 1RB",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.073105,
+          51.474356
+        ]
+      },
+      "properties": {
+        "name": "St James the Great Roman Catholic Primary School",
+        "urn": 100825,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 823, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 5LP",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.067077,
+          51.48003
+        ]
+      },
+      "properties": {
+        "name": "St Francis RC Primary School",
+        "urn": 100826,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 824, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 1RQ",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.084344,
+          51.480394
+        ]
+      },
+      "properties": {
+        "name": "St George's Church of England Primary School",
+        "urn": 100827,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 825, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 7TF",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.067764,
+          51.497837
+        ]
+      },
+      "properties": {
+        "name": "St James' Church of England Primary School",
+        "urn": 100829,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 827, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 4SU",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.071735,
+          51.463137
+        ]
+      },
+      "properties": {
+        "name": "St John's and St Clement's Church of England Primary School",
+        "urn": 100830,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 828, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 4DY",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.092611,
+          51.502453
+        ]
+      },
+      "properties": {
+        "name": "Saint Joseph's Catholic Primary School, the Borough",
+        "urn": 100834,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 832, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 1NJ",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.105365,
+          51.496859
+        ]
+      },
+      "properties": {
+        "name": "St Jude's Church of England Primary School",
+        "urn": 100835,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 833, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 6HA",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.042567,
+          51.506205
+        ]
+      },
+      "properties": {
+        "name": "Peter Hills with St Mary's and St Paul's CofE Primary School",
+        "urn": 100837,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 835, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 5ED",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.093305,
+          51.486169
+        ]
+      },
+      "properties": {
+        "name": "St Peter's Church of England Primary School",
+        "urn": 100839,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 837, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE17 2HH",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.093977,
+          51.502871
+        ]
+      },
+      "properties": {
+        "name": "The Cathedral School of St Saviour and St Mary Overie",
+        "urn": 100840,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 838, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 1HG",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.041509,
+          51.500298
+        ]
+      },
+      "properties": {
+        "name": "St John's Roman Catholic Primary School",
+        "urn": 100841,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 839, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 6SD",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.098994,
+          51.479266
+        ]
+      },
+      "properties": {
+        "name": "St Joseph's Catholic Junior School",
+        "urn": 100853,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 851, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 0TS",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.098994,
+          51.479266
+        ]
+      },
+      "properties": {
+        "name": "St Joseph's Catholic Infants School",
+        "urn": 100854,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 852, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 0TS",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1034,
+          51.501495
+        ]
+      },
+      "properties": {
+        "name": "Friars Primary Foundation School",
+        "urn": 100855,
+        "type": "type                     Foundation school\ntype    Local authority maintained schools\nName: 853, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 0RF",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.086805,
+          51.458744
+        ]
+      },
+      "properties": {
+        "name": "Bessemer Grange Primary School",
+        "urn": 130918,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 30851, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 8HP",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.139675,
+          51.453138
+        ]
+      },
+      "properties": {
+        "name": "Bonneville Primary School",
+        "urn": 131247,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 31177, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW4 9LB",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.107328,
+          51.461964
+        ]
+      },
+      "properties": {
+        "name": "Hill Mead Primary School",
+        "urn": 131340,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 31268, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW9 8UE",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.114988,
+          51.436089
+        ]
+      },
+      "properties": {
+        "name": "Hitherfield Primary School",
+        "urn": 131824,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 31744, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW16 2JQ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.088805,
+          51.478066
+        ]
+      },
+      "properties": {
+        "name": "Brunswick Park Primary School",
+        "urn": 131843,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 31762, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 7QH",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.111888,
+          51.484717
+        ]
+      },
+      "properties": {
+        "name": "Henry Fawcett Primary School",
+        "urn": 131874,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 31791, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE11 5BZ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.114517,
+          51.452413
+        ]
+      },
+      "properties": {
+        "name": "Jubilee Primary School",
+        "urn": 133662,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 33244, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW2 2JE",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.120184,
+          51.444437
+        ]
+      },
+      "properties": {
+        "name": "The Orchard School",
+        "urn": 134507,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 33992, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW2 3ES",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.063154,
+          51.464525
+        ]
+      },
+      "properties": {
+        "name": "Rye Oak Primary School",
+        "urn": 134903,
+        "type": "type                      Community school\ntype    Local authority maintained schools\nName: 34327, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 3PD",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.130407,
+          51.45487
+        ]
+      },
+      "properties": {
+        "name": "Iqra Primary School",
+        "urn": 135614,
+        "type": "type                Voluntary aided school\ntype    Local authority maintained schools\nName: 34977, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW4 9PA",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.087649,
+          51.450251
+        ]
+      },
+      "properties": {
+        "name": "Dulwich Hamlet Junior School",
+        "urn": 136665,
+        "type": "type    Academy converter\ntype            Academies\nName: 35966, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE21 7AL",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.120148,
+          51.456181
+        ]
+      },
+      "properties": {
+        "name": "Corpus Christi Catholic Primary School",
+        "urn": 137295,
+        "type": "type    Academy converter\ntype            Academies\nName: 36556, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW2 5BL",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.065629,
+          51.476813
+        ]
+      },
+      "properties": {
+        "name": "Harris Primary Academy Peckham Park",
+        "urn": 137413,
+        "type": "type    Academy converter\ntype            Academies\nName: 36671, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 5TD",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.111415,
+          51.500707
+        ]
+      },
+      "properties": {
+        "name": "Oasis Academy South Bank Primary",
+        "urn": 137430,
+        "type": "type    Academy converter\ntype            Academies\nName: 36688, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 7RH",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.036671,
+          51.501907
+        ]
+      },
+      "properties": {
+        "name": "Redriff Primary, City of London Academy",
+        "urn": 137648,
+        "type": "type    Academy converter\ntype            Academies\nName: 36897, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 5LQ",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.093103,
+          51.453046
+        ]
+      },
+      "properties": {
+        "name": "Judith Kerr Primary School",
+        "urn": 139907,
+        "type": "type    Free schools\ntype    Free Schools\nName: 39042, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE24 9JE",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.061324,
+          51.473046
+        ]
+      },
+      "properties": {
+        "name": "John Donne Primary School",
+        "urn": 140507,
+        "type": "type    Academy converter\ntype            Academies\nName: 39618, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 2SW",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.076155,
+          51.455269
+        ]
+      },
+      "properties": {
+        "name": "Harris Primary Academy East Dulwich",
+        "urn": 140937,
+        "type": "type    Free schools\ntype    Free Schools\nName: 40032, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE22 8HA",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.079087,
+          51.480398
+        ]
+      },
+      "properties": {
+        "name": "Angel Oak Academy",
+        "urn": 141666,
+        "type": "type    Academy sponsor led\ntype              Academies\nName: 40705, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 6FL",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.073584,
+          51.466063
+        ]
+      },
+      "properties": {
+        "name": "The Belham Primary School",
+        "urn": 142090,
+        "type": "type    Free schools\ntype    Free Schools\nName: 41108, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE15 4DG",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.059474,
+          51.489841
+        ]
+      },
+      "properties": {
+        "name": "Galleywall Primary, City of London Academy",
+        "urn": 142875,
+        "type": "type    Free schools\ntype    Free Schools\nName: 41834, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 3PB",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.098052,
+          51.446175
+        ]
+      },
+      "properties": {
+        "name": "Rosendale Primary School",
+        "urn": 144308,
+        "type": "type    Academy converter\ntype            Academies\nName: 43074, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE21 8LR",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.076731,
+          51.46143
+        ]
+      },
+      "properties": {
+        "name": "Goose Green Primary and Nursery School",
+        "urn": 145130,
+        "type": "type    Academy converter\ntype            Academies\nName: 43810, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE22 8HG",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.121539,
+          51.444747
+        ]
+      },
+      "properties": {
+        "name": "Christ Church, Streatham Church of England Primary School",
+        "urn": 145614,
+        "type": "type    Academy converter\ntype            Academies\nName: 44230, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW2 3NF",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.135655,
+          51.427104
+        ]
+      },
+      "properties": {
+        "name": "St Leonard's Church of England Primary School",
+        "urn": 145615,
+        "type": "type    Academy converter\ntype            Academies\nName: 44231, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW16 6NP",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.099906,
+          51.426808
+        ]
+      },
+      "properties": {
+        "name": "St Luke's Church of England Primary School",
+        "urn": 145616,
+        "type": "type    Academy converter\ntype            Academies\nName: 44232, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE27 0DZ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.064266,
+          51.485532
+        ]
+      },
+      "properties": {
+        "name": "John Keats Primary School",
+        "urn": 145888,
+        "type": "type    Free schools\ntype    Free Schools\nName: 44469, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 3FN",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.083,
+          51.488744
+        ]
+      },
+      "properties": {
+        "name": "Surrey Square Primary School",
+        "urn": 146117,
+        "type": "type    Academy converter\ntype            Academies\nName: 44665, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE17 2JY",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.111393,
+          51.474403
+        ]
+      },
+      "properties": {
+        "name": "Van Gogh Primary",
+        "urn": 146368,
+        "type": "type    Academy converter\ntype            Academies\nName: 44879, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW9 6HF",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.099146,
+          51.486336
+        ]
+      },
+      "properties": {
+        "name": "St Paul's Church of England Primary School",
+        "urn": 146669,
+        "type": "type    Academy sponsor led\ntype              Academies\nName: 45112, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE17 3DT",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.096571,
+          51.501141
+        ]
+      },
+      "properties": {
+        "name": "Charles Dickens Primary School",
+        "urn": 148012,
+        "type": "type    Academy converter\ntype            Academies\nName: 46189, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 1AF",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.088133,
+          51.470366
+        ]
+      },
+      "properties": {
+        "name": "Lyndhurst Primary School",
+        "urn": 148574,
+        "type": "type    Academy converter\ntype            Academies\nName: 46694, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE5 8SN",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.069505,
+          51.499611
+        ]
+      },
+      "properties": {
+        "name": "St Joseph's Catholic Primary School",
+        "urn": 149346,
+        "type": "type    Academy converter\ntype            Academies\nName: 47341, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 4UP",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.115979,
+          51.439963
+        ]
+      },
+      "properties": {
+        "name": "Streatham Wells Primary",
+        "urn": 149556,
+        "type": "type    Academy converter\ntype            Academies\nName: 47515, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW2 3NJ",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.08287,
+          51.465397
+        ]
+      },
+      "properties": {
+        "name": "Grove Primary School",
+        "urn": 149604,
+        "type": "type    Academy converter\ntype            Academies\nName: 47555, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE22 8AB",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.049864,
+          51.491579
+        ]
+      },
+      "properties": {
+        "name": "Rotherhithe Primary School",
+        "urn": 149605,
+        "type": "type    Academy converter\ntype            Academies\nName: 47556, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 2PE",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.072115,
+          51.449682
+        ]
+      },
+      "properties": {
+        "name": "St Anthony's Catholic Primary School",
+        "urn": 150551,
+        "type": "type    Academy converter\ntype            Academies\nName: 48370, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE22 0LA",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.105056,
+          51.469553
+        ]
+      },
+      "properties": {
+        "name": "Loughborough Primary School",
+        "urn": 150830,
+        "type": "type    Academy converter\ntype            Academies\nName: 48617, dtype: object",
+        "phase": "Primary",
+        "postcode": "SW9 7UA",
+        "local_authority": "Lambeth"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.051935,
+          51.495022
+        ]
+      },
+      "properties": {
+        "name": "St Joseph's Catholic Primary School",
+        "urn": 151012,
+        "type": "type    Academy converter\ntype            Academies\nName: 48767, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE16 2TY",
+        "local_authority": "Southwark"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.106584,
+          51.498381
+        ]
+      },
+      "properties": {
+        "name": "St George's Cathedral Catholic Primary School",
+        "urn": 151500,
+        "type": "type    Academy converter\ntype            Academies\nName: 49179, dtype: object",
+        "phase": "Primary",
+        "postcode": "SE1 6HR",
+        "local_authority": "Southwark"
+      }
+    }
+  ]
+}

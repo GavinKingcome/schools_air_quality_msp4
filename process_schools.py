@@ -190,14 +190,15 @@ def export_to_geojson(df, output_path):
                 "geometry": {
                     "type": "Point",
                     "coordinates": [float(row[lon_col]), float(row[lat_col])]
+                
                 },
-                "properties": {
-                    "name": row.get('name', ''),
+                 "properties": {
+                    "name": str(row.get('name', '')),
                     "urn": int(row['urn']) if pd.notna(row.get('urn')) else None,
-                    "type": row.get('type', ''),
-                    "phase": row.get('phase', ''),
-                    "postcode": row.get('postcode', ''),
-                    "local_authority": row.get('local_authority', '')
+                    "type": str(row.get('type', '')),
+                    "phase": str(row.get('phase', '')),
+                    "postcode": str(row.get('postcode', '')),
+                    "local_authority": str(row.get('local_authority', ''))
                 }
             }
             features.append(feature)
