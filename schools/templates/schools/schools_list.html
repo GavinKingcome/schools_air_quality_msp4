@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %}Schools - Early Years Schools
+Pollution Monitor{% endblock %} {% block content %}
+<div style="max-width: 1200px; margin: 0 auto; padding: 2rem">
+  <h2 style="color: #333; margin-bottom: 1.5rem">
+    Schools in Southwark & Lambeth
+  </h2>
+
+  {% if schools %}
+  <div style="display: grid; gap: 1rem">
+    {% for school in schools %}
+    <div
+      style="
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <h3 style="color: #667eea; margin-bottom: 0.5rem">{{ school.name }}</h3>
+      <p style="color: #666; margin: 0.25rem 0">
+        <strong>Type:</strong> {{ school.get_school_type_display }}
+      </p>
+      <p style="color: #666; margin: 0.25rem 0">
+        <strong>Address:</strong> {{ school.address }}, {{ school.city }}
+      </p>
+      <p style="color: #666; margin: 0.25rem 0">
+        <strong>Postcode:</strong> {{ school.postcode }}
+      </p>
+      {% if school.student_count %}
+      <p style="color: #666; margin: 0.25rem 0">
+        <strong>Students:</strong> {{ school.student_count }}
+      </p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p style="color: #666">No schools found in the database.</p>
+  {% endif %}
+</div>
+{% endblock %}

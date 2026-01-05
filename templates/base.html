@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Early Years Schools Pollution Monitor{% endblock %}</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <div class="branding">
+                <h1>Early Years Schools Pollution Monitor</h1>
+                <p class="tagline">Real-time Air Quality Data for London Schools</p>
+            </div>
+            <nav class="main-nav">
+                <a href="{% url 'maps:map' %}" class="nav-link">Map</a>
+                <a href="{% url 'schools:schools_list' %}" class="nav-link">Schools</a>
+                <a href="{% url 'schools:login' %}" class="nav-link">Login</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

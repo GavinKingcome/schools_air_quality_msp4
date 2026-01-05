@@ -1,65 +1,220 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Schools Air Quality Map</title>
-
-     <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-    <!-- Load Django static files -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'maps/css/map.css' %}" />
-  </head>
-  <body>
-    <div class="map-header">
-      <h1>Schools Air Quality Monitor</h1>
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'maps/css/map.css' %}" />
+{% endblock %} {% block content %}
+<div id="map">
+  <div
+    class="map-search-container"
+    style="
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 300px;
+    "
+  >
+    <div style="position: relative">
+      <input
+        type="text"
+        id="schoolSearch"
+        placeholder="Search schools..."
+        style="
+          width: 100%;
+          padding: 12px 40px 12px 15px;
+          font-size: 0.95rem;
+          border: none;
+          border-radius: 8px;
+          background: white;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        "
+      />
+      <button
+        id="clearSearch"
+        style="
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: none;
+          border: none;
+          font-size: 1.2rem;
+          color: #999;
+          cursor: pointer;
+          padding: 5px;
+          display: none;
+          line-height: 1;
+        "
+      >
+        ×
+      </button>
     </div>
+    <div
+      class="search-results"
+      id="searchResults"
+      style="
+        background: white;
+        margin-top: 8px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        max-height: 400px;
+        overflow-y: auto;
+        display: none;
+      "
+    ></div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  // Initialize the map
+  const map = L.map('map').setView([51.4893, -0.0927], 12);
 
-    <div id="map"></div>
+  // Add CartoDB Positron tiles
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      maxZoom: 19
+  }).addTo(map);
 
-    <!-- Leaflet JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  // Get schools data from Django
+  const schools = {{ schools_json|safe }};
 
-    <script>
-      // Initialize the map - centered on UK (you can adjust)
-      const map = L.map('map').setView([51.5074, -0.1278], 10);
+  // Store markers for search functionality
+  const markersMap = new Map();
 
-      // Add CartoDB Positron tiles
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-          maxZoom: 19
-      }).addTo(map);
+  // Add markers for each school
+  schools.forEach(school => {
+      const marker = L.marker([school.latitude, school.longitude]).addTo(map);
 
-      // Get schools data from Django
-      const schools = {{ schools_json|safe }};
+      const popupContent = `
+          <div style="min-width: 200px;">
+              <h3 style="margin-top: 0;">${school.name}</h3>
+              <p><strong>Type:</strong> ${school.school_type}</p>
+              <p><strong>Address:</strong> ${school.address}, ${school.city}</p>
+              <p><strong>Postcode:</strong> ${school.postcode}</p>
+              ${school.student_count ? `<p><strong>Students:</strong> ${school.student_count}</p>` : ''}
+          </div>
+      `;
 
-      // Add markers for each school
-      schools.forEach(school => {
-          const marker = L.marker([school.latitude, school.longitude]).addTo(map);
+      marker.bindPopup(popupContent);
+      markersMap.set(school.id, { marker, school });
+  });
 
-          // Create popup content
-          const popupContent = `
-              <div style="min-width: 200px;">
-                  <h3 style="margin-top: 0;">${school.name}</h3>
-                  <p><strong>Type:</strong> ${school.school_type}</p>
-                  <p><strong>Address:</strong> ${school.address}, ${school.city}</p>
-                  <p><strong>Postcode:</strong> ${school.postcode}</p>
-                  ${school.student_count ? `<p><strong>Students:</strong> ${school.student_count}</p>` : ''}
-              </div>
-          `;
+  // Auto-fit map to show all markers
+  if (schools.length > 0) {
+      const group = L.featureGroup(schools.map(s => L.marker([s.latitude, s.longitude])));
+      const originalBounds = group.getBounds().pad(0.05);
+      map.fitBounds(originalBounds, { maxZoom: 13 });
 
-          marker.bindPopup(popupContent);
-      });
+      // Store original bounds for reset
+      window.originalMapBounds = originalBounds;
+      window.originalMapZoomOptions = { maxZoom: 13 };
 
-      // Auto-fit map to show all markers if schools exist
-      if (schools.length > 0) {
-          const group = L.featureGroup(
-              schools.map(school => L.marker([school.latitude, school.longitude]))
-          );
-          map.fitBounds(group.getBounds().pad(0.1));
+  }
+
+  // Search functionality with dropdown
+  const searchInput = document.getElementById('schoolSearch');
+  const searchResults = document.getElementById('searchResults');
+  const clearButton = document.getElementById('clearSearch');
+
+  // Disable map interactions when mouse is over search container
+  const searchContainer = document.querySelector('.map-search-container');
+  L.DomEvent.disableClickPropagation(searchContainer);
+  L.DomEvent.disableScrollPropagation(searchContainer);
+
+  searchInput.addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase().trim();
+
+      // Show/hide clear button
+      clearButton.style.display = this.value ? 'block' : 'none';
+
+      if (searchTerm === '') {
+          searchResults.style.display = 'none';
+          searchResults.innerHTML = '';
+          // Reset all markers to full opacity
+          markersMap.forEach(({marker}) => marker.setOpacity(1));
+          return;
       }
-    </script>
-  </body>
-</html>
+
+      // Filter schools
+      const matches = schools.filter(school =>
+          school.name.toLowerCase().includes(searchTerm) ||
+          school.postcode.toLowerCase().includes(searchTerm) ||
+          school.city.toLowerCase().includes(searchTerm)
+      );
+
+      // Show results in dropdown
+      if (matches.length > 0) {
+          searchResults.innerHTML = matches.map(school => `
+              <div class="search-result-item" data-school-id="${school.id}" style="padding: 12px 15px; cursor: pointer; border-bottom: 1px solid #f0f0f0;">
+                  <div style="font-weight: 600; color: #333; margin-bottom: 4px;">${school.name}</div>
+                  <div style="font-size: 0.85rem; color: #666;">${school.postcode} • ${school.city}</div>
+              </div>
+          `).join('');
+          searchResults.style.display = 'block';
+
+          // Add click handlers to results
+          document.querySelectorAll('.search-result-item').forEach(item => {
+              item.addEventListener('mouseenter', function() {
+                  this.style.background = '#f8f9fa';
+              });
+              item.addEventListener('mouseleave', function() {
+                  this.style.background = 'white';
+              });
+              item.addEventListener('click', function() {
+                  const schoolId = parseInt(this.dataset.schoolId);
+                  const {marker, school} = markersMap.get(schoolId);
+
+                  // Zoom to marker and open popup
+                  map.setView([school.latitude, school.longitude], 16);
+                  marker.openPopup();
+
+                  // Clear search
+                  searchInput.value = school.name;
+                  searchResults.style.display = 'none';
+                  clearButton.style.display = 'block';
+              });
+          });
+      } else {
+          searchResults.innerHTML = '<div style="padding: 20px 15px; text-align: center; color: #999; font-size: 0.9rem;">No schools found</div>';
+          searchResults.style.display = 'block';
+      }
+
+      // Dim non-matching markers
+      markersMap.forEach(({marker, school}) => {
+          const matches = school.name.toLowerCase().includes(searchTerm) ||
+                        school.postcode.toLowerCase().includes(searchTerm) ||
+                        school.city.toLowerCase().includes(searchTerm);
+          marker.setOpacity(matches ? 1 : 0.2);
+      });
+  });
+
+  // Clear search when clicking the X button
+  clearButton.addEventListener('click', function(e) {
+      e.stopPropagation();
+      searchInput.value = '';
+      searchResults.style.display = 'none';
+      clearButton.style.display = 'none';
+
+      // Reset all markers to full opacity
+      markersMap.forEach(({marker}) => marker.setOpacity(1));
+
+       // Zoom back out to show all schools
+      if (window.originalMapBounds) {
+          map.fitBounds(window.originalMapBounds, window.originalMapZoomOptions);
+      }
+  });
+
+  // Hover effect for clear button
+  clearButton.addEventListener('mouseenter', function() {
+      this.style.color = '#333';
+  });
+  clearButton.addEventListener('mouseleave', function() {
+      this.style.color = '#999';
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+      if (!e.target.closest('.map-search-container')) {
+          searchResults.style.display = 'none';
+      }
+  });
+</script>
+{% endblock %}
