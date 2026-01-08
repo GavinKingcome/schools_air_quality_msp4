@@ -1,78 +1,137 @@
 #map {
-    height: calc(100vh - 100px);
-    width: 100%;
-    position: relative;
+  height: calc(100vh - 100px);
+  width: 100%;
+  position: relative;
 }
 
 /* Floating Search Box */
 .map-search-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    width: 300px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2000; /* Increase from 1000 to sit above Leaflet controls (which are ~1000) */
+  width: 300px;
 }
 
 .map-search-container input {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 0.95rem;
-    border: none;
-    border-radius: 8px;
-    background: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transition: box-shadow 0.2s;
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.2s;
 }
 
 .map-search-container input:focus {
-    outline: none;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  outline: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* Dropdown Results */
 .search-results {
-    background: white;
-    margin-top: 8px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    max-height: 400px;
-    overflow-y: auto;
-    display: none;
+  background: white;
+  margin-top: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 400px;
+  overflow-y: auto;
+  display: none;
 }
 
 .search-results.show {
-    display: block;
+  display: block;
 }
 
 .search-result-item {
-    padding: 12px 15px;
-    cursor: pointer;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background 0.2s;
+  padding: 12px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
 }
 
 .search-result-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .search-result-item:hover {
-    background: #f8f9fa;
+  background: #f8f9fa;
 }
 
 .search-result-name {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 4px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
 }
 
 .search-result-details {
-    font-size: 0.85rem;
-    color: #666;
+  font-size: 0.85rem;
+  color: #666;
 }
 
 .search-no-results {
-    padding: 20px 15px;
-    text-align: center;
-    color: #999;
-    font-size: 0.9rem;
+  padding: 20px 15px;
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  #map {
+    height: calc(
+      100vh - 80px
+    ); /* Reduced from 100px - less space taken by smaller header */
+  }
+  /* Move Leaflet zoom controls to top-right, aligned with search box */
+  #map .leaflet-top.leaflet-left {
+    top: 10px;
+    left: auto;
+    right: 15px;
+  }
+
+  .map-search-container {
+    top: 10px; /* Closer to edge (was 20px) */
+    right: 10px; /* Less margin on right */
+    left: 15px; /* ADD left margin - makes it span full width minus 15px each side */
+    width: auto; /* Instead of fixed 300px, it stretches to fill left/right margins */
+  }
+
+  .map-search-container input {
+    padding: 10px 35px 10px 12px; /* Slightly smaller padding (was 12px) */
+    font-size: 0.9rem; /* Smaller text (was 0.95rem) */
+  }
+
+  .search-results {
+    max-height: 300px; /* Shorter dropdown (was 400px) - leaves more map visible */
+  }
+
+  .search-result-item {
+    padding: 10px 12px; /* Tighter spacing (was 12px 15px) */
+  }
+
+  .search-result-name {
+    font-size: 0.9rem; /* Smaller school names */
+  }
+
+  .search-result-details {
+    font-size: 0.8rem; /* Smaller postcode/city text (was 0.85rem) */
+  }
+}
+
+@media (max-width: 480px) {
+  #map {
+    height: calc(100vh - 70px); /* Even less header space */
+  }
+
+  .map-search-container {
+    top: 8px; /* Even closer to edge */
+    right: 8px;
+    left: 8px;
+  }
+
+  .search-results {
+    max-height: 250px; /* Even shorter dropdown */
+    font-size: 0.85rem; /* Slightly smaller base text */
+  }
 }
