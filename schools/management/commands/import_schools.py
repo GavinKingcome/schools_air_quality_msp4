@@ -48,6 +48,7 @@ class Command(BaseCommand):
                     defaults={
                         'address': row.get('street', ''),
                         'city': row.get('town', row.get('local_authority', '')),
+                        'borough': row.get('local_authority', ''),
                         'latitude': Decimal(row['latitude']),
                         'longitude': Decimal(row['longitude']),
                         'school_type': school_type,

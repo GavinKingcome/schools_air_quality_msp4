@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import School
+import json
 
 def schools_list(request):
     """List all schools"""

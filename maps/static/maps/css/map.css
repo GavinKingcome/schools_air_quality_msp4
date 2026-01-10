@@ -77,6 +77,74 @@
   font-size: 0.9rem;
 }
 
+/* Map Legend */
+.map-legend {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    z-index: 1000;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.map-legend h4 {
+    margin: 0 0 10px 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.legend-item:last-child {
+    margin-bottom: 0;
+}
+
+.legend-item img {
+    width: 15px;
+    height: 24px;
+}
+
+.legend-item span {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Mobile adjustments for legend */
+@media (max-width: 768px) {
+    .map-legend {
+        bottom: 15px;
+        left: 10px;
+        padding: 12px;
+    }
+    
+    .map-legend h4 {
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+    }
+    
+    .legend-item {
+        gap: 6px;
+        margin-bottom: 4px;
+    }
+    
+    .legend-item img {
+        width: 12px;
+        height: 20px;
+    }
+    
+    .legend-item span {
+        font-size: 0.8rem;
+    }
+}
+
 @media (max-width: 768px) {
   #map {
     height: calc(

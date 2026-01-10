@@ -4,11 +4,25 @@ from django.db import models
 class School(models.Model):
     """Model representing a school location"""
     
-    # Basic Information
-    name = models.CharField(max_length=200, help_text="School name")
-    address = models.CharField(max_length=255, help_text="Street address")
-    city = models.CharField(max_length=100, default="")
+    SCHOOL_TYPE_CHOICES = [
+        ('nursery', 'Nursery'),
+        ('primary', 'Primary'),
+    ]
+    
+    name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=100)
     postcode = models.CharField(max_length=10)
+    borough = models.CharField(max_length=100, blank=True)  # ADD THIS LINE
+    phone = models.CharField(max_length=20, blank=True)
+    email = models.EmailField(blank=True)
+    website = models.URLField(blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    school_type = models.CharField(max_length=10, choices=SCHOOL_TYPE_CHOICES)
+    student_count = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     # Contact Information
     phone = models.CharField(max_length=20, blank=True, null=True)
@@ -38,3 +52,6 @@ class School(models.Model):
     
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ['name']

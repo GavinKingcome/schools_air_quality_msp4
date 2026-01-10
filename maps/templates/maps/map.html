@@ -8,7 +8,7 @@
       position: absolute;
       top: 20px;
       right: 20px;
-      z-index: 1000;
+      z-index: 2000;
       width: 300px;
     "
   >
@@ -61,11 +61,49 @@
       "
     ></div>
   </div>
+
+  <!-- Map Legend -->
+  <div class="map-legend">
+    <h4>Borough</h4>
+    <div class="legend-item">
+      <img
+        src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png"
+        alt="Southwark"
+      />
+      <span>Southwark</span>
+    </div>
+    <div class="legend-item">
+      <img
+        src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png"
+        alt="Lambeth"
+      />
+      <span>Lambeth</span>
+    </div>
+  </div>
 </div>
 {% endblock %} {% block extra_js %}
 <script>
   // Initialize the map
   const map = L.map('map').setView([51.4893, -0.0927], 12);
+
+  // Define custom marker icons for each borough
+  const southwarkIcon = L.icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+  });
+
+  const lambethIcon = L.icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+  });
 
   // Add CartoDB Positron tiles
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -79,15 +117,20 @@
   // Store markers for search functionality
   const markersMap = new Map();
 
-  // Add markers for each school
+  // Add markers for each school with borough-specific colors
   schools.forEach(school => {
-      const marker = L.marker([school.latitude, school.longitude]).addTo(map);
+      // Choose icon based on borough field
+      const icon = school.borough && school.borough.toLowerCase().includes('southwark') ? southwarkIcon : lambethIcon;
+
+      const marker = L.marker([school.latitude, school.longitude], { icon: icon }).addTo(map);
+
 
       const popupContent = `
           <div style="min-width: 200px;">
               <h3 style="margin-top: 0;">${school.name}</h3>
               <p><strong>Type:</strong> ${school.school_type}</p>
-              <p><strong>Address:</strong> ${school.address}, ${school.city}</p>
+              <p><strong>Borough:</strong> ${school.city}</p>
+              <p><strong>Address:</strong> ${school.address}</p>
               <p><strong>Postcode:</strong> ${school.postcode}</p>
               ${school.student_count ? `<p><strong>Students:</strong> ${school.student_count}</p>` : ''}
           </div>
