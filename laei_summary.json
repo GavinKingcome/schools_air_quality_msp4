@@ -1,0 +1,260 @@
+{
+  "total_schools": 133,
+  "schools_with_data": 133,
+  "coverage_percent": 100.0,
+  "pollutants": {
+    "NO2_2022": {
+      "min": 20.73,
+      "max": 28.19,
+      "mean": 24.13,
+      "count": 133
+    },
+    "NOx_2022": {
+      "min": 28.26,
+      "max": 45.29,
+      "mean": 35.44,
+      "count": 133
+    },
+    "PM10_days_2022": {
+      "min": 3.44,
+      "max": 9.27,
+      "mean": 4.95,
+      "count": 133
+    },
+    "PM10_mean_2022": {
+      "min": 15.3,
+      "max": 20.54,
+      "mean": 16.91,
+      "count": 133
+    },
+    "PM25_2022": {
+      "min": 9.12,
+      "max": 10.35,
+      "mean": 9.67,
+      "count": 133
+    }
+  },
+  "no2_guidelines": {
+    "total_schools": 133,
+    "above_uk_limit_40": 0,
+    "above_eu_2024_target_20": 133,
+    "above_who_2021_guideline_10": 133,
+    "percent_above_uk_limit": 0.0,
+    "percent_above_eu_2024_target": 100.0,
+    "percent_above_who_2021_guideline": 100.0,
+    "note": "UK continues with 40 µg/m³ limit while EU adopted stricter 20 µg/m³ target for 2030"
+  },
+  "top_5_by_pollutant": {
+    "NO2_2022": [
+      {
+        "rank": 1,
+        "name": "Oasis Academy South Bank Primary",
+        "value": 28.19,
+        "postcode": "SE1 7RH",
+        "borough": "Lambeth"
+      },
+      {
+        "rank": 2,
+        "name": "Grange Primary School",
+        "value": 28.18,
+        "postcode": "SE1 4RP",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 3,
+        "name": "Charles Dickens Primary School",
+        "value": 27.79,
+        "postcode": "SE1 1AF",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 4,
+        "name": "Tower Bridge Primary School",
+        "value": 27.77,
+        "postcode": "SE1 2AE",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 5,
+        "name": "St Anne's Catholic Primary School",
+        "value": 27.6,
+        "postcode": "SE11 5JA",
+        "borough": "Lambeth"
+      }
+    ],
+    "NOx_2022": [
+      {
+        "rank": 1,
+        "name": "Grange Primary School",
+        "value": 45.29,
+        "postcode": "SE1 4RP",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 2,
+        "name": "Tower Bridge Primary School",
+        "value": 44.44,
+        "postcode": "SE1 2AE",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 3,
+        "name": "Oasis Academy South Bank Primary",
+        "value": 44.06,
+        "postcode": "SE1 7RH",
+        "borough": "Lambeth"
+      },
+      {
+        "rank": 4,
+        "name": "St Anne's Catholic Primary School",
+        "value": 43.85,
+        "postcode": "SE11 5JA",
+        "borough": "Lambeth"
+      },
+      {
+        "rank": 5,
+        "name": "St Mark's Church of England Primary School",
+        "value": 43.44,
+        "postcode": "SE11 5SL",
+        "borough": "Lambeth"
+      }
+    ],
+    "PM10_days_2022": [
+      {
+        "rank": 1,
+        "name": "Surrey Square Primary School",
+        "value": 9.27,
+        "postcode": "SE17 2JY",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 2,
+        "name": "Kintore Way Nursery School and Children's Centre",
+        "value": 8.01,
+        "postcode": "SE1 3BW",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 3,
+        "name": "Boutcher Church of England Primary School",
+        "value": 7.88,
+        "postcode": "SE1 3BW",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 4,
+        "name": "Grange Primary School",
+        "value": 7.56,
+        "postcode": "SE1 4RP",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 5,
+        "name": "English Martyrs' Roman Catholic Primary School",
+        "value": 7.17,
+        "postcode": "SE17 1RB",
+        "borough": "Southwark"
+      }
+    ],
+    "PM10_mean_2022": [
+      {
+        "rank": 1,
+        "name": "Surrey Square Primary School",
+        "value": 20.54,
+        "postcode": "SE17 2JY",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 2,
+        "name": "Kintore Way Nursery School and Children's Centre",
+        "value": 19.63,
+        "postcode": "SE1 3BW",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 3,
+        "name": "Boutcher Church of England Primary School",
+        "value": 19.53,
+        "postcode": "SE1 3BW",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 4,
+        "name": "Grange Primary School",
+        "value": 19.27,
+        "postcode": "SE1 4RP",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 5,
+        "name": "English Martyrs' Roman Catholic Primary School",
+        "value": 18.96,
+        "postcode": "SE17 1RB",
+        "borough": "Southwark"
+      }
+    ],
+    "PM25_2022": [
+      {
+        "rank": 1,
+        "name": "Grange Primary School",
+        "value": 10.35,
+        "postcode": "SE1 4RP",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 2,
+        "name": "Oasis Academy South Bank Primary",
+        "value": 10.22,
+        "postcode": "SE1 7RH",
+        "borough": "Lambeth"
+      },
+      {
+        "rank": 3,
+        "name": "Surrey Square Primary School",
+        "value": 10.2,
+        "postcode": "SE17 2JY",
+        "borough": "Southwark"
+      },
+      {
+        "rank": 4,
+        "name": "St Anne's Catholic Primary School",
+        "value": 10.17,
+        "postcode": "SE11 5JA",
+        "borough": "Lambeth"
+      },
+      {
+        "rank": 5,
+        "name": "Kintore Way Nursery School and Children's Centre",
+        "value": 10.17,
+        "postcode": "SE1 3BW",
+        "borough": "Southwark"
+      }
+    ]
+  },
+  "borough_comparison": {
+    "Lambeth": {
+      "total_schools": 63,
+      "mean_no2": 23.62,
+      "min_no2": 20.82,
+      "max_no2": 28.19,
+      "above_uk_limit_40": 0,
+      "above_eu_2024_target_20": 63,
+      "above_who_2021_guideline_10": 63,
+      "percent_above_uk_limit": 0.0,
+      "percent_above_eu_2024_target": 100.0,
+      "percent_above_who_2021_guideline": 100.0
+    },
+    "Southwark": {
+      "total_schools": 70,
+      "mean_no2": 24.6,
+      "min_no2": 20.73,
+      "max_no2": 28.18,
+      "above_uk_limit_40": 0,
+      "above_eu_2024_target_20": 70,
+      "above_who_2021_guideline_10": 70,
+      "percent_above_uk_limit": 0.0,
+      "percent_above_eu_2024_target": 100.0,
+      "percent_above_who_2021_guideline": 100.0
+    }
+  }
+}

@@ -1,0 +1,134 @@
+name,urn,phase,borough,postcode,latitude,longitude,bng_easting,bng_northing,laei_found,NO2_2022,NOx_2022,PM10_days_2022,PM10_mean_2022,PM25_2022
+Triangle Nursery School,100550,Nursery,Lambeth,SW2 1PL,51.4567,-0.109907,531416.0,174774.0,True,23.55,34.48,4.83,16.84,9.75
+Effra Nursery School and Children's Centre,100551,Nursery,Lambeth,SW2 1PL,51.457233,-0.109496,531443.0,174834.0,True,23.29,33.63,4.71,16.71,9.66
+Ethelred Nursery School and Children's Centre,100552,Nursery,Lambeth,SE11 6BG,51.490918,-0.111661,531196.0,178576.0,True,26.22,39.11,5.13,17.14,9.88
+Maytree Nursery School,100553,Nursery,Lambeth,SW4 8EG,51.451563,-0.131075,529960.0,174165.0,True,23.23,33.92,4.79,16.79,9.66
+Holmewood Nursery School,100554,Nursery,Lambeth,SW2 2RW,51.447519,-0.120014,530740.0,173735.0,True,22.73,32.37,4.21,16.18,9.44
+Ashmole Primary School,100556,Primary,Lambeth,SW8 1NT,51.482014,-0.114938,530994.0,177580.0,True,25.19,37.1,5.0,17.01,9.76
+Clapham Manor Primary School,100560,Primary,Lambeth,SW4 0BZ,51.464408,-0.137561,529473.0,175582.0,True,23.66,34.44,4.49,16.48,9.79
+Granton Primary School,100564,Primary,Lambeth,SW16 5AN,51.414511,-0.14225,529288.0,170025.0,True,21.03,29.41,3.44,15.3,9.23
+Heathbrook Primary School,100566,Primary,Lambeth,SW8 3EH,51.470118,-0.143174,529067.0,176207.0,True,23.85,34.41,4.81,16.82,9.76
+Henry Cavendish Primary School,100567,Primary,Lambeth,SW12 0JA,51.444744,-0.142808,529164.0,173386.0,True,22.19,31.33,4.86,16.86,9.54
+Jessop Primary School,100572,Primary,Lambeth,SE24 0BJ,51.459899,-0.101425,531996.0,175145.0,True,23.06,32.9,4.4,16.39,9.54
+Kingswood Primary School,100574,Primary,Lambeth,SE27 9RD,51.426969,-0.09042,532856.0,171503.0,True,21.3,29.92,3.82,15.74,9.21
+Larkhall Primary Campus,100576,Primary,Lambeth,SW4 6PH,51.470668,-0.129732,529999.0,176292.0,True,23.67,33.71,4.36,16.34,9.61
+Paxton Primary School,100577,Primary,Lambeth,SE19 1PA,51.421962,-0.081193,533512.0,170963.0,True,20.82,28.92,3.85,15.78,9.16
+Richard Atkins Primary School,100578,Primary,Lambeth,SW2 4JP,51.448089,-0.126957,530256.0,173786.0,True,23.23,33.84,4.65,16.65,9.56
+Stockwell Primary School,100582,Primary,Lambeth,SW9 9TG,51.466606,-0.118064,530821.0,175861.0,True,24.08,35.21,4.63,16.63,9.67
+Sudbourne Primary School,100584,Primary,Lambeth,SW2 5EF,51.458416,-0.119322,530757.0,174948.0,True,23.61,34.42,4.68,16.68,9.71
+Sunnyhill Primary School,100585,Primary,Lambeth,SW16 2UW,51.429095,-0.120109,530786.0,171686.1,True,21.51,30.02,3.84,15.76,9.32
+Telferscot Primary School,100586,Primary,Lambeth,SW12 0HW,51.442558,-0.137097,529567.0,173153.0,True,22.43,32.21,5.0,17.01,9.64
+Vauxhall Primary School,100588,Primary,Lambeth,SE11 5LG,51.488929,-0.117692,530783.0,178344.1,True,26.03,38.87,5.0,17.01,9.83
+Walnut Tree Walk Primary School,100589,Primary,Lambeth,SE11 6DS,51.493939,-0.113337,531071.0,178909.0,True,26.28,38.95,5.13,17.14,9.88
+"Wyvil Primary School and Resource Bases for Speech, Language and Communication Needs, and Autism",100591,Primary,Lambeth,SW8 2TJ,51.481293,-0.125481,530264.0,177481.0,True,25.5,38.07,5.07,17.08,9.83
+Crown Lane Primary School,100593,Primary,Lambeth,SW16 3HX,51.423614,-0.109258,531556.0,171096.0,True,21.74,31.08,3.89,15.82,9.37
+Fenstanton Primary School,100595,Primary,Lambeth,SW2 3PW,51.442255,-0.11364,531198.0,173161.0,True,23.1,33.88,4.2,16.17,9.54
+Elm Wood School,100597,Primary,Lambeth,SE27 9RR,51.432012,-0.091979,532733.0,172061.0,True,21.09,29.07,3.68,15.59,9.19
+Allen Edwards Primary School,100598,Primary,Lambeth,SW4 6RP,51.472868,-0.127223,530167.0,176541.1,True,23.78,33.83,4.35,16.33,9.58
+Glenbrook Primary School,100601,Primary,Lambeth,SW4 8LD,51.453001,-0.132153,529881.0,174323.0,True,22.66,32.08,4.41,16.39,9.52
+Julian's School,100602,Primary,Lambeth,SE27 0JF,51.431233,-0.105506,531795.0,171949.9,True,21.88,31.15,3.88,15.81,9.4
+Herbert Morrison Primary School,100604,Primary,Lambeth,SW8 2HP,51.478655,-0.125892,530243.0,177186.9,True,24.68,35.91,4.75,16.75,9.71
+Archbishop Sumner Church of England Primary School,100609,Primary,Lambeth,SE11 4PH,51.491601,-0.109962,531312.0,178655.0,True,26.26,39.17,5.14,17.14,9.89
+Christ Church Primary SW9,100610,Primary,Lambeth,SW9 6HN,51.47623,-0.108149,531482.0,176949.0,True,24.41,35.36,4.68,16.69,9.62
+Macaulay Church of England Primary School,100612,Primary,Lambeth,SW4 0NU,51.463657,-0.147439,528789.0,175481.0,True,23.06,32.67,4.23,16.2,9.65
+St Andrew's Church of England Primary School,100613,Primary,Lambeth,SW9 9DE,51.468347,-0.122355,530518.0,176047.0,True,23.99,34.79,4.44,16.43,9.64
+St John the Divine Church of England Primary School,100614,Primary,Lambeth,SE5 0SX,51.478892,-0.103719,531782.0,177252.9,True,25.73,39.08,5.69,17.67,9.88
+St John's Angell Town Church of England Primary School,100615,Primary,Lambeth,SW9 7HH,51.468053,-0.108545,531478.0,176039.0,True,23.82,34.28,4.68,16.68,9.59
+St Jude's Church of England Primary School,100616,Primary,Lambeth,SE24 0EL,51.454319,-0.105039,531761.0,174518.0,True,22.95,32.84,4.4,16.39,9.54
+St Mark's Church of England Primary School,100619,Primary,Lambeth,SE11 5SL,51.48457,-0.11731,530822.0,177860.0,True,27.41,43.44,5.69,17.67,10.11
+St Saviour's Church of England Primary School,100620,Primary,Lambeth,SE24 0AY,51.463709,-0.097927,532228.0,175575.0,True,23.67,34.64,4.49,16.49,9.62
+St Stephen's Church of England Primary School,100621,Primary,Lambeth,SW8 1EJ,51.47974,-0.122319,530488.0,177314.0,True,25.12,37.03,4.94,16.95,9.77
+Holy Trinity Church of England Primary School,100622,Primary,Lambeth,SW2 2RL,51.447556,-0.118372,530854.0,173742.1,True,22.61,32.05,4.15,16.12,9.42
+St Helen's Catholic Primary School,100623,Primary,Lambeth,SW9 0TQ,51.467116,-0.113421,531142.0,175926.0,True,24.74,37.07,4.99,17.0,9.76
+St Anne's Catholic Primary School,100629,Primary,Lambeth,SE11 5JA,51.485565,-0.119357,530677.0,177967.0,True,27.6,43.85,5.79,17.76,10.17
+St Bede's Catholic Primary School,100631,Primary,Lambeth,SW12 0LF,51.444521,-0.135593,529666.0,173374.0,True,22.09,30.89,5.0,17.0,9.47
+St Andrew's Catholic Primary School,100632,Primary,Lambeth,SW16 2ET,51.424321,-0.125814,530403.0,171145.0,True,21.81,31.05,4.41,16.39,9.41
+Immanuel and St Andrew Church of England Primary School,100633,Primary,Lambeth,SW16 5SL,51.419349,-0.13154,530019.0,170582.0,True,21.83,31.49,4.5,16.49,9.43
+Reay Primary School,100634,Primary,Lambeth,SW9 0EN,51.477503,-0.115124,530994.0,177078.0,True,25.12,37.25,4.91,16.91,9.77
+St Mary's Roman Catholic Primary School,100636,Primary,Lambeth,SW4 9QJ,51.45912,-0.138064,529453.0,174993.0,True,23.4,33.94,4.44,16.43,9.71
+Kintore Way Nursery School and Children's Centre,100767,Nursery,Southwark,SE1 3BW,51.494377,-0.076079,533656.0,179025.0,True,26.21,39.78,8.01,19.63,10.17
+Dulwich Wood Nursery School,100769,Nursery,Southwark,SE21 8QS,51.431382,-0.079849,533578.0,172012.9,True,20.73,28.26,3.91,15.85,9.12
+Nell Gwynn Nursery School,100770,Nursery,Southwark,SE15 2TT,51.474871,-0.06453,534515.0,176877.0,True,24.17,35.89,5.64,17.62,9.73
+The Grove Nursery School,100771,Nursery,Southwark,SE15 6BY,51.480499,-0.081963,533288.0,177471.0,True,25.72,39.51,6.24,18.17,9.96
+Albion Primary School,100774,Primary,Southwark,SE16 7JD,51.499945,-0.051653,535335.0,179689.0,True,25.02,37.36,4.72,16.72,9.68
+Bellenden Primary School,100775,Primary,Southwark,SE15 4JP,51.464889,-0.067774,534319.0,175761.0,True,23.29,34.13,4.76,16.76,9.67
+Bird In Bush School,100780,Primary,Southwark,SE15 1QP,51.480428,-0.063431,534575.0,177497.0,True,23.94,34.97,4.9,16.91,9.62
+Crampton Primary,100784,Primary,Southwark,SE17 3LE,51.489971,-0.10094,531943.0,178490.0,True,25.89,38.55,5.36,17.36,9.86
+Crawford Primary School,100785,Primary,Southwark,SE5 9NF,51.472108,-0.095677,532360.0,176513.0,True,24.51,36.42,4.9,16.91,9.69
+Goodrich Community Primary School,100790,Primary,Southwark,SE22 0EP,51.449939,-0.068103,534340.0,174098.0,True,21.62,30.11,3.8,15.72,9.28
+Grange Primary School,100791,Primary,Southwark,SE1 4RP,51.496146,-0.08194,533244.0,179211.0,True,28.18,45.29,7.56,19.27,10.35
+Heber Primary School,100793,Primary,Southwark,SE22 9LA,51.452863,-0.073608,533949.0,174413.1,True,22.3,31.93,4.22,16.19,9.52
+Hollydale Primary School,100794,Primary,Southwark,SE15 2AR,51.467685,-0.052538,535369.0,176100.0,True,22.77,32.78,4.4,16.38,9.46
+Ilderton Primary School,100795,Primary,Southwark,SE16 3LA,51.485008,-0.054379,535190.0,178022.9,True,23.62,33.93,4.46,16.45,9.44
+Ivydale Primary School,100796,Primary,Southwark,SE15 3BU,51.459613,-0.046246,535830.0,175214.0,True,21.95,31.05,4.46,16.44,9.39
+John Ruskin Primary School and Language Classes,100798,Primary,Southwark,SE5 0PQ,51.483058,-0.09718,532224.0,177728.0,True,25.33,37.58,6.39,18.3,9.88
+Keyworth Primary School,100800,Primary,Southwark,SE17 3TR,51.486696,-0.104691,531692.0,178119.0,True,25.5,37.66,5.24,17.25,9.8
+Dulwich Wood Primary School,100801,Primary,Southwark,SE21 8NS,51.431927,-0.082876,533366.0,172068.0,True,20.88,28.58,3.92,15.86,9.15
+Michael Faraday School,100803,Primary,Southwark,SE17 2HR,51.485253,-0.088389,532828.0,177988.0,True,24.59,35.61,6.72,18.59,9.81
+Riverside Primary School,100808,Primary,Southwark,SE16 4PS,51.499524,-0.064811,534423.0,179618.0,True,25.54,37.99,5.16,17.16,9.73
+Robert Browning Primary School,100809,Primary,Southwark,SE17 1DQ,51.488838,-0.092603,532525.0,178379.0,True,25.4,37.46,5.91,17.88,9.85
+Snowsfields Primary School,100811,Primary,Southwark,SE1 3TD,51.50151,-0.083876,533094.0,179804.0,True,26.41,39.45,5.54,17.53,9.94
+Southwark Park Primary School,100812,Primary,Southwark,SE16 2JH,51.494142,-0.058023,534910.0,179031.9,True,25.86,39.87,5.34,17.34,9.86
+Tower Bridge Primary School,100813,Primary,Southwark,SE1 2AE,51.501587,-0.077014,533570.0,179825.1,True,27.77,44.44,6.09,18.04,10.16
+Victory Primary School,100815,Primary,Southwark,SE17 1PT,51.492933,-0.092836,532497.0,178834.0,True,27.0,41.69,6.0,17.95,10.06
+Phoenix Primary School,100817,Primary,Southwark,SE1 5JT,51.486261,-0.0687,534192.0,178136.0,True,24.72,36.49,6.25,18.18,9.8
+Pilgrims' Way Primary School,100818,Primary,Southwark,SE15 1EF,51.480484,-0.055939,535095.0,177517.0,True,23.63,34.22,4.59,16.59,9.49
+Alfred Salter Primary School,100819,Primary,Southwark,SE16 7LP,51.499604,-0.043571,535897.0,179666.0,True,23.55,33.34,4.09,16.05,9.34
+Oliver Goldsmith Primary School,100821,Primary,Southwark,SE5 8UH,51.474844,-0.078197,533566.0,176849.0,True,24.5,36.5,5.07,17.07,9.68
+Boutcher Church of England Primary School,100822,Primary,Southwark,SE1 3BW,51.493849,-0.076231,533647.0,178966.0,True,25.26,37.09,7.88,19.53,10.0
+Dulwich Village Church of England Infants' School,100823,Primary,Southwark,SE21 7BU,51.452158,-0.086591,533049.0,174311.0,True,23.01,33.64,4.23,16.2,9.51
+English Martyrs' Roman Catholic Primary School,100824,Primary,Southwark,SE17 1RB,51.490639,-0.088322,532817.0,178587.0,True,25.67,38.3,7.17,18.96,10.0
+St James the Great Roman Catholic Primary School,100825,Primary,Southwark,SE15 5LP,51.474356,-0.073105,533921.0,176804.0,True,24.5,36.64,5.38,17.38,9.72
+St Francis RC Primary School,100826,Primary,Southwark,SE15 1RQ,51.48003,-0.067077,534323.0,177446.0,True,24.97,38.04,5.42,17.42,9.84
+St George's Church of England Primary School,100827,Primary,Southwark,SE5 7TF,51.480394,-0.084344,533123.0,177455.0,True,24.34,35.44,5.84,17.81,9.68
+St James' Church of England Primary School,100829,Primary,Southwark,SE16 4SU,51.497837,-0.067764,534223.0,179424.9,True,26.99,42.04,5.95,17.91,10.04
+St John's and St Clement's Church of England Primary School,100830,Primary,Southwark,SE15 4DY,51.463137,-0.071735,534049.0,175559.0,True,22.98,33.19,4.37,16.35,9.57
+"Saint Joseph's Catholic Primary School, the Borough",100834,Primary,Southwark,SE1 1NJ,51.502453,-0.092611,532485.0,179893.0,True,26.99,40.7,5.48,17.47,10.01
+St Jude's Church of England Primary School,100835,Primary,Southwark,SE1 6HA,51.496859,-0.105365,531616.0,179248.0,True,27.43,42.07,5.5,17.49,10.05
+Peter Hills with St Mary's and St Paul's CofE Primary School,100837,Primary,Southwark,SE16 5ED,51.506205,-0.042567,535947.0,180402.0,True,24.35,36.04,4.33,16.31,9.53
+St Peter's Church of England Primary School,100839,Primary,Southwark,SE17 2HH,51.486169,-0.093305,532484.0,178080.9,True,25.66,38.47,6.52,18.42,9.93
+The Cathedral School of St Saviour and St Mary Overie,100840,Primary,Southwark,SE1 1HG,51.502871,-0.093977,532389.0,179937.0,True,27.39,41.84,5.63,17.62,10.09
+St John's Roman Catholic Primary School,100841,Primary,Southwark,SE16 6SD,51.500298,-0.041509,536038.0,179747.0,True,23.47,33.18,4.05,16.01,9.32
+St Joseph's Catholic Junior School,100853,Primary,Southwark,SE5 0TS,51.479266,-0.098994,532109.0,177303.0,True,24.65,35.99,5.95,17.91,9.76
+St Joseph's Catholic Infants School,100854,Primary,Southwark,SE5 0TS,51.479266,-0.098994,532109.0,177303.0,True,24.65,35.99,5.95,17.91,9.76
+Friars Primary Foundation School,100855,Primary,Southwark,SE1 0RF,51.501495,-0.1034,531739.0,179767.0,True,27.26,41.33,5.43,17.43,10.04
+Bessemer Grange Primary School,130918,Primary,Southwark,SE5 8HP,51.458744,-0.086805,533015.0,175043.0,True,22.32,31.11,4.01,15.96,9.36
+Bonneville Primary School,131247,Primary,Lambeth,SW4 9LB,51.453138,-0.139675,529358.0,174325.0,True,22.98,33.05,4.5,16.49,9.61
+Hill Mead Primary School,131340,Primary,Lambeth,SW9 8UE,51.461964,-0.107328,531580.0,175364.0,True,23.35,33.43,4.73,16.74,9.59
+Hitherfield Primary School,131824,Primary,Lambeth,SW16 2JQ,51.436089,-0.114988,531122.0,172472.9,True,21.53,29.59,3.62,15.51,9.22
+Brunswick Park Primary School,131843,Primary,Southwark,SE5 7QH,51.478066,-0.088805,532820.0,177188.0,True,24.5,35.98,6.01,17.97,9.76
+Henry Fawcett Primary School,131874,Primary,Lambeth,SE11 5BZ,51.484717,-0.111888,531198.0,177886.0,True,25.64,38.13,5.08,17.09,9.81
+Jubilee Primary School,133662,Primary,Lambeth,SW2 2JE,51.452413,-0.114517,531108.0,174289.1,True,22.81,32.5,4.38,16.37,9.54
+The Orchard School,134507,Primary,Lambeth,SW2 3ES,51.444437,-0.120184,530737.0,173392.0,True,23.53,34.91,4.48,16.47,9.61
+Rye Oak Primary School,134903,Primary,Southwark,SE15 3PD,51.464525,-0.063154,534641.0,175729.0,True,23.02,33.49,4.61,16.61,9.59
+Iqra Primary School,135614,Primary,Lambeth,SW4 9PA,51.45487,-0.130407,529997.0,174534.0,True,23.46,34.44,4.62,16.62,9.74
+Dulwich Hamlet Junior School,136665,Primary,Southwark,SE21 7AL,51.450251,-0.087649,532981.0,174097.0,True,22.26,31.42,3.96,15.91,9.36
+Corpus Christi Catholic Primary School,137295,Primary,Lambeth,SW2 5BL,51.456181,-0.120148,530706.0,174698.0,True,23.64,34.7,4.75,16.75,9.75
+Harris Primary Academy Peckham Park,137413,Primary,Southwark,SE15 5TD,51.476813,-0.065629,534433.0,177090.9,True,24.0,35.44,5.39,17.39,9.75
+Oasis Academy South Bank Primary,137430,Primary,Lambeth,SE1 7RH,51.500707,-0.111415,531185.0,179665.0,True,28.19,44.06,5.87,17.84,10.22
+"Redriff Primary, City of London Academy",137648,Primary,Southwark,SE16 5LQ,51.501907,-0.036671,536369.0,179935.0,True,23.28,32.81,3.94,15.88,9.28
+Judith Kerr Primary School,139907,Primary,Southwark,SE24 9JE,51.453046,-0.093103,532594.0,174398.0,True,23.09,33.61,4.28,16.26,9.59
+John Donne Primary School,140507,Primary,Southwark,SE15 2SW,51.473046,-0.061324,534743.0,176680.0,True,23.51,34.19,5.36,17.36,9.61
+Harris Primary Academy East Dulwich,140937,Primary,Southwark,SE22 8HA,51.455269,-0.076155,533765.0,174676.0,True,23.21,34.38,4.64,16.64,9.76
+Angel Oak Academy,141666,Primary,Southwark,SE15 6FL,51.480398,-0.079087,533488.0,177465.0,True,23.93,34.42,5.06,17.07,9.55
+The Belham Primary School,142090,Primary,Southwark,SE15 4DG,51.466063,-0.073584,533912.0,175881.0,True,23.16,33.74,4.69,16.69,9.75
+"Galleywall Primary, City of London Academy",142875,Primary,Southwark,SE16 3PB,51.489841,-0.059474,534822.0,178551.0,True,25.44,38.93,5.36,17.36,9.75
+Rosendale Primary School,144308,Primary,Lambeth,SE21 8LR,51.446175,-0.098052,532270.0,173625.0,True,22.74,32.78,3.97,15.91,9.4
+Goose Green Primary and Nursery School,145130,Primary,Southwark,SE22 8HG,51.46143,-0.076731,533707.0,175360.0,True,24.45,37.48,4.92,16.93,9.86
+"Christ Church, Streatham Church of England Primary School",145614,Primary,Lambeth,SW2 3NF,51.444747,-0.121539,530642.0,173424.0,True,23.81,35.7,4.6,16.6,9.66
+St Leonard's Church of England Primary School,145615,Primary,Lambeth,SW16 6NP,51.427104,-0.135655,529711.0,171437.0,True,22.92,34.1,4.18,16.15,9.5
+St Luke's Church of England Primary School,145616,Primary,Lambeth,SE27 0DZ,51.426808,-0.099906,532197.0,171468.0,True,21.85,31.4,3.83,15.76,9.35
+John Keats Primary School,145888,Primary,Southwark,SE16 3FN,51.485532,-0.064266,534502.0,178063.0,True,25.64,39.36,5.59,17.58,9.91
+Surrey Square Primary School,146117,Primary,Southwark,SE17 2JY,51.488744,-0.083,533192.0,178386.0,True,25.66,38.66,9.27,20.54,10.2
+Van Gogh Primary,146368,Primary,Lambeth,SW9 6HF,51.474403,-0.111393,531262.0,176740.0,True,24.8,36.54,4.84,16.85,9.73
+St Paul's Church of England Primary School,146669,Primary,Southwark,SE17 3DT,51.486336,-0.099146,532078.0,178089.0,True,25.02,36.47,5.61,17.6,9.77
+Charles Dickens Primary School,148012,Primary,Southwark,SE1 1AF,51.501141,-0.096571,532214.0,179740.0,True,27.79,43.09,5.71,17.69,10.14
+Lyndhurst Primary School,148574,Primary,Southwark,SE5 8SN,51.470366,-0.088133,532889.0,176333.0,True,23.46,33.57,4.44,16.43,9.48
+St Joseph's Catholic Primary School,149346,Primary,Southwark,SE16 4UP,51.499611,-0.069505,534097.0,179619.0,True,26.17,39.78,5.44,17.44,9.85
+Streatham Wells Primary,149556,Primary,Lambeth,SW2 3NJ,51.439963,-0.115979,531042.0,172902.0,True,22.11,31.08,3.83,15.76,9.33
+Grove Primary School,149604,Primary,Southwark,SE22 8AB,51.465397,-0.08287,533269.0,175790.0,True,23.95,35.55,4.56,16.56,9.69
+Rotherhithe Primary School,149605,Primary,Southwark,SE16 2PE,51.491579,-0.049864,535484.0,178762.0,True,24.34,35.88,4.52,16.52,9.54
+St Anthony's Catholic Primary School,150551,Primary,Southwark,SE22 0LA,51.449682,-0.072115,534062.0,174062.1,True,22.2,31.81,4.03,15.99,9.36
+Loughborough Primary School,150830,Primary,Lambeth,SW9 7UA,51.469553,-0.105056,531716.0,176212.0,True,23.64,33.7,4.49,16.48,9.53
+St Joseph's Catholic Primary School,151012,Primary,Southwark,SE16 2TY,51.495022,-0.051935,535330.0,179141.0,True,24.06,34.67,4.46,16.45,9.46
+St George's Cathedral Catholic Primary School,151500,Primary,Southwark,SE1 6HR,51.498381,-0.106584,531527.0,179415.0,True,27.17,41.08,5.32,17.32,10.0

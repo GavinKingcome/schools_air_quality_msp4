@@ -1,0 +1,2529 @@
+[
+  {
+    "name": "Triangle Nursery School",
+    "urn": 100550,
+    "phase": "Nursery",
+    "postcode": "SW2 1PL",
+    "borough": "Lambeth",
+    "longitude": -0.109907,
+    "latitude": 51.4567,
+    "bng_easting": 531416.0,
+    "bng_northing": 174774.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.55,
+      "NOx_2022": 34.48,
+      "PM25_2022": 9.75,
+      "PM10_mean_2022": 16.84,
+      "PM10_days_2022": 4.83
+    }
+  },
+  {
+    "name": "Effra Nursery School and Children's Centre",
+    "urn": 100551,
+    "phase": "Nursery",
+    "postcode": "SW2 1PL",
+    "borough": "Lambeth",
+    "longitude": -0.109496,
+    "latitude": 51.457233,
+    "bng_easting": 531443.0,
+    "bng_northing": 174834.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.29,
+      "NOx_2022": 33.63,
+      "PM25_2022": 9.66,
+      "PM10_mean_2022": 16.71,
+      "PM10_days_2022": 4.71
+    }
+  },
+  {
+    "name": "Ethelred Nursery School and Children's Centre",
+    "urn": 100552,
+    "phase": "Nursery",
+    "postcode": "SE11 6BG",
+    "borough": "Lambeth",
+    "longitude": -0.111661,
+    "latitude": 51.490918,
+    "bng_easting": 531196.0,
+    "bng_northing": 178576.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 26.22,
+      "NOx_2022": 39.11,
+      "PM25_2022": 9.88,
+      "PM10_mean_2022": 17.14,
+      "PM10_days_2022": 5.13
+    }
+  },
+  {
+    "name": "Maytree Nursery School",
+    "urn": 100553,
+    "phase": "Nursery",
+    "postcode": "SW4 8EG",
+    "borough": "Lambeth",
+    "longitude": -0.131075,
+    "latitude": 51.451563,
+    "bng_easting": 529960.0,
+    "bng_northing": 174165.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.23,
+      "NOx_2022": 33.92,
+      "PM25_2022": 9.66,
+      "PM10_mean_2022": 16.79,
+      "PM10_days_2022": 4.79
+    }
+  },
+  {
+    "name": "Holmewood Nursery School",
+    "urn": 100554,
+    "phase": "Nursery",
+    "postcode": "SW2 2RW",
+    "borough": "Lambeth",
+    "longitude": -0.120014,
+    "latitude": 51.447519,
+    "bng_easting": 530740.0,
+    "bng_northing": 173735.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.73,
+      "NOx_2022": 32.37,
+      "PM25_2022": 9.44,
+      "PM10_mean_2022": 16.18,
+      "PM10_days_2022": 4.21
+    }
+  },
+  {
+    "name": "Ashmole Primary School",
+    "urn": 100556,
+    "phase": "Primary",
+    "postcode": "SW8 1NT",
+    "borough": "Lambeth",
+    "longitude": -0.114938,
+    "latitude": 51.482014,
+    "bng_easting": 530994.0,
+    "bng_northing": 177580.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.19,
+      "NOx_2022": 37.1,
+      "PM25_2022": 9.76,
+      "PM10_mean_2022": 17.01,
+      "PM10_days_2022": 5.0
+    }
+  },
+  {
+    "name": "Clapham Manor Primary School",
+    "urn": 100560,
+    "phase": "Primary",
+    "postcode": "SW4 0BZ",
+    "borough": "Lambeth",
+    "longitude": -0.137561,
+    "latitude": 51.464408,
+    "bng_easting": 529473.0,
+    "bng_northing": 175582.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.66,
+      "NOx_2022": 34.44,
+      "PM25_2022": 9.79,
+      "PM10_mean_2022": 16.48,
+      "PM10_days_2022": 4.49
+    }
+  },
+  {
+    "name": "Granton Primary School",
+    "urn": 100564,
+    "phase": "Primary",
+    "postcode": "SW16 5AN",
+    "borough": "Lambeth",
+    "longitude": -0.14225,
+    "latitude": 51.414511,
+    "bng_easting": 529288.0,
+    "bng_northing": 170025.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.03,
+      "NOx_2022": 29.41,
+      "PM25_2022": 9.23,
+      "PM10_mean_2022": 15.3,
+      "PM10_days_2022": 3.44
+    }
+  },
+  {
+    "name": "Heathbrook Primary School",
+    "urn": 100566,
+    "phase": "Primary",
+    "postcode": "SW8 3EH",
+    "borough": "Lambeth",
+    "longitude": -0.143174,
+    "latitude": 51.470118,
+    "bng_easting": 529067.0,
+    "bng_northing": 176207.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.85,
+      "NOx_2022": 34.41,
+      "PM25_2022": 9.76,
+      "PM10_mean_2022": 16.82,
+      "PM10_days_2022": 4.81
+    }
+  },
+  {
+    "name": "Henry Cavendish Primary School",
+    "urn": 100567,
+    "phase": "Primary",
+    "postcode": "SW12 0JA",
+    "borough": "Lambeth",
+    "longitude": -0.142808,
+    "latitude": 51.444744,
+    "bng_easting": 529164.0,
+    "bng_northing": 173386.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.19,
+      "NOx_2022": 31.33,
+      "PM25_2022": 9.54,
+      "PM10_mean_2022": 16.86,
+      "PM10_days_2022": 4.86
+    }
+  },
+  {
+    "name": "Jessop Primary School",
+    "urn": 100572,
+    "phase": "Primary",
+    "postcode": "SE24 0BJ",
+    "borough": "Lambeth",
+    "longitude": -0.101425,
+    "latitude": 51.459899,
+    "bng_easting": 531996.0,
+    "bng_northing": 175145.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.06,
+      "NOx_2022": 32.9,
+      "PM25_2022": 9.54,
+      "PM10_mean_2022": 16.39,
+      "PM10_days_2022": 4.4
+    }
+  },
+  {
+    "name": "Kingswood Primary School",
+    "urn": 100574,
+    "phase": "Primary",
+    "postcode": "SE27 9RD",
+    "borough": "Lambeth",
+    "longitude": -0.09042,
+    "latitude": 51.426969,
+    "bng_easting": 532856.0,
+    "bng_northing": 171503.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.3,
+      "NOx_2022": 29.92,
+      "PM25_2022": 9.21,
+      "PM10_mean_2022": 15.74,
+      "PM10_days_2022": 3.82
+    }
+  },
+  {
+    "name": "Larkhall Primary Campus",
+    "urn": 100576,
+    "phase": "Primary",
+    "postcode": "SW4 6PH",
+    "borough": "Lambeth",
+    "longitude": -0.129732,
+    "latitude": 51.470668,
+    "bng_easting": 529999.0,
+    "bng_northing": 176292.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.67,
+      "NOx_2022": 33.71,
+      "PM25_2022": 9.61,
+      "PM10_mean_2022": 16.34,
+      "PM10_days_2022": 4.36
+    }
+  },
+  {
+    "name": "Paxton Primary School",
+    "urn": 100577,
+    "phase": "Primary",
+    "postcode": "SE19 1PA",
+    "borough": "Lambeth",
+    "longitude": -0.081193,
+    "latitude": 51.421962,
+    "bng_easting": 533512.0,
+    "bng_northing": 170963.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 20.82,
+      "NOx_2022": 28.92,
+      "PM25_2022": 9.16,
+      "PM10_mean_2022": 15.78,
+      "PM10_days_2022": 3.85
+    }
+  },
+  {
+    "name": "Richard Atkins Primary School",
+    "urn": 100578,
+    "phase": "Primary",
+    "postcode": "SW2 4JP",
+    "borough": "Lambeth",
+    "longitude": -0.126957,
+    "latitude": 51.448089,
+    "bng_easting": 530256.0,
+    "bng_northing": 173786.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.23,
+      "NOx_2022": 33.84,
+      "PM25_2022": 9.56,
+      "PM10_mean_2022": 16.65,
+      "PM10_days_2022": 4.65
+    }
+  },
+  {
+    "name": "Stockwell Primary School",
+    "urn": 100582,
+    "phase": "Primary",
+    "postcode": "SW9 9TG",
+    "borough": "Lambeth",
+    "longitude": -0.118064,
+    "latitude": 51.466606,
+    "bng_easting": 530821.0,
+    "bng_northing": 175861.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.08,
+      "NOx_2022": 35.21,
+      "PM25_2022": 9.67,
+      "PM10_mean_2022": 16.63,
+      "PM10_days_2022": 4.63
+    }
+  },
+  {
+    "name": "Sudbourne Primary School",
+    "urn": 100584,
+    "phase": "Primary",
+    "postcode": "SW2 5EF",
+    "borough": "Lambeth",
+    "longitude": -0.119322,
+    "latitude": 51.458416,
+    "bng_easting": 530757.0,
+    "bng_northing": 174948.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.61,
+      "NOx_2022": 34.42,
+      "PM25_2022": 9.71,
+      "PM10_mean_2022": 16.68,
+      "PM10_days_2022": 4.68
+    }
+  },
+  {
+    "name": "Sunnyhill Primary School",
+    "urn": 100585,
+    "phase": "Primary",
+    "postcode": "SW16 2UW",
+    "borough": "Lambeth",
+    "longitude": -0.120109,
+    "latitude": 51.429095,
+    "bng_easting": 530786.0,
+    "bng_northing": 171686.1,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.51,
+      "NOx_2022": 30.02,
+      "PM25_2022": 9.32,
+      "PM10_mean_2022": 15.76,
+      "PM10_days_2022": 3.84
+    }
+  },
+  {
+    "name": "Telferscot Primary School",
+    "urn": 100586,
+    "phase": "Primary",
+    "postcode": "SW12 0HW",
+    "borough": "Lambeth",
+    "longitude": -0.137097,
+    "latitude": 51.442558,
+    "bng_easting": 529567.0,
+    "bng_northing": 173153.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.43,
+      "NOx_2022": 32.21,
+      "PM25_2022": 9.64,
+      "PM10_mean_2022": 17.01,
+      "PM10_days_2022": 5.0
+    }
+  },
+  {
+    "name": "Vauxhall Primary School",
+    "urn": 100588,
+    "phase": "Primary",
+    "postcode": "SE11 5LG",
+    "borough": "Lambeth",
+    "longitude": -0.117692,
+    "latitude": 51.488929,
+    "bng_easting": 530783.0,
+    "bng_northing": 178344.1,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 26.03,
+      "NOx_2022": 38.87,
+      "PM25_2022": 9.83,
+      "PM10_mean_2022": 17.01,
+      "PM10_days_2022": 5.0
+    }
+  },
+  {
+    "name": "Walnut Tree Walk Primary School",
+    "urn": 100589,
+    "phase": "Primary",
+    "postcode": "SE11 6DS",
+    "borough": "Lambeth",
+    "longitude": -0.113337,
+    "latitude": 51.493939,
+    "bng_easting": 531071.0,
+    "bng_northing": 178909.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 26.28,
+      "NOx_2022": 38.95,
+      "PM25_2022": 9.88,
+      "PM10_mean_2022": 17.14,
+      "PM10_days_2022": 5.13
+    }
+  },
+  {
+    "name": "Wyvil Primary School and Resource Bases for Speech, Language and Communication Needs, and Autism",
+    "urn": 100591,
+    "phase": "Primary",
+    "postcode": "SW8 2TJ",
+    "borough": "Lambeth",
+    "longitude": -0.125481,
+    "latitude": 51.481293,
+    "bng_easting": 530264.0,
+    "bng_northing": 177481.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.5,
+      "NOx_2022": 38.07,
+      "PM25_2022": 9.83,
+      "PM10_mean_2022": 17.08,
+      "PM10_days_2022": 5.07
+    }
+  },
+  {
+    "name": "Crown Lane Primary School",
+    "urn": 100593,
+    "phase": "Primary",
+    "postcode": "SW16 3HX",
+    "borough": "Lambeth",
+    "longitude": -0.109258,
+    "latitude": 51.423614,
+    "bng_easting": 531556.0,
+    "bng_northing": 171096.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.74,
+      "NOx_2022": 31.08,
+      "PM25_2022": 9.37,
+      "PM10_mean_2022": 15.82,
+      "PM10_days_2022": 3.89
+    }
+  },
+  {
+    "name": "Fenstanton Primary School",
+    "urn": 100595,
+    "phase": "Primary",
+    "postcode": "SW2 3PW",
+    "borough": "Lambeth",
+    "longitude": -0.11364,
+    "latitude": 51.442255,
+    "bng_easting": 531198.0,
+    "bng_northing": 173161.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.1,
+      "NOx_2022": 33.88,
+      "PM25_2022": 9.54,
+      "PM10_mean_2022": 16.17,
+      "PM10_days_2022": 4.2
+    }
+  },
+  {
+    "name": "Elm Wood School",
+    "urn": 100597,
+    "phase": "Primary",
+    "postcode": "SE27 9RR",
+    "borough": "Lambeth",
+    "longitude": -0.091979,
+    "latitude": 51.432012,
+    "bng_easting": 532733.0,
+    "bng_northing": 172061.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.09,
+      "NOx_2022": 29.07,
+      "PM25_2022": 9.19,
+      "PM10_mean_2022": 15.59,
+      "PM10_days_2022": 3.68
+    }
+  },
+  {
+    "name": "Allen Edwards Primary School",
+    "urn": 100598,
+    "phase": "Primary",
+    "postcode": "SW4 6RP",
+    "borough": "Lambeth",
+    "longitude": -0.127223,
+    "latitude": 51.472868,
+    "bng_easting": 530167.0,
+    "bng_northing": 176541.1,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.78,
+      "NOx_2022": 33.83,
+      "PM25_2022": 9.58,
+      "PM10_mean_2022": 16.33,
+      "PM10_days_2022": 4.35
+    }
+  },
+  {
+    "name": "Glenbrook Primary School",
+    "urn": 100601,
+    "phase": "Primary",
+    "postcode": "SW4 8LD",
+    "borough": "Lambeth",
+    "longitude": -0.132153,
+    "latitude": 51.453001,
+    "bng_easting": 529881.0,
+    "bng_northing": 174323.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.66,
+      "NOx_2022": 32.08,
+      "PM25_2022": 9.52,
+      "PM10_mean_2022": 16.39,
+      "PM10_days_2022": 4.41
+    }
+  },
+  {
+    "name": "Julian's School",
+    "urn": 100602,
+    "phase": "Primary",
+    "postcode": "SE27 0JF",
+    "borough": "Lambeth",
+    "longitude": -0.105506,
+    "latitude": 51.431233,
+    "bng_easting": 531795.0,
+    "bng_northing": 171949.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.88,
+      "NOx_2022": 31.15,
+      "PM25_2022": 9.4,
+      "PM10_mean_2022": 15.81,
+      "PM10_days_2022": 3.88
+    }
+  },
+  {
+    "name": "Herbert Morrison Primary School",
+    "urn": 100604,
+    "phase": "Primary",
+    "postcode": "SW8 2HP",
+    "borough": "Lambeth",
+    "longitude": -0.125892,
+    "latitude": 51.478655,
+    "bng_easting": 530243.0,
+    "bng_northing": 177186.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.68,
+      "NOx_2022": 35.91,
+      "PM25_2022": 9.71,
+      "PM10_mean_2022": 16.75,
+      "PM10_days_2022": 4.75
+    }
+  },
+  {
+    "name": "Archbishop Sumner Church of England Primary School",
+    "urn": 100609,
+    "phase": "Primary",
+    "postcode": "SE11 4PH",
+    "borough": "Lambeth",
+    "longitude": -0.109962,
+    "latitude": 51.491601,
+    "bng_easting": 531312.0,
+    "bng_northing": 178655.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 26.26,
+      "NOx_2022": 39.17,
+      "PM25_2022": 9.89,
+      "PM10_mean_2022": 17.14,
+      "PM10_days_2022": 5.14
+    }
+  },
+  {
+    "name": "Christ Church Primary SW9",
+    "urn": 100610,
+    "phase": "Primary",
+    "postcode": "SW9 6HN",
+    "borough": "Lambeth",
+    "longitude": -0.108149,
+    "latitude": 51.47623,
+    "bng_easting": 531482.0,
+    "bng_northing": 176949.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.41,
+      "NOx_2022": 35.36,
+      "PM25_2022": 9.62,
+      "PM10_mean_2022": 16.69,
+      "PM10_days_2022": 4.68
+    }
+  },
+  {
+    "name": "Macaulay Church of England Primary School",
+    "urn": 100612,
+    "phase": "Primary",
+    "postcode": "SW4 0NU",
+    "borough": "Lambeth",
+    "longitude": -0.147439,
+    "latitude": 51.463657,
+    "bng_easting": 528789.0,
+    "bng_northing": 175481.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.06,
+      "NOx_2022": 32.67,
+      "PM25_2022": 9.65,
+      "PM10_mean_2022": 16.2,
+      "PM10_days_2022": 4.23
+    }
+  },
+  {
+    "name": "St Andrew's Church of England Primary School",
+    "urn": 100613,
+    "phase": "Primary",
+    "postcode": "SW9 9DE",
+    "borough": "Lambeth",
+    "longitude": -0.122355,
+    "latitude": 51.468347,
+    "bng_easting": 530518.0,
+    "bng_northing": 176047.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.99,
+      "NOx_2022": 34.79,
+      "PM25_2022": 9.64,
+      "PM10_mean_2022": 16.43,
+      "PM10_days_2022": 4.44
+    }
+  },
+  {
+    "name": "St John the Divine Church of England Primary School",
+    "urn": 100614,
+    "phase": "Primary",
+    "postcode": "SE5 0SX",
+    "borough": "Lambeth",
+    "longitude": -0.103719,
+    "latitude": 51.478892,
+    "bng_easting": 531782.0,
+    "bng_northing": 177252.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.73,
+      "NOx_2022": 39.08,
+      "PM25_2022": 9.88,
+      "PM10_mean_2022": 17.67,
+      "PM10_days_2022": 5.69
+    }
+  },
+  {
+    "name": "St John's Angell Town Church of England Primary School",
+    "urn": 100615,
+    "phase": "Primary",
+    "postcode": "SW9 7HH",
+    "borough": "Lambeth",
+    "longitude": -0.108545,
+    "latitude": 51.468053,
+    "bng_easting": 531478.0,
+    "bng_northing": 176039.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.82,
+      "NOx_2022": 34.28,
+      "PM25_2022": 9.59,
+      "PM10_mean_2022": 16.68,
+      "PM10_days_2022": 4.68
+    }
+  },
+  {
+    "name": "St Jude's Church of England Primary School",
+    "urn": 100616,
+    "phase": "Primary",
+    "postcode": "SE24 0EL",
+    "borough": "Lambeth",
+    "longitude": -0.105039,
+    "latitude": 51.454319,
+    "bng_easting": 531761.0,
+    "bng_northing": 174518.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.95,
+      "NOx_2022": 32.84,
+      "PM25_2022": 9.54,
+      "PM10_mean_2022": 16.39,
+      "PM10_days_2022": 4.4
+    }
+  },
+  {
+    "name": "St Mark's Church of England Primary School",
+    "urn": 100619,
+    "phase": "Primary",
+    "postcode": "SE11 5SL",
+    "borough": "Lambeth",
+    "longitude": -0.11731,
+    "latitude": 51.48457,
+    "bng_easting": 530822.0,
+    "bng_northing": 177860.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 27.41,
+      "NOx_2022": 43.44,
+      "PM25_2022": 10.11,
+      "PM10_mean_2022": 17.67,
+      "PM10_days_2022": 5.69
+    }
+  },
+  {
+    "name": "St Saviour's Church of England Primary School",
+    "urn": 100620,
+    "phase": "Primary",
+    "postcode": "SE24 0AY",
+    "borough": "Lambeth",
+    "longitude": -0.097927,
+    "latitude": 51.463709,
+    "bng_easting": 532228.0,
+    "bng_northing": 175575.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.67,
+      "NOx_2022": 34.64,
+      "PM25_2022": 9.62,
+      "PM10_mean_2022": 16.49,
+      "PM10_days_2022": 4.49
+    }
+  },
+  {
+    "name": "St Stephen's Church of England Primary School",
+    "urn": 100621,
+    "phase": "Primary",
+    "postcode": "SW8 1EJ",
+    "borough": "Lambeth",
+    "longitude": -0.122319,
+    "latitude": 51.47974,
+    "bng_easting": 530488.0,
+    "bng_northing": 177314.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.12,
+      "NOx_2022": 37.03,
+      "PM25_2022": 9.77,
+      "PM10_mean_2022": 16.95,
+      "PM10_days_2022": 4.94
+    }
+  },
+  {
+    "name": "Holy Trinity Church of England Primary School",
+    "urn": 100622,
+    "phase": "Primary",
+    "postcode": "SW2 2RL",
+    "borough": "Lambeth",
+    "longitude": -0.118372,
+    "latitude": 51.447556,
+    "bng_easting": 530854.0,
+    "bng_northing": 173742.1,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.61,
+      "NOx_2022": 32.05,
+      "PM25_2022": 9.42,
+      "PM10_mean_2022": 16.12,
+      "PM10_days_2022": 4.15
+    }
+  },
+  {
+    "name": "St Helen's Catholic Primary School",
+    "urn": 100623,
+    "phase": "Primary",
+    "postcode": "SW9 0TQ",
+    "borough": "Lambeth",
+    "longitude": -0.113421,
+    "latitude": 51.467116,
+    "bng_easting": 531142.0,
+    "bng_northing": 175926.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.74,
+      "NOx_2022": 37.07,
+      "PM25_2022": 9.76,
+      "PM10_mean_2022": 17.0,
+      "PM10_days_2022": 4.99
+    }
+  },
+  {
+    "name": "St Anne's Catholic Primary School",
+    "urn": 100629,
+    "phase": "Primary",
+    "postcode": "SE11 5JA",
+    "borough": "Lambeth",
+    "longitude": -0.119357,
+    "latitude": 51.485565,
+    "bng_easting": 530677.0,
+    "bng_northing": 177967.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 27.6,
+      "NOx_2022": 43.85,
+      "PM25_2022": 10.17,
+      "PM10_mean_2022": 17.76,
+      "PM10_days_2022": 5.79
+    }
+  },
+  {
+    "name": "St Bede's Catholic Primary School",
+    "urn": 100631,
+    "phase": "Primary",
+    "postcode": "SW12 0LF",
+    "borough": "Lambeth",
+    "longitude": -0.135593,
+    "latitude": 51.444521,
+    "bng_easting": 529666.0,
+    "bng_northing": 173374.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.09,
+      "NOx_2022": 30.89,
+      "PM25_2022": 9.47,
+      "PM10_mean_2022": 17.0,
+      "PM10_days_2022": 5.0
+    }
+  },
+  {
+    "name": "St Andrew's Catholic Primary School",
+    "urn": 100632,
+    "phase": "Primary",
+    "postcode": "SW16 2ET",
+    "borough": "Lambeth",
+    "longitude": -0.125814,
+    "latitude": 51.424321,
+    "bng_easting": 530403.0,
+    "bng_northing": 171145.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.81,
+      "NOx_2022": 31.05,
+      "PM25_2022": 9.41,
+      "PM10_mean_2022": 16.39,
+      "PM10_days_2022": 4.41
+    }
+  },
+  {
+    "name": "Immanuel and St Andrew Church of England Primary School",
+    "urn": 100633,
+    "phase": "Primary",
+    "postcode": "SW16 5SL",
+    "borough": "Lambeth",
+    "longitude": -0.13154,
+    "latitude": 51.419349,
+    "bng_easting": 530019.0,
+    "bng_northing": 170582.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.83,
+      "NOx_2022": 31.49,
+      "PM25_2022": 9.43,
+      "PM10_mean_2022": 16.49,
+      "PM10_days_2022": 4.5
+    }
+  },
+  {
+    "name": "Reay Primary School",
+    "urn": 100634,
+    "phase": "Primary",
+    "postcode": "SW9 0EN",
+    "borough": "Lambeth",
+    "longitude": -0.115124,
+    "latitude": 51.477503,
+    "bng_easting": 530994.0,
+    "bng_northing": 177078.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.12,
+      "NOx_2022": 37.25,
+      "PM25_2022": 9.77,
+      "PM10_mean_2022": 16.91,
+      "PM10_days_2022": 4.91
+    }
+  },
+  {
+    "name": "St Mary's Roman Catholic Primary School",
+    "urn": 100636,
+    "phase": "Primary",
+    "postcode": "SW4 9QJ",
+    "borough": "Lambeth",
+    "longitude": -0.138064,
+    "latitude": 51.45912,
+    "bng_easting": 529453.0,
+    "bng_northing": 174993.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.4,
+      "NOx_2022": 33.94,
+      "PM25_2022": 9.71,
+      "PM10_mean_2022": 16.43,
+      "PM10_days_2022": 4.44
+    }
+  },
+  {
+    "name": "Kintore Way Nursery School and Children's Centre",
+    "urn": 100767,
+    "phase": "Nursery",
+    "postcode": "SE1 3BW",
+    "borough": "Southwark",
+    "longitude": -0.076079,
+    "latitude": 51.494377,
+    "bng_easting": 533656.0,
+    "bng_northing": 179025.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 26.21,
+      "NOx_2022": 39.78,
+      "PM25_2022": 10.17,
+      "PM10_mean_2022": 19.63,
+      "PM10_days_2022": 8.01
+    }
+  },
+  {
+    "name": "Dulwich Wood Nursery School",
+    "urn": 100769,
+    "phase": "Nursery",
+    "postcode": "SE21 8QS",
+    "borough": "Southwark",
+    "longitude": -0.079849,
+    "latitude": 51.431382,
+    "bng_easting": 533578.0,
+    "bng_northing": 172012.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 20.73,
+      "NOx_2022": 28.26,
+      "PM25_2022": 9.12,
+      "PM10_mean_2022": 15.85,
+      "PM10_days_2022": 3.91
+    }
+  },
+  {
+    "name": "Nell Gwynn Nursery School",
+    "urn": 100770,
+    "phase": "Nursery",
+    "postcode": "SE15 2TT",
+    "borough": "Southwark",
+    "longitude": -0.06453,
+    "latitude": 51.474871,
+    "bng_easting": 534515.0,
+    "bng_northing": 176877.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.17,
+      "NOx_2022": 35.89,
+      "PM25_2022": 9.73,
+      "PM10_mean_2022": 17.62,
+      "PM10_days_2022": 5.64
+    }
+  },
+  {
+    "name": "The Grove Nursery School",
+    "urn": 100771,
+    "phase": "Nursery",
+    "postcode": "SE15 6BY",
+    "borough": "Southwark",
+    "longitude": -0.081963,
+    "latitude": 51.480499,
+    "bng_easting": 533288.0,
+    "bng_northing": 177471.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.72,
+      "NOx_2022": 39.51,
+      "PM25_2022": 9.96,
+      "PM10_mean_2022": 18.17,
+      "PM10_days_2022": 6.24
+    }
+  },
+  {
+    "name": "Albion Primary School",
+    "urn": 100774,
+    "phase": "Primary",
+    "postcode": "SE16 7JD",
+    "borough": "Southwark",
+    "longitude": -0.051653,
+    "latitude": 51.499945,
+    "bng_easting": 535335.0,
+    "bng_northing": 179689.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.02,
+      "NOx_2022": 37.36,
+      "PM25_2022": 9.68,
+      "PM10_mean_2022": 16.72,
+      "PM10_days_2022": 4.72
+    }
+  },
+  {
+    "name": "Bellenden Primary School",
+    "urn": 100775,
+    "phase": "Primary",
+    "postcode": "SE15 4JP",
+    "borough": "Southwark",
+    "longitude": -0.067774,
+    "latitude": 51.464889,
+    "bng_easting": 534319.0,
+    "bng_northing": 175761.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.29,
+      "NOx_2022": 34.13,
+      "PM25_2022": 9.67,
+      "PM10_mean_2022": 16.76,
+      "PM10_days_2022": 4.76
+    }
+  },
+  {
+    "name": "Bird In Bush School",
+    "urn": 100780,
+    "phase": "Primary",
+    "postcode": "SE15 1QP",
+    "borough": "Southwark",
+    "longitude": -0.063431,
+    "latitude": 51.480428,
+    "bng_easting": 534575.0,
+    "bng_northing": 177497.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.94,
+      "NOx_2022": 34.97,
+      "PM25_2022": 9.62,
+      "PM10_mean_2022": 16.91,
+      "PM10_days_2022": 4.9
+    }
+  },
+  {
+    "name": "Crampton Primary",
+    "urn": 100784,
+    "phase": "Primary",
+    "postcode": "SE17 3LE",
+    "borough": "Southwark",
+    "longitude": -0.10094,
+    "latitude": 51.489971,
+    "bng_easting": 531943.0,
+    "bng_northing": 178490.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.89,
+      "NOx_2022": 38.55,
+      "PM25_2022": 9.86,
+      "PM10_mean_2022": 17.36,
+      "PM10_days_2022": 5.36
+    }
+  },
+  {
+    "name": "Crawford Primary School",
+    "urn": 100785,
+    "phase": "Primary",
+    "postcode": "SE5 9NF",
+    "borough": "Southwark",
+    "longitude": -0.095677,
+    "latitude": 51.472108,
+    "bng_easting": 532360.0,
+    "bng_northing": 176513.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.51,
+      "NOx_2022": 36.42,
+      "PM25_2022": 9.69,
+      "PM10_mean_2022": 16.91,
+      "PM10_days_2022": 4.9
+    }
+  },
+  {
+    "name": "Goodrich Community Primary School",
+    "urn": 100790,
+    "phase": "Primary",
+    "postcode": "SE22 0EP",
+    "borough": "Southwark",
+    "longitude": -0.068103,
+    "latitude": 51.449939,
+    "bng_easting": 534340.0,
+    "bng_northing": 174098.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.62,
+      "NOx_2022": 30.11,
+      "PM25_2022": 9.28,
+      "PM10_mean_2022": 15.72,
+      "PM10_days_2022": 3.8
+    }
+  },
+  {
+    "name": "Grange Primary School",
+    "urn": 100791,
+    "phase": "Primary",
+    "postcode": "SE1 4RP",
+    "borough": "Southwark",
+    "longitude": -0.08194,
+    "latitude": 51.496146,
+    "bng_easting": 533244.0,
+    "bng_northing": 179211.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 28.18,
+      "NOx_2022": 45.29,
+      "PM25_2022": 10.35,
+      "PM10_mean_2022": 19.27,
+      "PM10_days_2022": 7.56
+    }
+  },
+  {
+    "name": "Heber Primary School",
+    "urn": 100793,
+    "phase": "Primary",
+    "postcode": "SE22 9LA",
+    "borough": "Southwark",
+    "longitude": -0.073608,
+    "latitude": 51.452863,
+    "bng_easting": 533949.0,
+    "bng_northing": 174413.1,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.3,
+      "NOx_2022": 31.93,
+      "PM25_2022": 9.52,
+      "PM10_mean_2022": 16.19,
+      "PM10_days_2022": 4.22
+    }
+  },
+  {
+    "name": "Hollydale Primary School",
+    "urn": 100794,
+    "phase": "Primary",
+    "postcode": "SE15 2AR",
+    "borough": "Southwark",
+    "longitude": -0.052538,
+    "latitude": 51.467685,
+    "bng_easting": 535369.0,
+    "bng_northing": 176100.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.77,
+      "NOx_2022": 32.78,
+      "PM25_2022": 9.46,
+      "PM10_mean_2022": 16.38,
+      "PM10_days_2022": 4.4
+    }
+  },
+  {
+    "name": "Ilderton Primary School",
+    "urn": 100795,
+    "phase": "Primary",
+    "postcode": "SE16 3LA",
+    "borough": "Southwark",
+    "longitude": -0.054379,
+    "latitude": 51.485008,
+    "bng_easting": 535190.0,
+    "bng_northing": 178022.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.62,
+      "NOx_2022": 33.93,
+      "PM25_2022": 9.44,
+      "PM10_mean_2022": 16.45,
+      "PM10_days_2022": 4.46
+    }
+  },
+  {
+    "name": "Ivydale Primary School",
+    "urn": 100796,
+    "phase": "Primary",
+    "postcode": "SE15 3BU",
+    "borough": "Southwark",
+    "longitude": -0.046246,
+    "latitude": 51.459613,
+    "bng_easting": 535830.0,
+    "bng_northing": 175214.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.95,
+      "NOx_2022": 31.05,
+      "PM25_2022": 9.39,
+      "PM10_mean_2022": 16.44,
+      "PM10_days_2022": 4.46
+    }
+  },
+  {
+    "name": "John Ruskin Primary School and Language Classes",
+    "urn": 100798,
+    "phase": "Primary",
+    "postcode": "SE5 0PQ",
+    "borough": "Southwark",
+    "longitude": -0.09718,
+    "latitude": 51.483058,
+    "bng_easting": 532224.0,
+    "bng_northing": 177728.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.33,
+      "NOx_2022": 37.58,
+      "PM25_2022": 9.88,
+      "PM10_mean_2022": 18.3,
+      "PM10_days_2022": 6.39
+    }
+  },
+  {
+    "name": "Keyworth Primary School",
+    "urn": 100800,
+    "phase": "Primary",
+    "postcode": "SE17 3TR",
+    "borough": "Southwark",
+    "longitude": -0.104691,
+    "latitude": 51.486696,
+    "bng_easting": 531692.0,
+    "bng_northing": 178119.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.5,
+      "NOx_2022": 37.66,
+      "PM25_2022": 9.8,
+      "PM10_mean_2022": 17.25,
+      "PM10_days_2022": 5.24
+    }
+  },
+  {
+    "name": "Dulwich Wood Primary School",
+    "urn": 100801,
+    "phase": "Primary",
+    "postcode": "SE21 8NS",
+    "borough": "Southwark",
+    "longitude": -0.082876,
+    "latitude": 51.431927,
+    "bng_easting": 533366.0,
+    "bng_northing": 172068.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 20.88,
+      "NOx_2022": 28.58,
+      "PM25_2022": 9.15,
+      "PM10_mean_2022": 15.86,
+      "PM10_days_2022": 3.92
+    }
+  },
+  {
+    "name": "Michael Faraday School",
+    "urn": 100803,
+    "phase": "Primary",
+    "postcode": "SE17 2HR",
+    "borough": "Southwark",
+    "longitude": -0.088389,
+    "latitude": 51.485253,
+    "bng_easting": 532828.0,
+    "bng_northing": 177988.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.59,
+      "NOx_2022": 35.61,
+      "PM25_2022": 9.81,
+      "PM10_mean_2022": 18.59,
+      "PM10_days_2022": 6.72
+    }
+  },
+  {
+    "name": "Riverside Primary School",
+    "urn": 100808,
+    "phase": "Primary",
+    "postcode": "SE16 4PS",
+    "borough": "Southwark",
+    "longitude": -0.064811,
+    "latitude": 51.499524,
+    "bng_easting": 534423.0,
+    "bng_northing": 179618.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.54,
+      "NOx_2022": 37.99,
+      "PM25_2022": 9.73,
+      "PM10_mean_2022": 17.16,
+      "PM10_days_2022": 5.16
+    }
+  },
+  {
+    "name": "Robert Browning Primary School",
+    "urn": 100809,
+    "phase": "Primary",
+    "postcode": "SE17 1DQ",
+    "borough": "Southwark",
+    "longitude": -0.092603,
+    "latitude": 51.488838,
+    "bng_easting": 532525.0,
+    "bng_northing": 178379.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.4,
+      "NOx_2022": 37.46,
+      "PM25_2022": 9.85,
+      "PM10_mean_2022": 17.88,
+      "PM10_days_2022": 5.91
+    }
+  },
+  {
+    "name": "Snowsfields Primary School",
+    "urn": 100811,
+    "phase": "Primary",
+    "postcode": "SE1 3TD",
+    "borough": "Southwark",
+    "longitude": -0.083876,
+    "latitude": 51.50151,
+    "bng_easting": 533094.0,
+    "bng_northing": 179804.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 26.41,
+      "NOx_2022": 39.45,
+      "PM25_2022": 9.94,
+      "PM10_mean_2022": 17.53,
+      "PM10_days_2022": 5.54
+    }
+  },
+  {
+    "name": "Southwark Park Primary School",
+    "urn": 100812,
+    "phase": "Primary",
+    "postcode": "SE16 2JH",
+    "borough": "Southwark",
+    "longitude": -0.058023,
+    "latitude": 51.494142,
+    "bng_easting": 534910.0,
+    "bng_northing": 179031.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.86,
+      "NOx_2022": 39.87,
+      "PM25_2022": 9.86,
+      "PM10_mean_2022": 17.34,
+      "PM10_days_2022": 5.34
+    }
+  },
+  {
+    "name": "Tower Bridge Primary School",
+    "urn": 100813,
+    "phase": "Primary",
+    "postcode": "SE1 2AE",
+    "borough": "Southwark",
+    "longitude": -0.077014,
+    "latitude": 51.501587,
+    "bng_easting": 533570.0,
+    "bng_northing": 179825.1,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 27.77,
+      "NOx_2022": 44.44,
+      "PM25_2022": 10.16,
+      "PM10_mean_2022": 18.04,
+      "PM10_days_2022": 6.09
+    }
+  },
+  {
+    "name": "Victory Primary School",
+    "urn": 100815,
+    "phase": "Primary",
+    "postcode": "SE17 1PT",
+    "borough": "Southwark",
+    "longitude": -0.092836,
+    "latitude": 51.492933,
+    "bng_easting": 532497.0,
+    "bng_northing": 178834.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 27.0,
+      "NOx_2022": 41.69,
+      "PM25_2022": 10.06,
+      "PM10_mean_2022": 17.95,
+      "PM10_days_2022": 6.0
+    }
+  },
+  {
+    "name": "Phoenix Primary School",
+    "urn": 100817,
+    "phase": "Primary",
+    "postcode": "SE1 5JT",
+    "borough": "Southwark",
+    "longitude": -0.0687,
+    "latitude": 51.486261,
+    "bng_easting": 534192.0,
+    "bng_northing": 178136.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.72,
+      "NOx_2022": 36.49,
+      "PM25_2022": 9.8,
+      "PM10_mean_2022": 18.18,
+      "PM10_days_2022": 6.25
+    }
+  },
+  {
+    "name": "Pilgrims' Way Primary School",
+    "urn": 100818,
+    "phase": "Primary",
+    "postcode": "SE15 1EF",
+    "borough": "Southwark",
+    "longitude": -0.055939,
+    "latitude": 51.480484,
+    "bng_easting": 535095.0,
+    "bng_northing": 177517.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.63,
+      "NOx_2022": 34.22,
+      "PM25_2022": 9.49,
+      "PM10_mean_2022": 16.59,
+      "PM10_days_2022": 4.59
+    }
+  },
+  {
+    "name": "Alfred Salter Primary School",
+    "urn": 100819,
+    "phase": "Primary",
+    "postcode": "SE16 7LP",
+    "borough": "Southwark",
+    "longitude": -0.043571,
+    "latitude": 51.499604,
+    "bng_easting": 535897.0,
+    "bng_northing": 179666.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.55,
+      "NOx_2022": 33.34,
+      "PM25_2022": 9.34,
+      "PM10_mean_2022": 16.05,
+      "PM10_days_2022": 4.09
+    }
+  },
+  {
+    "name": "Oliver Goldsmith Primary School",
+    "urn": 100821,
+    "phase": "Primary",
+    "postcode": "SE5 8UH",
+    "borough": "Southwark",
+    "longitude": -0.078197,
+    "latitude": 51.474844,
+    "bng_easting": 533566.0,
+    "bng_northing": 176849.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.5,
+      "NOx_2022": 36.5,
+      "PM25_2022": 9.68,
+      "PM10_mean_2022": 17.07,
+      "PM10_days_2022": 5.07
+    }
+  },
+  {
+    "name": "Boutcher Church of England Primary School",
+    "urn": 100822,
+    "phase": "Primary",
+    "postcode": "SE1 3BW",
+    "borough": "Southwark",
+    "longitude": -0.076231,
+    "latitude": 51.493849,
+    "bng_easting": 533647.0,
+    "bng_northing": 178966.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.26,
+      "NOx_2022": 37.09,
+      "PM25_2022": 10.0,
+      "PM10_mean_2022": 19.53,
+      "PM10_days_2022": 7.88
+    }
+  },
+  {
+    "name": "Dulwich Village Church of England Infants' School",
+    "urn": 100823,
+    "phase": "Primary",
+    "postcode": "SE21 7BU",
+    "borough": "Southwark",
+    "longitude": -0.086591,
+    "latitude": 51.452158,
+    "bng_easting": 533049.0,
+    "bng_northing": 174311.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.01,
+      "NOx_2022": 33.64,
+      "PM25_2022": 9.51,
+      "PM10_mean_2022": 16.2,
+      "PM10_days_2022": 4.23
+    }
+  },
+  {
+    "name": "English Martyrs' Roman Catholic Primary School",
+    "urn": 100824,
+    "phase": "Primary",
+    "postcode": "SE17 1RB",
+    "borough": "Southwark",
+    "longitude": -0.088322,
+    "latitude": 51.490639,
+    "bng_easting": 532817.0,
+    "bng_northing": 178587.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.67,
+      "NOx_2022": 38.3,
+      "PM25_2022": 10.0,
+      "PM10_mean_2022": 18.96,
+      "PM10_days_2022": 7.17
+    }
+  },
+  {
+    "name": "St James the Great Roman Catholic Primary School",
+    "urn": 100825,
+    "phase": "Primary",
+    "postcode": "SE15 5LP",
+    "borough": "Southwark",
+    "longitude": -0.073105,
+    "latitude": 51.474356,
+    "bng_easting": 533921.0,
+    "bng_northing": 176804.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.5,
+      "NOx_2022": 36.64,
+      "PM25_2022": 9.72,
+      "PM10_mean_2022": 17.38,
+      "PM10_days_2022": 5.38
+    }
+  },
+  {
+    "name": "St Francis RC Primary School",
+    "urn": 100826,
+    "phase": "Primary",
+    "postcode": "SE15 1RQ",
+    "borough": "Southwark",
+    "longitude": -0.067077,
+    "latitude": 51.48003,
+    "bng_easting": 534323.0,
+    "bng_northing": 177446.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.97,
+      "NOx_2022": 38.04,
+      "PM25_2022": 9.84,
+      "PM10_mean_2022": 17.42,
+      "PM10_days_2022": 5.42
+    }
+  },
+  {
+    "name": "St George's Church of England Primary School",
+    "urn": 100827,
+    "phase": "Primary",
+    "postcode": "SE5 7TF",
+    "borough": "Southwark",
+    "longitude": -0.084344,
+    "latitude": 51.480394,
+    "bng_easting": 533123.0,
+    "bng_northing": 177455.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.34,
+      "NOx_2022": 35.44,
+      "PM25_2022": 9.68,
+      "PM10_mean_2022": 17.81,
+      "PM10_days_2022": 5.84
+    }
+  },
+  {
+    "name": "St James' Church of England Primary School",
+    "urn": 100829,
+    "phase": "Primary",
+    "postcode": "SE16 4SU",
+    "borough": "Southwark",
+    "longitude": -0.067764,
+    "latitude": 51.497837,
+    "bng_easting": 534223.0,
+    "bng_northing": 179424.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 26.99,
+      "NOx_2022": 42.04,
+      "PM25_2022": 10.04,
+      "PM10_mean_2022": 17.91,
+      "PM10_days_2022": 5.95
+    }
+  },
+  {
+    "name": "St John's and St Clement's Church of England Primary School",
+    "urn": 100830,
+    "phase": "Primary",
+    "postcode": "SE15 4DY",
+    "borough": "Southwark",
+    "longitude": -0.071735,
+    "latitude": 51.463137,
+    "bng_easting": 534049.0,
+    "bng_northing": 175559.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.98,
+      "NOx_2022": 33.19,
+      "PM25_2022": 9.57,
+      "PM10_mean_2022": 16.35,
+      "PM10_days_2022": 4.37
+    }
+  },
+  {
+    "name": "Saint Joseph's Catholic Primary School, the Borough",
+    "urn": 100834,
+    "phase": "Primary",
+    "postcode": "SE1 1NJ",
+    "borough": "Southwark",
+    "longitude": -0.092611,
+    "latitude": 51.502453,
+    "bng_easting": 532485.0,
+    "bng_northing": 179893.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 26.99,
+      "NOx_2022": 40.7,
+      "PM25_2022": 10.01,
+      "PM10_mean_2022": 17.47,
+      "PM10_days_2022": 5.48
+    }
+  },
+  {
+    "name": "St Jude's Church of England Primary School",
+    "urn": 100835,
+    "phase": "Primary",
+    "postcode": "SE1 6HA",
+    "borough": "Southwark",
+    "longitude": -0.105365,
+    "latitude": 51.496859,
+    "bng_easting": 531616.0,
+    "bng_northing": 179248.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 27.43,
+      "NOx_2022": 42.07,
+      "PM25_2022": 10.05,
+      "PM10_mean_2022": 17.49,
+      "PM10_days_2022": 5.5
+    }
+  },
+  {
+    "name": "Peter Hills with St Mary's and St Paul's CofE Primary School",
+    "urn": 100837,
+    "phase": "Primary",
+    "postcode": "SE16 5ED",
+    "borough": "Southwark",
+    "longitude": -0.042567,
+    "latitude": 51.506205,
+    "bng_easting": 535947.0,
+    "bng_northing": 180402.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.35,
+      "NOx_2022": 36.04,
+      "PM25_2022": 9.53,
+      "PM10_mean_2022": 16.31,
+      "PM10_days_2022": 4.33
+    }
+  },
+  {
+    "name": "St Peter's Church of England Primary School",
+    "urn": 100839,
+    "phase": "Primary",
+    "postcode": "SE17 2HH",
+    "borough": "Southwark",
+    "longitude": -0.093305,
+    "latitude": 51.486169,
+    "bng_easting": 532484.0,
+    "bng_northing": 178080.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.66,
+      "NOx_2022": 38.47,
+      "PM25_2022": 9.93,
+      "PM10_mean_2022": 18.42,
+      "PM10_days_2022": 6.52
+    }
+  },
+  {
+    "name": "The Cathedral School of St Saviour and St Mary Overie",
+    "urn": 100840,
+    "phase": "Primary",
+    "postcode": "SE1 1HG",
+    "borough": "Southwark",
+    "longitude": -0.093977,
+    "latitude": 51.502871,
+    "bng_easting": 532389.0,
+    "bng_northing": 179937.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 27.39,
+      "NOx_2022": 41.84,
+      "PM25_2022": 10.09,
+      "PM10_mean_2022": 17.62,
+      "PM10_days_2022": 5.63
+    }
+  },
+  {
+    "name": "St John's Roman Catholic Primary School",
+    "urn": 100841,
+    "phase": "Primary",
+    "postcode": "SE16 6SD",
+    "borough": "Southwark",
+    "longitude": -0.041509,
+    "latitude": 51.500298,
+    "bng_easting": 536038.0,
+    "bng_northing": 179747.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.47,
+      "NOx_2022": 33.18,
+      "PM25_2022": 9.32,
+      "PM10_mean_2022": 16.01,
+      "PM10_days_2022": 4.05
+    }
+  },
+  {
+    "name": "St Joseph's Catholic Junior School",
+    "urn": 100853,
+    "phase": "Primary",
+    "postcode": "SE5 0TS",
+    "borough": "Southwark",
+    "longitude": -0.098994,
+    "latitude": 51.479266,
+    "bng_easting": 532109.0,
+    "bng_northing": 177303.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.65,
+      "NOx_2022": 35.99,
+      "PM25_2022": 9.76,
+      "PM10_mean_2022": 17.91,
+      "PM10_days_2022": 5.95
+    }
+  },
+  {
+    "name": "St Joseph's Catholic Infants School",
+    "urn": 100854,
+    "phase": "Primary",
+    "postcode": "SE5 0TS",
+    "borough": "Southwark",
+    "longitude": -0.098994,
+    "latitude": 51.479266,
+    "bng_easting": 532109.0,
+    "bng_northing": 177303.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.65,
+      "NOx_2022": 35.99,
+      "PM25_2022": 9.76,
+      "PM10_mean_2022": 17.91,
+      "PM10_days_2022": 5.95
+    }
+  },
+  {
+    "name": "Friars Primary Foundation School",
+    "urn": 100855,
+    "phase": "Primary",
+    "postcode": "SE1 0RF",
+    "borough": "Southwark",
+    "longitude": -0.1034,
+    "latitude": 51.501495,
+    "bng_easting": 531739.0,
+    "bng_northing": 179767.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 27.26,
+      "NOx_2022": 41.33,
+      "PM25_2022": 10.04,
+      "PM10_mean_2022": 17.43,
+      "PM10_days_2022": 5.43
+    }
+  },
+  {
+    "name": "Bessemer Grange Primary School",
+    "urn": 130918,
+    "phase": "Primary",
+    "postcode": "SE5 8HP",
+    "borough": "Southwark",
+    "longitude": -0.086805,
+    "latitude": 51.458744,
+    "bng_easting": 533015.0,
+    "bng_northing": 175043.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.32,
+      "NOx_2022": 31.11,
+      "PM25_2022": 9.36,
+      "PM10_mean_2022": 15.96,
+      "PM10_days_2022": 4.01
+    }
+  },
+  {
+    "name": "Bonneville Primary School",
+    "urn": 131247,
+    "phase": "Primary",
+    "postcode": "SW4 9LB",
+    "borough": "Lambeth",
+    "longitude": -0.139675,
+    "latitude": 51.453138,
+    "bng_easting": 529358.0,
+    "bng_northing": 174325.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.98,
+      "NOx_2022": 33.05,
+      "PM25_2022": 9.61,
+      "PM10_mean_2022": 16.49,
+      "PM10_days_2022": 4.5
+    }
+  },
+  {
+    "name": "Hill Mead Primary School",
+    "urn": 131340,
+    "phase": "Primary",
+    "postcode": "SW9 8UE",
+    "borough": "Lambeth",
+    "longitude": -0.107328,
+    "latitude": 51.461964,
+    "bng_easting": 531580.0,
+    "bng_northing": 175364.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.35,
+      "NOx_2022": 33.43,
+      "PM25_2022": 9.59,
+      "PM10_mean_2022": 16.74,
+      "PM10_days_2022": 4.73
+    }
+  },
+  {
+    "name": "Hitherfield Primary School",
+    "urn": 131824,
+    "phase": "Primary",
+    "postcode": "SW16 2JQ",
+    "borough": "Lambeth",
+    "longitude": -0.114988,
+    "latitude": 51.436089,
+    "bng_easting": 531122.0,
+    "bng_northing": 172472.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.53,
+      "NOx_2022": 29.59,
+      "PM25_2022": 9.22,
+      "PM10_mean_2022": 15.51,
+      "PM10_days_2022": 3.62
+    }
+  },
+  {
+    "name": "Brunswick Park Primary School",
+    "urn": 131843,
+    "phase": "Primary",
+    "postcode": "SE5 7QH",
+    "borough": "Southwark",
+    "longitude": -0.088805,
+    "latitude": 51.478066,
+    "bng_easting": 532820.0,
+    "bng_northing": 177188.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.5,
+      "NOx_2022": 35.98,
+      "PM25_2022": 9.76,
+      "PM10_mean_2022": 17.97,
+      "PM10_days_2022": 6.01
+    }
+  },
+  {
+    "name": "Henry Fawcett Primary School",
+    "urn": 131874,
+    "phase": "Primary",
+    "postcode": "SE11 5BZ",
+    "borough": "Lambeth",
+    "longitude": -0.111888,
+    "latitude": 51.484717,
+    "bng_easting": 531198.0,
+    "bng_northing": 177886.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.64,
+      "NOx_2022": 38.13,
+      "PM25_2022": 9.81,
+      "PM10_mean_2022": 17.09,
+      "PM10_days_2022": 5.08
+    }
+  },
+  {
+    "name": "Jubilee Primary School",
+    "urn": 133662,
+    "phase": "Primary",
+    "postcode": "SW2 2JE",
+    "borough": "Lambeth",
+    "longitude": -0.114517,
+    "latitude": 51.452413,
+    "bng_easting": 531108.0,
+    "bng_northing": 174289.1,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.81,
+      "NOx_2022": 32.5,
+      "PM25_2022": 9.54,
+      "PM10_mean_2022": 16.37,
+      "PM10_days_2022": 4.38
+    }
+  },
+  {
+    "name": "The Orchard School",
+    "urn": 134507,
+    "phase": "Primary",
+    "postcode": "SW2 3ES",
+    "borough": "Lambeth",
+    "longitude": -0.120184,
+    "latitude": 51.444437,
+    "bng_easting": 530737.0,
+    "bng_northing": 173392.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.53,
+      "NOx_2022": 34.91,
+      "PM25_2022": 9.61,
+      "PM10_mean_2022": 16.47,
+      "PM10_days_2022": 4.48
+    }
+  },
+  {
+    "name": "Rye Oak Primary School",
+    "urn": 134903,
+    "phase": "Primary",
+    "postcode": "SE15 3PD",
+    "borough": "Southwark",
+    "longitude": -0.063154,
+    "latitude": 51.464525,
+    "bng_easting": 534641.0,
+    "bng_northing": 175729.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.02,
+      "NOx_2022": 33.49,
+      "PM25_2022": 9.59,
+      "PM10_mean_2022": 16.61,
+      "PM10_days_2022": 4.61
+    }
+  },
+  {
+    "name": "Iqra Primary School",
+    "urn": 135614,
+    "phase": "Primary",
+    "postcode": "SW4 9PA",
+    "borough": "Lambeth",
+    "longitude": -0.130407,
+    "latitude": 51.45487,
+    "bng_easting": 529997.0,
+    "bng_northing": 174534.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.46,
+      "NOx_2022": 34.44,
+      "PM25_2022": 9.74,
+      "PM10_mean_2022": 16.62,
+      "PM10_days_2022": 4.62
+    }
+  },
+  {
+    "name": "Dulwich Hamlet Junior School",
+    "urn": 136665,
+    "phase": "Primary",
+    "postcode": "SE21 7AL",
+    "borough": "Southwark",
+    "longitude": -0.087649,
+    "latitude": 51.450251,
+    "bng_easting": 532981.0,
+    "bng_northing": 174097.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.26,
+      "NOx_2022": 31.42,
+      "PM25_2022": 9.36,
+      "PM10_mean_2022": 15.91,
+      "PM10_days_2022": 3.96
+    }
+  },
+  {
+    "name": "Corpus Christi Catholic Primary School",
+    "urn": 137295,
+    "phase": "Primary",
+    "postcode": "SW2 5BL",
+    "borough": "Lambeth",
+    "longitude": -0.120148,
+    "latitude": 51.456181,
+    "bng_easting": 530706.0,
+    "bng_northing": 174698.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.64,
+      "NOx_2022": 34.7,
+      "PM25_2022": 9.75,
+      "PM10_mean_2022": 16.75,
+      "PM10_days_2022": 4.75
+    }
+  },
+  {
+    "name": "Harris Primary Academy Peckham Park",
+    "urn": 137413,
+    "phase": "Primary",
+    "postcode": "SE15 5TD",
+    "borough": "Southwark",
+    "longitude": -0.065629,
+    "latitude": 51.476813,
+    "bng_easting": 534433.0,
+    "bng_northing": 177090.9,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.0,
+      "NOx_2022": 35.44,
+      "PM25_2022": 9.75,
+      "PM10_mean_2022": 17.39,
+      "PM10_days_2022": 5.39
+    }
+  },
+  {
+    "name": "Oasis Academy South Bank Primary",
+    "urn": 137430,
+    "phase": "Primary",
+    "postcode": "SE1 7RH",
+    "borough": "Lambeth",
+    "longitude": -0.111415,
+    "latitude": 51.500707,
+    "bng_easting": 531185.0,
+    "bng_northing": 179665.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 28.19,
+      "NOx_2022": 44.06,
+      "PM25_2022": 10.22,
+      "PM10_mean_2022": 17.84,
+      "PM10_days_2022": 5.87
+    }
+  },
+  {
+    "name": "Redriff Primary, City of London Academy",
+    "urn": 137648,
+    "phase": "Primary",
+    "postcode": "SE16 5LQ",
+    "borough": "Southwark",
+    "longitude": -0.036671,
+    "latitude": 51.501907,
+    "bng_easting": 536369.0,
+    "bng_northing": 179935.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.28,
+      "NOx_2022": 32.81,
+      "PM25_2022": 9.28,
+      "PM10_mean_2022": 15.88,
+      "PM10_days_2022": 3.94
+    }
+  },
+  {
+    "name": "Judith Kerr Primary School",
+    "urn": 139907,
+    "phase": "Primary",
+    "postcode": "SE24 9JE",
+    "borough": "Southwark",
+    "longitude": -0.093103,
+    "latitude": 51.453046,
+    "bng_easting": 532594.0,
+    "bng_northing": 174398.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.09,
+      "NOx_2022": 33.61,
+      "PM25_2022": 9.59,
+      "PM10_mean_2022": 16.26,
+      "PM10_days_2022": 4.28
+    }
+  },
+  {
+    "name": "John Donne Primary School",
+    "urn": 140507,
+    "phase": "Primary",
+    "postcode": "SE15 2SW",
+    "borough": "Southwark",
+    "longitude": -0.061324,
+    "latitude": 51.473046,
+    "bng_easting": 534743.0,
+    "bng_northing": 176680.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.51,
+      "NOx_2022": 34.19,
+      "PM25_2022": 9.61,
+      "PM10_mean_2022": 17.36,
+      "PM10_days_2022": 5.36
+    }
+  },
+  {
+    "name": "Harris Primary Academy East Dulwich",
+    "urn": 140937,
+    "phase": "Primary",
+    "postcode": "SE22 8HA",
+    "borough": "Southwark",
+    "longitude": -0.076155,
+    "latitude": 51.455269,
+    "bng_easting": 533765.0,
+    "bng_northing": 174676.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.21,
+      "NOx_2022": 34.38,
+      "PM25_2022": 9.76,
+      "PM10_mean_2022": 16.64,
+      "PM10_days_2022": 4.64
+    }
+  },
+  {
+    "name": "Angel Oak Academy",
+    "urn": 141666,
+    "phase": "Primary",
+    "postcode": "SE15 6FL",
+    "borough": "Southwark",
+    "longitude": -0.079087,
+    "latitude": 51.480398,
+    "bng_easting": 533488.0,
+    "bng_northing": 177465.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.93,
+      "NOx_2022": 34.42,
+      "PM25_2022": 9.55,
+      "PM10_mean_2022": 17.07,
+      "PM10_days_2022": 5.06
+    }
+  },
+  {
+    "name": "The Belham Primary School",
+    "urn": 142090,
+    "phase": "Primary",
+    "postcode": "SE15 4DG",
+    "borough": "Southwark",
+    "longitude": -0.073584,
+    "latitude": 51.466063,
+    "bng_easting": 533912.0,
+    "bng_northing": 175881.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.16,
+      "NOx_2022": 33.74,
+      "PM25_2022": 9.75,
+      "PM10_mean_2022": 16.69,
+      "PM10_days_2022": 4.69
+    }
+  },
+  {
+    "name": "Galleywall Primary, City of London Academy",
+    "urn": 142875,
+    "phase": "Primary",
+    "postcode": "SE16 3PB",
+    "borough": "Southwark",
+    "longitude": -0.059474,
+    "latitude": 51.489841,
+    "bng_easting": 534822.0,
+    "bng_northing": 178551.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.44,
+      "NOx_2022": 38.93,
+      "PM25_2022": 9.75,
+      "PM10_mean_2022": 17.36,
+      "PM10_days_2022": 5.36
+    }
+  },
+  {
+    "name": "Rosendale Primary School",
+    "urn": 144308,
+    "phase": "Primary",
+    "postcode": "SE21 8LR",
+    "borough": "Lambeth",
+    "longitude": -0.098052,
+    "latitude": 51.446175,
+    "bng_easting": 532270.0,
+    "bng_northing": 173625.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.74,
+      "NOx_2022": 32.78,
+      "PM25_2022": 9.4,
+      "PM10_mean_2022": 15.91,
+      "PM10_days_2022": 3.97
+    }
+  },
+  {
+    "name": "Goose Green Primary and Nursery School",
+    "urn": 145130,
+    "phase": "Primary",
+    "postcode": "SE22 8HG",
+    "borough": "Southwark",
+    "longitude": -0.076731,
+    "latitude": 51.46143,
+    "bng_easting": 533707.0,
+    "bng_northing": 175360.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.45,
+      "NOx_2022": 37.48,
+      "PM25_2022": 9.86,
+      "PM10_mean_2022": 16.93,
+      "PM10_days_2022": 4.92
+    }
+  },
+  {
+    "name": "Christ Church, Streatham Church of England Primary School",
+    "urn": 145614,
+    "phase": "Primary",
+    "postcode": "SW2 3NF",
+    "borough": "Lambeth",
+    "longitude": -0.121539,
+    "latitude": 51.444747,
+    "bng_easting": 530642.0,
+    "bng_northing": 173424.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.81,
+      "NOx_2022": 35.7,
+      "PM25_2022": 9.66,
+      "PM10_mean_2022": 16.6,
+      "PM10_days_2022": 4.6
+    }
+  },
+  {
+    "name": "St Leonard's Church of England Primary School",
+    "urn": 145615,
+    "phase": "Primary",
+    "postcode": "SW16 6NP",
+    "borough": "Lambeth",
+    "longitude": -0.135655,
+    "latitude": 51.427104,
+    "bng_easting": 529711.0,
+    "bng_northing": 171437.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.92,
+      "NOx_2022": 34.1,
+      "PM25_2022": 9.5,
+      "PM10_mean_2022": 16.15,
+      "PM10_days_2022": 4.18
+    }
+  },
+  {
+    "name": "St Luke's Church of England Primary School",
+    "urn": 145616,
+    "phase": "Primary",
+    "postcode": "SE27 0DZ",
+    "borough": "Lambeth",
+    "longitude": -0.099906,
+    "latitude": 51.426808,
+    "bng_easting": 532197.0,
+    "bng_northing": 171468.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 21.85,
+      "NOx_2022": 31.4,
+      "PM25_2022": 9.35,
+      "PM10_mean_2022": 15.76,
+      "PM10_days_2022": 3.83
+    }
+  },
+  {
+    "name": "John Keats Primary School",
+    "urn": 145888,
+    "phase": "Primary",
+    "postcode": "SE16 3FN",
+    "borough": "Southwark",
+    "longitude": -0.064266,
+    "latitude": 51.485532,
+    "bng_easting": 534502.0,
+    "bng_northing": 178063.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.64,
+      "NOx_2022": 39.36,
+      "PM25_2022": 9.91,
+      "PM10_mean_2022": 17.58,
+      "PM10_days_2022": 5.59
+    }
+  },
+  {
+    "name": "Surrey Square Primary School",
+    "urn": 146117,
+    "phase": "Primary",
+    "postcode": "SE17 2JY",
+    "borough": "Southwark",
+    "longitude": -0.083,
+    "latitude": 51.488744,
+    "bng_easting": 533192.0,
+    "bng_northing": 178386.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.66,
+      "NOx_2022": 38.66,
+      "PM25_2022": 10.2,
+      "PM10_mean_2022": 20.54,
+      "PM10_days_2022": 9.27
+    }
+  },
+  {
+    "name": "Van Gogh Primary",
+    "urn": 146368,
+    "phase": "Primary",
+    "postcode": "SW9 6HF",
+    "borough": "Lambeth",
+    "longitude": -0.111393,
+    "latitude": 51.474403,
+    "bng_easting": 531262.0,
+    "bng_northing": 176740.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.8,
+      "NOx_2022": 36.54,
+      "PM25_2022": 9.73,
+      "PM10_mean_2022": 16.85,
+      "PM10_days_2022": 4.84
+    }
+  },
+  {
+    "name": "St Paul's Church of England Primary School",
+    "urn": 146669,
+    "phase": "Primary",
+    "postcode": "SE17 3DT",
+    "borough": "Southwark",
+    "longitude": -0.099146,
+    "latitude": 51.486336,
+    "bng_easting": 532078.0,
+    "bng_northing": 178089.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 25.02,
+      "NOx_2022": 36.47,
+      "PM25_2022": 9.77,
+      "PM10_mean_2022": 17.6,
+      "PM10_days_2022": 5.61
+    }
+  },
+  {
+    "name": "Charles Dickens Primary School",
+    "urn": 148012,
+    "phase": "Primary",
+    "postcode": "SE1 1AF",
+    "borough": "Southwark",
+    "longitude": -0.096571,
+    "latitude": 51.501141,
+    "bng_easting": 532214.0,
+    "bng_northing": 179740.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 27.79,
+      "NOx_2022": 43.09,
+      "PM25_2022": 10.14,
+      "PM10_mean_2022": 17.69,
+      "PM10_days_2022": 5.71
+    }
+  },
+  {
+    "name": "Lyndhurst Primary School",
+    "urn": 148574,
+    "phase": "Primary",
+    "postcode": "SE5 8SN",
+    "borough": "Southwark",
+    "longitude": -0.088133,
+    "latitude": 51.470366,
+    "bng_easting": 532889.0,
+    "bng_northing": 176333.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.46,
+      "NOx_2022": 33.57,
+      "PM25_2022": 9.48,
+      "PM10_mean_2022": 16.43,
+      "PM10_days_2022": 4.44
+    }
+  },
+  {
+    "name": "St Joseph's Catholic Primary School",
+    "urn": 149346,
+    "phase": "Primary",
+    "postcode": "SE16 4UP",
+    "borough": "Southwark",
+    "longitude": -0.069505,
+    "latitude": 51.499611,
+    "bng_easting": 534097.0,
+    "bng_northing": 179619.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 26.17,
+      "NOx_2022": 39.78,
+      "PM25_2022": 9.85,
+      "PM10_mean_2022": 17.44,
+      "PM10_days_2022": 5.44
+    }
+  },
+  {
+    "name": "Streatham Wells Primary",
+    "urn": 149556,
+    "phase": "Primary",
+    "postcode": "SW2 3NJ",
+    "borough": "Lambeth",
+    "longitude": -0.115979,
+    "latitude": 51.439963,
+    "bng_easting": 531042.0,
+    "bng_northing": 172902.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.11,
+      "NOx_2022": 31.08,
+      "PM25_2022": 9.33,
+      "PM10_mean_2022": 15.76,
+      "PM10_days_2022": 3.83
+    }
+  },
+  {
+    "name": "Grove Primary School",
+    "urn": 149604,
+    "phase": "Primary",
+    "postcode": "SE22 8AB",
+    "borough": "Southwark",
+    "longitude": -0.08287,
+    "latitude": 51.465397,
+    "bng_easting": 533269.0,
+    "bng_northing": 175790.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.95,
+      "NOx_2022": 35.55,
+      "PM25_2022": 9.69,
+      "PM10_mean_2022": 16.56,
+      "PM10_days_2022": 4.56
+    }
+  },
+  {
+    "name": "Rotherhithe Primary School",
+    "urn": 149605,
+    "phase": "Primary",
+    "postcode": "SE16 2PE",
+    "borough": "Southwark",
+    "longitude": -0.049864,
+    "latitude": 51.491579,
+    "bng_easting": 535484.0,
+    "bng_northing": 178762.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.34,
+      "NOx_2022": 35.88,
+      "PM25_2022": 9.54,
+      "PM10_mean_2022": 16.52,
+      "PM10_days_2022": 4.52
+    }
+  },
+  {
+    "name": "St Anthony's Catholic Primary School",
+    "urn": 150551,
+    "phase": "Primary",
+    "postcode": "SE22 0LA",
+    "borough": "Southwark",
+    "longitude": -0.072115,
+    "latitude": 51.449682,
+    "bng_easting": 534062.0,
+    "bng_northing": 174062.1,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 22.2,
+      "NOx_2022": 31.81,
+      "PM25_2022": 9.36,
+      "PM10_mean_2022": 15.99,
+      "PM10_days_2022": 4.03
+    }
+  },
+  {
+    "name": "Loughborough Primary School",
+    "urn": 150830,
+    "phase": "Primary",
+    "postcode": "SW9 7UA",
+    "borough": "Lambeth",
+    "longitude": -0.105056,
+    "latitude": 51.469553,
+    "bng_easting": 531716.0,
+    "bng_northing": 176212.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 23.64,
+      "NOx_2022": 33.7,
+      "PM25_2022": 9.53,
+      "PM10_mean_2022": 16.48,
+      "PM10_days_2022": 4.49
+    }
+  },
+  {
+    "name": "St Joseph's Catholic Primary School",
+    "urn": 151012,
+    "phase": "Primary",
+    "postcode": "SE16 2TY",
+    "borough": "Southwark",
+    "longitude": -0.051935,
+    "latitude": 51.495022,
+    "bng_easting": 535330.0,
+    "bng_northing": 179141.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 24.06,
+      "NOx_2022": 34.67,
+      "PM25_2022": 9.46,
+      "PM10_mean_2022": 16.45,
+      "PM10_days_2022": 4.46
+    }
+  },
+  {
+    "name": "St George's Cathedral Catholic Primary School",
+    "urn": 151500,
+    "phase": "Primary",
+    "postcode": "SE1 6HR",
+    "borough": "Southwark",
+    "longitude": -0.106584,
+    "latitude": 51.498381,
+    "bng_easting": 531527.0,
+    "bng_northing": 179415.0,
+    "laei_found": true,
+    "concentrations": {
+      "NO2_2022": 27.17,
+      "NOx_2022": 41.08,
+      "PM25_2022": 10.0,
+      "PM10_mean_2022": 17.32,
+      "PM10_days_2022": 5.32
+    }
+  }
+]

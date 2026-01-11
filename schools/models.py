@@ -13,7 +13,7 @@ class School(models.Model):
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     postcode = models.CharField(max_length=10)
-    borough = models.CharField(max_length=100, blank=True)  # ADD THIS LINE
+    borough = models.CharField(max_length=100, blank=True) 
     phone = models.CharField(max_length=20, blank=True)
     email = models.EmailField(blank=True)
     website = models.URLField(blank=True)

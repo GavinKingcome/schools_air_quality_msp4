@@ -1,0 +1,8 @@
+Projection    GREATBRITAIN_GRID
+Datum         OGB
+Spheroid      AIRY
+Units         METERS
+Zunits        METERS /* EGM96_Geoid - VCS# =   5773
+Xshift        0.0
+Yshift        0.0
+Parameters    
