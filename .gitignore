@@ -26,3 +26,11 @@ local_settings.py
 
 # OS
 .DS_Store
+
+# LAEI pollution data files (too large for GitHub)
+LAEI/ASCII/*.asc
+
+# Generated pollution output files
+schools_with_laei.json
+schools_with_laei.csv
+laei_summary.json
