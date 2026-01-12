@@ -41,6 +41,14 @@ class School(models.Model):
     
     student_count = models.IntegerField(null=True, blank=True, help_text="Approximate number of students")
     
+    # Air Quality Data (from LAEI 2022)
+    no2_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, help_text="NO₂ concentration µg/m³")
+    nox_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, help_text="NOₓ concentration µg/m³")
+    pm25_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, help_text="PM2.5 concentration µg/m³")
+    pm10_mean_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, help_text="PM10 annual mean µg/m³")
+    pm10_days_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, help_text="PM10 days exceeding limit")
+    laei_data_available = models.BooleanField(default=False, help_text="LAEI pollution data available")
+    
     # Metadata
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

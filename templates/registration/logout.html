@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<div style="text-align: center; padding: 50px">
+  <h2>Are you sure you want to log out?</h2>
+  <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button
+      type="submit"
+      style="padding: 10px 20px; font-size: 16px; cursor: pointer"
+    >
+      Yes, log out
+    </button>
+    <a
+      href="{% url 'maps:map' %}"
+      style="
+        padding: 10px 20px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        margin-left: 10px;
+      "
+      >Cancel</a
+    >
+  </form>
+</div>
+{% endblock %}

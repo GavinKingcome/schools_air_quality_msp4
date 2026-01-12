@@ -34,3 +34,12 @@ LAEI/ASCII/*.asc
 schools_with_laei.json
 schools_with_laei.csv
 laei_summary.json
+# Database dumps and backups
+*.sql
+*.dump
+*.backup
+
+# PostgreSQL specific
+postgres_data/
+pgdata/
+
