@@ -28,6 +28,9 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+# Air Quality API Keys
+BREATHE_LONDON_API_KEY = config('BREATHE_LONDON_API_KEY', default='')
+
 
 # Application definition
 
@@ -40,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Project apps
     'schools',
-    'airquality',
+    'air_quality',
     'maps',
 ]
 
