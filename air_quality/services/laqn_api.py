@@ -116,36 +116,34 @@ class LAQNApi:
         if end_date is None:
             end_date = datetime.now()
         
-        start_str = start_date.strftime("%d%b%Y")
-        end_str = end_date.strftime("%d%b%Y")
+        # Format dates for LAQN API (DD-Mon-YYYY format required)
+        start_str = start_date.strftime("%d-%b-%Y")
+        end_str = end_date.strftime("%d-%b-%Y")
         
-        endpoint = f"Data/SiteSpecies/SiteCode={site_code}/StartDate={start_str}/EndDate={end_str}"
-        
-        if species:
-            endpoint += f"/SpeciesCode={species}"
+        # Use Data/Site endpoint (not Data/SiteSpecies)
+        endpoint = f"Data/Site/SiteCode={site_code}/StartDate={start_str}/EndDate={end_str}"
         
         data = self._make_request(endpoint)
         
-        # Parse the nested response
+        # Parse the response - Data/Site returns different structure
         readings = []
-        site_data = data.get("RawAQData", {}).get("Data", [])
+        data_items = data.get("AirQualityData", {}).get("Data", [])
         
-        if isinstance(site_data, dict):
-            site_data = [site_data]
+        if isinstance(data_items, dict):
+            data_items = [data_items]
         
-        for species_data in site_data:
-            species_code = species_data.get("@SpeciesCode")
-            values = species_data.get("Data", [])
+        for item in data_items:
+            species_code = item.get("@SpeciesCode")
             
-            if isinstance(values, dict):
-                values = [values]
-            
-            for v in values:
-                readings.append({
-                    'species': species_code,
-                    'timestamp': v.get("@MeasurementDateGMT"),
-                    'value': v.get("@Value"),
-                })
+            # Filter by species if specified
+            if species and species_code != species:
+                continue
+                
+            readings.append({
+                'species': species_code,
+                'timestamp': item.get("@MeasurementDateGMT"),
+                'value': item.get("@Value"),
+            })
         
         return readings
     
@@ -210,8 +208,8 @@ class LAQNApi:
         
         Args:
             site_code: Site code
-            year: Year to retrieve
-            species: Pollutant code
+            year: Year to retrieve (try 2019 for most reliable data)
+            species: Pollutant code (NO2, PM25, PM10, O3)
             
         Returns:
             Annual mean in µg/m³ or None
@@ -220,18 +218,39 @@ class LAQNApi:
         
         try:
             data = self._make_request(endpoint)
-            objectives = data.get("SiteObjectives", {}).get("Objective", [])
+            
+            # Navigate to objectives list
+            site_data = data.get("SiteObjectives", {}).get("Site", {})
+            objectives = site_data.get("Objective", [])
             
             if isinstance(objectives, dict):
                 objectives = [objectives]
             
+            # Map species codes to match API response
+            species_map = {
+                "NO2": "NO2",
+                "PM25": "PM2.5",
+                "PM10": "DUST",  # PM10 reported as DUST in API
+                "O3": "O3"
+            }
+            
+            target_species = species_map.get(species, species)
+            
+            # Find the annual mean objective (not exceedances or capture rate)
             for obj in objectives:
-                if obj.get("@SpeciesCode") == species:
+                obj_species = obj.get("@SpeciesCode")
+                obj_name = obj.get("@ObjectiveName", "").lower()
+                
+                if obj_species == target_species and "annual mean" in obj_name:
                     value = obj.get("@Value")
                     if value:
-                        return float(value)
+                        try:
+                            return float(value)
+                        except (ValueError, TypeError):
+                            continue
+            
         except Exception as e:
-            logger.warning(f"Could not get annual mean for {site_code}: {e}")
+            logger.warning(f"Could not get annual mean for {site_code} {year}: {e}")
         
         return None
 

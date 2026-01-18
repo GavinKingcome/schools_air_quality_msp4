@@ -18,7 +18,8 @@ Usage:
 """
 
 from django.core.management.base import BaseCommand
-from air_quality.models import Sensor, School
+from air_quality.models import Sensor
+from schools.models import School
 from math import radians, sin, cos, sqrt, atan2
 import logging
 
