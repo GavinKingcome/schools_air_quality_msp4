@@ -12,7 +12,7 @@ from django.core.management.base import BaseCommand
 from django.conf import settings
 from django.utils import timezone
 from air_quality.models import Sensor, Reading
-from air_quality.services.breathe_london_api import BreatheLondonApi, PARAMETER_MAP
+from air_quality.services.breathe_london_api import BreatheLondonApi
 from datetime import timedelta
 import logging
 
@@ -71,61 +71,65 @@ class Command(BaseCommand):
         errors = 0
         
         for sensor in sensors:
-            try:
-                # Get OpenAQ location ID from metadata
-                openaq_id = sensor.metadata.get('openaq_id')
-                if not openaq_id:
-                    logger.warning(f'No OpenAQ ID for sensor {sensor.site_code}')
-                    continue
+            try:   
+                # Calculate time range
+                end_time = timezone.now()
+                start_time = end_time - timedelta(hours=hours)
                 
-                # Fetch latest measurements
-                measurements = api.get_latest_measurements(
-                    location_id=openaq_id,
-                    parameters=list(PARAMETER_MAP.keys())
+                # Fetch sensor data from Breathe London API
+                sensor_data = api.get_sensor_data(
+                    site_code=sensor.site_code,  # Use sensor.site_code (e.g., "BL0001")
+                    start_time=start_time,
+                    end_time=end_time 
                 )
                 
-                if not measurements:
+                
+                if not sensor_data:
                     continue
                 
-                # Process measurements - group by timestamp
+                # Process readings - group by timestamp
                 readings_by_time = {}
                 
-                for result in measurements:
-                    # Handle nested structure from latest endpoint
-                    for measurement in result.get('measurements', [result]):
-                        param = measurement.get('parameter', '')
-                        if param not in PARAMETER_MAP:
-                            continue
-                        
-                        value = measurement.get('value')
-                        timestamp_str = measurement.get('date', {}).get('utc') or measurement.get('datetime')
-                        
-                        if value is None or timestamp_str is None:
-                            continue
-                        
-                        # Parse timestamp
-                        try:
-                            if isinstance(timestamp_str, str):
-                                # Handle various ISO formats
-                                timestamp_str = timestamp_str.replace('Z', '+00:00')
-                                from datetime import datetime
-                                timestamp = datetime.fromisoformat(timestamp_str)
-                            else:
-                                timestamp = timestamp_str
-                        except (ValueError, TypeError) as e:
-                            logger.warning(f'Could not parse timestamp {timestamp_str}: {e}')
-                            continue
-                        
-                        # Round to hour for grouping
-                        hour_key = timestamp.replace(minute=0, second=0, microsecond=0)
-                        
-                        if hour_key not in readings_by_time:
-                            readings_by_time[hour_key] = {}
-                        
-                        readings_by_time[hour_key][PARAMETER_MAP[param]] = value
+                for data_point in sensor_data:
+                    timestamp_str = data_point.get('DateTime')
+                    if not timestamp_str:
+                        continue
+                    
+                    # Parse timestamp
+                    try:
+                        from datetime import datetime
+                        # Expected format: "2026-01-25T10:00:00Z" or similar
+                        timestamp_str = timestamp_str.replace('Z', '+00:00')
+                        timestamp = datetime.fromisoformat(timestamp_str)
+                        if timezone.is_naive(timestamp):
+                            timestamp = timezone.make_aware(timestamp)
+                    except (ValueError, TypeError) as e:
+                        logger.warning(f'Could not parse timestamp {timestamp_str}: {e}')
+                        continue
+                    
+                    # Round to hour for grouping
+                    hour_key = timestamp.replace(minute=0, second=0, microsecond=0)
+                    
+                    if hour_key not in readings_by_time:
+                        readings_by_time[hour_key] = {}
+                    
+                    # Extract pollutant value using Species and ScaledValue fields
+                    species = data_point.get('Species')
+                    value = data_point.get('ScaledValue')
+                    
+                    if value is not None:
+                        if species == 'NO2':
+                            readings_by_time[hour_key]['no2'] = float(value)
+                        elif species == 'PM2.5':
+                            readings_by_time[hour_key]['pm25'] = float(value)
+                        elif species == 'PM10':
+                            readings_by_time[hour_key]['pm10'] = float(value)
                 
                 # Create readings
                 for timestamp, values in readings_by_time.items():
+                    if not values:  # Skip empty readings
+                        continue
+                        
                     reading, created = Reading.objects.update_or_create(
                         sensor=sensor,
                         timestamp=timestamp,

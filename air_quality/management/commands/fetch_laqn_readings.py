@@ -92,7 +92,7 @@ class Command(BaseCommand):
                     # Parse timestamp
                     try:
                         ts = datetime.strptime(ts_str, "%Y-%m-%d %H:%M:%S")
-                        ts = timezone.make_aware(ts, timezone.utc)
+                        ts = timezone.make_aware(ts)
                     except ValueError:
                         continue
                     

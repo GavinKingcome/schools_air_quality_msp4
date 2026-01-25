@@ -175,7 +175,7 @@ class School(models.Model):
         
         return result
     
-    def _is_reading_fresh(self, reading, max_age_seconds: int = 7200) -> bool:
+    def _is_reading_fresh(self, reading, max_age_seconds: int = 86400) -> bool:
         """Check if reading is recent enough (default: 2 hours)."""
         if not reading or not reading.timestamp:
             return False
@@ -198,17 +198,21 @@ class School(models.Model):
     
     def _calculate_adjustment_factor(self) -> dict:
         """
-        Calculate adjustment factor: sensor_now / sensor_annual_mean
-        
-        Example: sensor reads 40, annual mean 32 → factor 1.25 (25% above typical)
+        Calculate adjustment factor using daytime readings only.
+        School hours: 7:00 - 18:30
         """
         if not self.reference_sensor:
             return {}
-        
+    
         reading = self.reference_sensor.get_latest_reading()
         if not reading or not self._is_reading_fresh(reading):
             return {}
-        
+    
+        # NEW: Only use daytime readings (7:00-18:30)
+        reading_hour = reading.timestamp.hour
+        if reading_hour < 7 or reading_hour >= 19:
+            return {}  # Skip nighttime readings
+    
         stats = self.reference_sensor.annual_stats.order_by('-year').first()
         if not stats:
             return {}
