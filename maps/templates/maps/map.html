@@ -1,5 +1,14 @@
 {% extends 'base.html' %} {% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'maps/css/map.css' %}" />
+<!-- Leaflet MarkerCluster CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+/>
 
 <style>
   /* Ensure popups appear above all controls */
@@ -26,6 +35,26 @@
 
   .map-search-container {
     z-index: 1000 !important;
+  }
+
+  /* Custom cluster styling for Southwark (blue) */
+  .marker-cluster-southwark {
+    background-color: rgba(41, 128, 185, 0.6);
+  }
+  .marker-cluster-southwark div {
+    background-color: rgba(41, 128, 185, 0.8);
+    color: white;
+    font-weight: bold;
+  }
+
+  /* Custom cluster styling for Lambeth (green) */
+  .marker-cluster-lambeth {
+    background-color: rgba(46, 204, 113, 0.6);
+  }
+  .marker-cluster-lambeth div {
+    background-color: rgba(46, 204, 113, 0.8);
+    color: white;
+    font-weight: bold;
   }
 </style>
 
@@ -105,6 +134,8 @@
   </div>
 </div>
 {% endblock %} {% block extra_js %}
+<!-- Leaflet MarkerCluster JS -->
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
     // Initialize the map
     const map = L.map('map').setView([51.4893, -0.0927], 12);
@@ -159,6 +190,35 @@
   // Create sensor layer group (hidden by default)
     const sensorLayer = L.layerGroup();
 
+  // Create marker cluster groups for each borough
+  const southwarkCluster = L.markerClusterGroup({
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      maxClusterRadius: 50,
+      iconCreateFunction: function(cluster) {
+          return L.divIcon({
+              html: '<div><span>' + cluster.getChildCount() + '</span></div>',
+              className: 'marker-cluster marker-cluster-southwark',
+              iconSize: L.point(40, 40)
+          });
+      }
+  });
+
+  const lambethCluster = L.markerClusterGroup({
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      maxClusterRadius: 50,
+      iconCreateFunction: function(cluster) {
+          return L.divIcon({
+              html: '<div><span>' + cluster.getChildCount() + '</span></div>',
+              className: 'marker-cluster marker-cluster-lambeth',
+              iconSize: L.point(40, 40)
+          });
+      }
+  });
+
   // Helper function to create pollution display with guidelines
     const createPollutantDisplay = (name, value, whoLimit, euLimit, ukLimit) => {
       if (value === null) return '';
@@ -200,7 +260,7 @@
       // Choose icon based on borough field
       const icon = school.borough && school.borough.toLowerCase().includes('southwark') ? southwarkIcon : lambethIcon;
 
-      const marker = L.marker([school.latitude, school.longitude], { icon: icon }).addTo(map);
+      const marker = L.marker([school.latitude, school.longitude], { icon: icon });
 
       const popupContent = `
           <div style="min-width: 300px; max-width: 400px;">
@@ -239,7 +299,18 @@
           autoPanPaddings: [50,50]
       });
       markersMap.set(school.id, { marker, school });
+
+      // Add marker to appropriate cluster
+      if (school.borough === 'Southwark') {
+          southwarkCluster.addLayer(marker);
+      } else {
+          lambethCluster.addLayer(marker);
+      }
   });
+
+  // Add clusters to map
+  map.addLayer(southwarkCluster);
+  map.addLayer(lambethCluster);
 
   // Add sensor markers to layer (not to map yet)
   sensors.forEach(sensor => {
