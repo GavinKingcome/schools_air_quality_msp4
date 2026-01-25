@@ -10,11 +10,11 @@
   .leaflet-popup-pane {
     z-index: 10000 !important;
   }
-  
+
   .leaflet-popup-content-wrapper {
     z-index: 10000 !important;
   }
-  
+
   .leaflet-popup-tip-container {
     z-index: 10000 !important;
   }
@@ -127,6 +127,22 @@
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
     });
+    const laqnSensorIcon = L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+        iconSize: [20, 33],  // Slightly smaller than schools
+        iconAnchor: [10, 33],
+        popupAnchor: [0, -30],
+        shadowSize: [33, 33]
+    });
+    const breatheSensorIcon = L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+        iconSize: [20, 33],
+        iconAnchor: [10, 33],
+        popupAnchor: [0, -30],
+        shadowSize: [33, 33]
+    });
 
     // Add CartoDB Positron tiles
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -136,9 +152,12 @@
 
   // Get schools data from Django
     const schools = {{ schools_json|safe }};
+    const sensors = {{ sensors_json|safe }};
 
   // Store markers for search functionality
     const markersMap = new Map();
+  // Create sensor layer group (hidden by default)
+    const sensorLayer = L.layerGroup();
 
   // Helper function to create pollution display with guidelines
     const createPollutantDisplay = (name, value, whoLimit, euLimit, ukLimit) => {
@@ -192,6 +211,18 @@
               <p><strong>Postcode:</strong> ${school.postcode}</p>
               ${school.student_count ? `<p><strong>Students:</strong> ${school.student_count}</p>` : ''}
 
+              ${school.data_source === 'DIRECT' ? `
+              <p><strong>Data Source:</strong> Direct sensor reading</p>
+              <p style="font-size: 0.85em; color: #28a745;">📍 Sensor ${school.direct_sensor} (genuinely local)</p>
+              ` : school.data_source === 'ADJUSTED' ? `
+              <p><strong>Data Source:</strong> LAEI × sensor adjustment</p>
+              <p style="font-size: 0.85em; color: #ffc107;">📊 Reference sensor ${school.reference_sensor}</p>
+              ` : `
+              <p><strong>Data Source:</strong> LAEI modelled baseline (2022)</p>
+              <p style="font-size: 0.85em; color: #6c757d;">No nearby sensors for real-time data</p>
+            `}
+
+
               ${school.laei_data_available ? `
                   <hr style="margin: 15px 0; border: none; border-top: 1px solid #dee2e6;">
                   <h4 style="margin: 10px 0;">Air Quality Data (2022)</h4>
@@ -203,12 +234,87 @@
       `;
 
       marker.bindPopup(popupContent, {
-        maxWidth: 450,
-        autoPan: true,
-        autoPanPaddings: [50,50]
+          maxWidth: 450,
+          autoPan: true,
+          autoPanPaddings: [50,50]
       });
       markersMap.set(school.id, { marker, school });
   });
+
+  // Add sensor markers to layer (not to map yet)
+  sensors.forEach(sensor => {
+      const icon = sensor.network === 'LAQN' ? laqnSensorIcon : breatheSensorIcon;
+      const marker = L.marker([sensor.latitude, sensor.longitude], { icon: icon });
+
+      const popupContent = `
+          <div style="min-width: 250px;">
+              <h3 style="margin-top: 0;">${sensor.site_code}</h3>
+              <p><strong>Network:</strong> ${sensor.network}</p>
+              <p><strong>Type:</strong> ${sensor.site_type.replace('_', ' ')}</p>
+              <p><strong>Reference Grade:</strong> ${sensor.is_reference_grade ? 'Yes (LAQN)' : 'No (Low-cost calibrated)'}</p>
+              <p><strong>Urban Background:</strong> ${sensor.is_urban_background ? 'Yes' : 'No'}</p>
+          </div>
+      `;
+
+      marker.bindPopup(popupContent);
+      sensorLayer.addLayer(marker);
+  });
+
+  // Add sensor toggle control
+  const sensorToggleControl = L.control({ position: 'topleft' });
+  sensorToggleControl.onAdd = function(map) {
+      const div = L.DomUtil.create('div', 'sensor-toggle-control');
+      div.style.cssText = 'background: white; padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-top: 10px;';
+      div.innerHTML = `
+          <label style="display: flex; align-items: center; cursor: pointer; font-size: 0.9rem;">
+              <input type="checkbox" id="sensorToggle" style="margin-right: 8px; cursor: pointer;">
+              <span>Show Sensors</span>
+          </label>
+      `;
+
+      L.DomEvent.disableClickPropagation(div);
+      return div;
+  };
+  sensorToggleControl.addTo(map);
+
+  // Handle toggle
+  document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+          const toggle = document.getElementById('sensorToggle');
+          if (toggle) {
+              toggle.addEventListener('change', function() {
+                  if (this.checked) {
+                      map.addLayer(sensorLayer);
+                  } else {
+                      map.removeLayer(sensorLayer);
+                  }
+              });
+          }
+      }, 100);
+  });
+
+  // Add sensor legend
+  const sensorLegend = L.control({ position: 'bottomright' });
+  sensorLegend.onAdd = function(map) {
+      const div = L.DomUtil.create('div', 'sensor-legend');
+      div.style.cssText = 'background: white; padding: 12px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.85rem;';
+      div.innerHTML = `
+          <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; font-weight: 600;">Air Quality Sensors</h4>
+          <div style="display: flex; align-items: center; margin-bottom: 6px;">
+              <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png"
+                   style="width: 12px; height: 20px; margin-right: 8px;">
+              <span>LAQN (Reference-grade)</span>
+          </div>
+          <div style="display: flex; align-items: center;">
+              <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png"
+                   style="width: 12px; height: 20px; margin-right: 8px;">
+              <span>Breathe London (Calibrated)</span>
+          </div>
+      `;
+      L.DomEvent.disableClickPropagation(div);
+      return div;
+  };
+  sensorLegend.addTo(map);
 
   // Reset map view when popup closes
   map.on('popupclose', function() {

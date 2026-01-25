@@ -8,7 +8,7 @@ API Documentation: https://www.breathelondon.org/developers
 """
 
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
 from typing import Optional
 import logging
 
@@ -134,9 +134,10 @@ class BreatheLondonApi:
         if species:
             params["Species"] = species
         if start_time:
-            params["startTime"] = start_time.isoformat() + "Z"
+            # Convert to UTC and format without timezone suffix, then add Z
+            params["startTime"] = start_time.astimezone(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
         if end_time:
-            params["endTime"] = end_time.isoformat() + "Z"
+            params["endTime"] = end_time.astimezone(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
         
         data = self._make_request("SensorData", params)
         return data if isinstance(data, list) else []

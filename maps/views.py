@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from schools.models import School
+from air_quality.models import Sensor
 import json
 
 def map_view(request):
-    """Display all schools on a map"""
+    """Display all schools and sensors on a map"""
     schools = School.objects.all()
+    sensors = Sensor.objects.filter(is_active=True)
     
     # Prepare school data for JavaScript
     schools_data = []
@@ -27,10 +29,29 @@ def map_view(request):
             'pm10_mean_2022': float(school.pm10_mean_2022) if school.pm10_mean_2022 else None,
             'pm10_days_2022': float(school.pm10_days_2022) if school.pm10_days_2022 else None,
             'laei_data_available': school.laei_data_available,
+            # Sensor relationships
+            'data_source': school.data_source,
+            'direct_sensor': school.direct_sensor.site_code if school.direct_sensor else None,
+            'reference_sensor': school.reference_sensor.site_code if school.reference_sensor else None,
+        })
+    
+    # Prepare sensor data for JavaScript
+    sensors_data = []
+    for sensor in sensors:
+        sensors_data.append({
+            'site_code': sensor.site_code,
+            'name': sensor.site_code,
+            'network': sensor.network,
+            'site_type': sensor.site_type,
+            'latitude': float(sensor.latitude),
+            'longitude': float(sensor.longitude),
+            'is_reference_grade': sensor.is_reference_grade,
+            'is_urban_background': sensor.is_urban_background,
         })
     
     context = {
-        'schools_json': json.dumps(schools_data)
+        'schools_json': json.dumps(schools_data),
+        'sensors_json': json.dumps(sensors_data),
     }
     
     return render(request, 'maps/map.html', context)
