@@ -41,6 +41,16 @@ class LAQNApi:
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
+            # Check if the error response contains "no row at position 0"
+            # This indicates the LAQN database has no data for this request
+            if hasattr(e, 'response') and e.response is not None:
+                response_text = e.response.text.lower()
+                if "no row at position 0" in response_text:
+                    # Return a special marker that indicates no data
+                    # The caller can handle this appropriately
+                    logger.info(f"LAQN API: No data available for endpoint {endpoint}")
+                    return {"_no_data": True}
+            
             logger.error(f"LAQN API request failed: {e}")
             raise
     
@@ -109,7 +119,7 @@ class LAQNApi:
             species: Specific pollutant (NO2, PM25, PM10, O3) or all
             
         Returns:
-            List of reading dictionaries
+            List of reading dictionaries (empty list if no data available)
         """
         if start_date is None:
             start_date = datetime.now() - timedelta(days=1)
@@ -123,7 +133,16 @@ class LAQNApi:
         # Use Data/Site endpoint (not Data/SiteSpecies)
         endpoint = f"Data/Site/SiteCode={site_code}/StartDate={start_str}/EndDate={end_str}"
         
-        data = self._make_request(endpoint)
+        try:
+            data = self._make_request(endpoint)
+        except requests.exceptions.RequestException:
+            # Re-raise actual API errors (not "no data" scenarios)
+            raise
+        
+        # Check if this is a "no data" response
+        if data.get("_no_data"):
+            logger.info(f"No data available for {site_code} in date range {start_str} to {end_str}")
+            return []
         
         # Parse the response - Data/Site returns different structure
         readings = []

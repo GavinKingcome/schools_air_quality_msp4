@@ -1,0 +1,1 @@
+0 7-18 * * 1-5 cd /Users/GK/Documents/vscode-projects/schools_air_quality_msp4 && /Users/GK/Documents/vscode-projects/schools_air_quality_msp4/venv/bin/python manage.py fetch_all_readings --hours=8 >> /tmp/sensor_fetch.log 2>&1

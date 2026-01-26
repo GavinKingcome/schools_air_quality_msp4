@@ -278,14 +278,14 @@
               <p><strong>Data Source:</strong> LAEI × sensor adjustment</p>
               <p style="font-size: 0.85em; color: #ffc107;">📊 Reference sensor ${school.reference_sensor}</p>
               ` : `
-              <p><strong>Data Source:</strong> LAEI modelled baseline (2022)</p>
+              <p><strong>Data Source:</strong> LAEI modeled baseline</p>
               <p style="font-size: 0.85em; color: #6c757d;">No nearby sensors for real-time data</p>
             `}
 
 
               ${school.laei_data_available ? `
                   <hr style="margin: 15px 0; border: none; border-top: 1px solid #dee2e6;">
-                  <h4 style="margin: 10px 0;">Air Quality Data (2022)</h4>
+                  <h4 style="margin: 10px 0;">Modeled Annual Averages</h4>
                   ${createPollutantDisplay('NO₂', school.no2_2022, 10, 20, 40)}
                   ${createPollutantDisplay('PM2.5', school.pm25_2022, 5, 10, 25)}
                   ${createPollutantDisplay('PM10', school.pm10_mean_2022, 15, 20, 40)}
