@@ -11,6 +11,18 @@ def map_view(request):
     # Prepare school data for JavaScript
     schools_data = []
     for school in schools:
+        # Get current reading to determine actual data source
+        current_reading = school.get_current_reading()
+        method = current_reading.get('method', '')
+        
+        # Map method to data_source for template
+        if method == 'direct':
+            data_source = 'DIRECT'
+        elif method == 'laei_adjusted':
+            data_source = 'ADJUSTED'
+        else:  # laei_only or empty
+            data_source = 'LAEI_ONLY'
+        
         schools_data.append({
             'id': school.id,
             'name': school.name,
@@ -29,8 +41,8 @@ def map_view(request):
             'pm10_mean_2022': float(school.pm10_mean_2022) if school.pm10_mean_2022 else None,
             'pm10_days_2022': float(school.pm10_days_2022) if school.pm10_days_2022 else None,
             'laei_data_available': school.laei_data_available,
-            # Sensor relationships
-            'data_source': school.data_source,
+            # Dynamic data source based on current sensor availability
+            'data_source': data_source,
             'direct_sensor': school.direct_sensor.site_code if school.direct_sensor else None,
             'reference_sensor': school.reference_sensor.site_code if school.reference_sensor else None,
         })

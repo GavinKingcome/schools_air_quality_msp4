@@ -69,6 +69,7 @@ class Command(BaseCommand):
         
         readings_created = 0
         sensors_updated = 0
+        sensors_no_data = 0  # New counter for sensors with no data
         errors = 0
         
         for sensor in sensors:
@@ -78,6 +79,11 @@ class Command(BaseCommand):
                     start_date=start_date,
                     end_date=end_date
                 )
+                
+                # Check if sensor has no data
+                if not raw_readings:
+                    sensors_no_data += 1
+                    continue
                 
                 # Group by timestamp
                 by_time = {}
@@ -133,6 +139,7 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.SUCCESS(
                 f'\nFetch complete: {readings_created} readings created '
-                f'from {sensors_updated} sensors ({errors} errors)'
+                f'from {sensors_updated} sensors '
+                f'({sensors_no_data} no data, {errors} errors)'
             )
         )
