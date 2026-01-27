@@ -299,7 +299,7 @@
               <p style="font-size: 0.85em; color: #28a745;">📍 Sensor ${school.direct_sensor} (genuinely local)</p>
               ` : school.data_source === 'ADJUSTED' ? `
               <p><strong>Data Source:</strong> LAEI × sensor adjustment</p>
-              <p style="font-size: 0.85em; color: #ffc107;">📊 Reference sensor ${school.reference_sensor}</p>
+              <p style="font-size: 0.85em; color: #ffc107;">📊 Reference sensor ${school.reference_sensor}${school.is_school_hours === false && school.reading_timestamp ? ' ⏰ (latest reading from outside school hours)' : ''}</p>
               ` : `
               <p><strong>Data Source:</strong> LAEI modeled baseline</p>
               <p style="font-size: 0.85em; color: #6c757d;">No nearby sensors for real-time data</p>
@@ -493,7 +493,7 @@
                     searchInput.value = school.name;
                     searchResults.style.display = 'none';
                     clearButton.style.display = 'block';
-                    
+
                     // Show sensor toggle again when dropdown closes
                     const sensorToggle = document.querySelector('.sensor-toggle-control');
                     if (sensorToggle) sensorToggle.style.display = 'block';
