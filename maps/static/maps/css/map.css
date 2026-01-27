@@ -29,6 +29,27 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
+/* Clear Button */
+#clearSearch {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  padding: 5px 8px;
+  display: none;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+#clearSearch:hover {
+  color: #333;
+}
+
 /* Dropdown Results */
 .search-results {
   background: white;
@@ -38,6 +59,8 @@
   max-height: 400px;
   overflow-y: auto;
   display: none;
+  position: relative;
+  z-index: 2000;
 }
 
 .search-results.show {
@@ -80,16 +103,29 @@
 /* Map Legend */
 .map-legend {
   position: absolute;
-  bottom: 30px;
+  bottom: 150px;
   left: 20px;
-  z-index: 1000;
-  background: white;
+  z-index: 500;
+  background: rgba(255, 255, 255, 0.5);
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.map-legend h4 {
+/* Sensor Legend */
+.sensor-legend {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  z-index: 500;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.map-legend h4,
+.sensor-legend h4 {
   margin: 0 0 10px 0;
   font-size: 0.95rem;
   font-weight: 600;
@@ -117,15 +153,22 @@
   color: #666;
 }
 
-/* Mobile adjustments for legend */
+/* Mobile adjustments for legends */
 @media (max-width: 768px) {
   .map-legend {
-    bottom: 15px;
-    left: 10px;
+    bottom: 110px;
+    left: 15px;
     padding: 12px;
   }
 
-  .map-legend h4 {
+  .sensor-legend {
+    bottom: 15px;
+    left: 15px;
+    padding: 12px;
+  }
+
+  .map-legend h4,
+  .sensor-legend h4 {
     font-size: 0.85rem;
     margin-bottom: 8px;
   }
@@ -147,56 +190,100 @@
 
 @media (max-width: 768px) {
   #map {
-    height: calc(
-      100vh - 80px
-    ); /* Reduced from 100px - less space taken by smaller header */
-  }
-  /* Move Leaflet zoom controls to top-right, aligned with search box */
-  #map .leaflet-top.leaflet-left {
-    top: 10px;
-    left: auto;
-    right: 15px;
+    height: calc(100vh - 120px);
   }
 
+  /* Move search container to top, spanning full width */
   .map-search-container {
-    top: 10px; /* Closer to edge (was 20px) */
-    right: 10px; /* Less margin on right */
-    left: 15px; /* ADD left margin - makes it span full width minus 15px each side */
-    width: auto; /* Instead of fixed 300px, it stretches to fill left/right margins */
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    width: auto;
   }
 
   .map-search-container input {
-    padding: 10px 35px 10px 12px; /* Slightly smaller padding (was 12px) */
-    font-size: 0.9rem; /* Smaller text (was 0.95rem) */
+    padding: 10px 35px 10px 12px;
+    font-size: 0.9rem;
   }
 
   .search-results {
-    max-height: 300px; /* Shorter dropdown (was 400px) - leaves more map visible */
+    max-height: 250px;
   }
 
   .search-result-item {
-    padding: 10px 12px; /* Tighter spacing (was 12px 15px) */
+    padding: 10px 12px;
   }
 
   .search-result-name {
-    font-size: 0.9rem; /* Smaller school names */
+    font-size: 0.9rem;
   }
 
   .search-result-details {
-    font-size: 0.8rem; /* Smaller postcode/city text (was 0.85rem) */
+    font-size: 0.8rem;
+  }
+
+  /* Move zoom controls to bottom-right */
+  .leaflet-control-zoom {
+    display: none !important;
+  }
+
+  /* Keep sensor toggle visible but move to top-left with more spacing */
+  .sensor-toggle-control {
+    margin-top: 80px !important;
   }
 }
 
 @media (max-width: 480px) {
   #map {
-    height: calc(100vh - 70px); /* Even less header space */
+    height: calc(100vh - 110px);
   }
 
   .map-search-container {
-    top: 8px; /* Even closer to edge */
-    right: 8px;
+    top: 8px;
     left: 8px;
+    right: 8px;
   }
+
+  .map-search-container input {
+    font-size: 0.85rem;
+    padding: 8px 32px 8px 10px;
+  }
+
+  /* Even more compact legends */
+  .map-legend {
+    bottom: 175px;
+    left: 12px;
+    padding: 8px;
+    width: 110px;
+  }
+
+  .sensor-legend {
+    bottom: 10px;
+    left: 12px;
+    padding: 8px;
+    width: 110px;
+  }
+
+  .map-legend h4,
+  .sensor-legend h4 {
+    font-size: 0.75rem;
+    margin-bottom: 5px;
+  }
+
+  .legend-item {
+    gap: 4px;
+    margin-bottom: 3px;
+  }
+
+  .legend-item span {
+    font-size: 0.7rem;
+  }
+
+  .legend-item img {
+    width: 10px;
+    height: 16px;
+  }
+}
 
   .search-results {
     max-height: 250px; /* Even shorter dropdown */
