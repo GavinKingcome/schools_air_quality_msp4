@@ -37,6 +37,10 @@
     z-index: 1000 !important;
   }
 
+  .sensor-toggle-control {
+    z-index: 1000 !important;
+  }
+
   /* Custom cluster styling for Southwark (blue) */
   .marker-cluster-southwark {
     background-color: rgba(41, 128, 185, 0.6);
@@ -130,6 +134,25 @@
         alt="Lambeth"
       />
       <span>Lambeth</span>
+    </div>
+  </div>
+
+  <!-- Sensor Legend -->
+  <div class="sensor-legend">
+    <h4>Air Quality Sensors</h4>
+    <div class="legend-item">
+      <img
+        src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png"
+        alt="LAQN"
+      />
+      <span>LAQN (Reference-grade)</span>
+    </div>
+    <div class="legend-item">
+      <img
+        src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png"
+        alt="Breathe London"
+      />
+      <span>Breathe London (Calibrated)</span>
     </div>
   </div>
 </div>
@@ -364,33 +387,29 @@
       }, 100);
   });
 
-  // Add sensor legend
-  const sensorLegend = L.control({ position: 'bottomright' });
-  sensorLegend.onAdd = function(map) {
-      const div = L.DomUtil.create('div', 'sensor-legend');
-      div.style.cssText = 'background: white; padding: 12px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.85rem;';
-      div.innerHTML = `
-          <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; font-weight: 600;">Air Quality Sensors</h4>
-          <div style="display: flex; align-items: center; margin-bottom: 6px;">
-              <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png"
-                   style="width: 12px; height: 20px; margin-right: 8px;">
-              <span>LAQN (Reference-grade)</span>
-          </div>
-          <div style="display: flex; align-items: center;">
-              <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png"
-                   style="width: 12px; height: 20px; margin-right: 8px;">
-              <span>Breathe London (Calibrated)</span>
-          </div>
-      `;
-      L.DomEvent.disableClickPropagation(div);
-      return div;
-  };
-  sensorLegend.addTo(map);
-
   // Reset map view when popup closes
   map.on('popupclose', function() {
       if (window.originalMapBounds) {
           map.fitBounds(window.originalMapBounds, window.originalMapZoomOptions);
+      }
+      // Show legends and controls again on mobile
+      if (window.innerWidth <= 768) {
+          document.querySelector('.map-legend').style.display = 'block';
+          document.querySelector('.sensor-legend').style.display = 'block';
+          document.querySelector('.map-search-container').style.display = 'block';
+          const toggleControl = document.querySelector('.sensor-toggle-control');
+          if (toggleControl) toggleControl.style.display = 'block';
+      }
+  });
+
+  // Hide legends and controls on mobile when popup opens (so popup appears on top)
+  map.on('popupopen', function() {
+      if (window.innerWidth <= 768) {
+          document.querySelector('.map-legend').style.display = 'none';
+          document.querySelector('.sensor-legend').style.display = 'none';
+          document.querySelector('.map-search-container').style.display = 'none';
+          const toggleControl = document.querySelector('.sensor-toggle-control');
+          if (toggleControl) toggleControl.style.display = 'none';
       }
   });
 
@@ -420,6 +439,7 @@
 
     searchInput.addEventListener('input', function(e) {
         const searchTerm = e.target.value.toLowerCase().trim();
+        const sensorToggle = document.querySelector('.sensor-toggle-control');
 
         // Show/hide clear button
         clearButton.style.display = this.value ? 'block' : 'none';
@@ -427,6 +447,8 @@
         if (searchTerm === '') {
             searchResults.style.display = 'none';
             searchResults.innerHTML = '';
+            // Show sensor toggle again when search cleared
+            if (sensorToggle) sensorToggle.style.display = 'block';
             // Reset all markers to full opacity
             markersMap.forEach(({marker}) => marker.setOpacity(1));
             return;
@@ -448,6 +470,8 @@
                 </div>
             `).join('');
             searchResults.style.display = 'block';
+            // Hide sensor toggle when dropdown shows
+            if (sensorToggle) sensorToggle.style.display = 'none';
 
             // Add click handlers to results
             document.querySelectorAll('.search-result-item').forEach(item => {
@@ -469,6 +493,10 @@
                     searchInput.value = school.name;
                     searchResults.style.display = 'none';
                     clearButton.style.display = 'block';
+                    
+                    // Show sensor toggle again when dropdown closes
+                    const sensorToggle = document.querySelector('.sensor-toggle-control');
+                    if (sensorToggle) sensorToggle.style.display = 'block';
                 });
             });
         } else {
@@ -491,6 +519,10 @@
         searchInput.value = '';
         searchResults.style.display = 'none';
         clearButton.style.display = 'none';
+
+        // Show sensor toggle again
+        const sensorToggle = document.querySelector('.sensor-toggle-control');
+        if (sensorToggle) sensorToggle.style.display = 'block';
 
         // Reset all markers to full opacity
         markersMap.forEach(({marker}) => marker.setOpacity(1));
