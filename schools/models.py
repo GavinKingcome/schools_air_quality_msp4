@@ -198,8 +198,7 @@ class School(models.Model):
     
     def _calculate_adjustment_factor(self) -> dict:
         """
-        Calculate adjustment factor using daytime readings only.
-        School hours: 7:00 - 18:30
+        Calculate adjustment factor from reference sensor readings.
         """
         if not self.reference_sensor:
             return {}
@@ -208,16 +207,18 @@ class School(models.Model):
         if not reading or not self._is_reading_fresh(reading):
             return {}
     
-        # NEW: Only use daytime readings (7:00-18:30)
+        # Check if reading is from outside school hours (7:00-18:30)
         reading_hour = reading.timestamp.hour
-        if reading_hour < 7 or reading_hour >= 19:
-            return {}  # Skip nighttime readings
+        is_school_hours = 7 <= reading_hour < 19
     
         stats = self.reference_sensor.annual_stats.order_by('-year').first()
         if not stats:
             return {}
         
-        factors = {}
+        factors = {
+            'reading_timestamp': reading.timestamp,
+            'is_school_hours': is_school_hours,
+        }
         
         if reading.no2 and stats.no2_mean and float(stats.no2_mean) > 0:
             factors['no2'] = round(float(reading.no2) / float(stats.no2_mean), 3)

@@ -23,6 +23,11 @@ def map_view(request):
         else:  # laei_only or empty
             data_source = 'LAEI_ONLY'
         
+        # Get adjustment factor info if available
+        adjustment_factors = current_reading.get('adjustment_factors', {})
+        reading_timestamp = adjustment_factors.get('reading_timestamp')
+        is_school_hours = adjustment_factors.get('is_school_hours', True)
+        
         schools_data.append({
             'id': school.id,
             'name': school.name,
@@ -45,6 +50,8 @@ def map_view(request):
             'data_source': data_source,
             'direct_sensor': school.direct_sensor.site_code if school.direct_sensor else None,
             'reference_sensor': school.reference_sensor.site_code if school.reference_sensor else None,
+            'reading_timestamp': reading_timestamp.isoformat() if reading_timestamp else None,
+            'is_school_hours': is_school_hours,
         })
     
     # Prepare sensor data for JavaScript
