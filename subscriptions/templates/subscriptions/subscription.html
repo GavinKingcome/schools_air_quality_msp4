@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Subscription{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6" style="padding-left: 2rem; padding-right: 1rem;">
+            <h2>Air Quality Dashboard Subscription</h2>
+            
+            {% if subscription and subscription.is_active %}
+                <div class="alert alert-success">
+                    <h4>✓ Active Subscription</h4>
+                    <p>Your subscription is active until {{ subscription.current_period_end|date:"F d, Y" }}</p>
+                    <p>{{ subscription.days_remaining }} days remaining</p>
+                    <a href="{% url 'subscriptions:manage_subscription' %}" class="btn btn-primary">Manage Subscription</a>
+                </div>
+            {% else %}
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Subscribe to Access the Dashboard</h4>
+                        <p class="card-text">Get full access to the Air Quality Dashboard for schools in Lambeth and Southwark.</p>
+                        
+                        <div class="pricing my-4">
+                            <h3>£2.50 <small class="text-muted">/ month</small></h3>
+                            <ul class="list-unstyled mt-3">
+                                <li>✓ Real-time air quality data</li>
+                                <li>✓ Interactive map with all sensors</li>
+                                <li>✓ School-specific pollution levels</li>
+                            </ul>
+                        </div>
+                        
+                        <form method="post" action="{% url 'subscriptions:create_checkout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Subscribe Now</button>
+                        </form>
+                        
+                        <p class="text-muted mt-3">
+                            <small>Secure payment powered by Stripe. Cancel anytime.</small>
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe("{{ stripe_publishable_key }}");
+</script>
+{% endblock %}

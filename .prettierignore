@@ -1,0 +1,4 @@
+# Ignore Django template files to prevent formatting issues with template tags
+subscriptions/templates/**/*.html
+templates/**/*.html
+**/templates/**/*.html

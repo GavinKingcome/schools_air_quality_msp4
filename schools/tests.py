@@ -1,11 +1,14 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 from decimal import Decimal
+from datetime import timedelta
 from .models import School
+from air_quality.models import Sensor, Reading, SensorAnnualStats
 
-# Create your tests here.
-class SchoolModelTest(TestCase):
-    """Test cases for the School model"""
+
+class SchoolModelBasicTest(TestCase):
+    """Test cases for basic School model functionality"""
     
     def setUp(self):
         """Create a test school"""
@@ -16,8 +19,13 @@ class SchoolModelTest(TestCase):
             postcode="SE1 1AA",
             latitude=Decimal("51.5074"),
             longitude=Decimal("-0.1278"),
+            borough="Lambeth",
             school_type="primary",
-            student_count=250
+            student_count=250,
+            no2_2022=Decimal("35.5"),
+            pm25_2022=Decimal("12.3"),
+            pm10_mean_2022=Decimal("18.7"),
+            laei_data_available=True
         )
     
     def test_school_creation(self):
@@ -25,6 +33,7 @@ class SchoolModelTest(TestCase):
         self.assertEqual(self.school.name, "Test Primary School")
         self.assertEqual(self.school.city, "London")
         self.assertEqual(self.school.school_type, "primary")
+        self.assertEqual(self.school.borough, "Lambeth")
     
     def test_school_str_method(self):
         """Test the string representation of a school"""
@@ -38,6 +47,13 @@ class SchoolModelTest(TestCase):
     def test_school_type_choices(self):
         """Test that only valid school types are accepted"""
         self.assertIn(self.school.school_type, ['nursery', 'primary'])
+    
+    def test_school_laei_baseline_data(self):
+        """Test LAEI 2022 baseline data storage"""
+        self.assertEqual(self.school.no2_2022, Decimal("35.5"))
+        self.assertEqual(self.school.pm25_2022, Decimal("12.3"))
+        self.assertEqual(self.school.pm10_mean_2022, Decimal("18.7"))
+        self.assertTrue(self.school.laei_data_available)
     
     def test_school_optional_fields(self):
         """Test that optional fields can be null/blank"""

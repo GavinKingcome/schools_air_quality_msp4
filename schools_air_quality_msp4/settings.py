@@ -31,6 +31,12 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # Air Quality API Keys
 BREATHE_LONDON_API_KEY = config('BREATHE_LONDON_API_KEY', default='')
 
+# Stripe Configuration
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY', default='')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET', default='')
+STRIPE_PRICE_ID = config('STRIPE_PRICE_ID', default='')  # Your Stripe price ID
+
 
 # Application definition
 
@@ -45,6 +51,7 @@ INSTALLED_APPS = [
     'schools',
     'air_quality',
     'maps',
+    'subscriptions',
 ]
 
 MIDDLEWARE = [
@@ -130,5 +137,6 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-# Logout redirect
+# Login/Logout redirects
+LOGIN_REDIRECT_URL = '/map/'
 LOGOUT_REDIRECT_URL = '/'

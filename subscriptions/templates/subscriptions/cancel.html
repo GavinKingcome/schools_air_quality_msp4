@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Subscription Cancelled{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h2>Subscription Cancelled</h2>
+            <p class="lead">Your subscription process was cancelled. No charges were made.</p>
+            <a href="{% url 'subscriptions:subscription_page' %}" class="btn btn-primary mt-3">Try Again</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

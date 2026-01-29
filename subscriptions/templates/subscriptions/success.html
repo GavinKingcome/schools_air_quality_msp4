@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Subscription Successful{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h2>✓ Subscription Successful!</h2>
+            <p class="lead">Thank you for subscribing. You now have full access to the Air Quality Dashboard.</p>
+            <a href="{% url 'map_view' %}" class="btn btn-primary btn-lg mt-3">Go to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
