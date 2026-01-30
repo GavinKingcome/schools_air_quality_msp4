@@ -4,6 +4,14 @@
 
 **AirAware London** - Django-based web application providing real-time air quality monitoring for 133 schools across Lambeth and Southwark boroughs.
 
+## Live Deployment 🌐
+
+**Heroku URL:** https://schools-air-quality-msp4.herokuapp.com
+
+![Deployed on Heroku](docs/screenshots/heroku-deployed.png)
+
+The application is fully deployed and functional on Heroku with all 133 schools and 42 sensors loaded.
+
 ---
 
 ## Demo Credentials
