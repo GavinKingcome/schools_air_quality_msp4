@@ -284,9 +284,3 @@
     height: 16px;
   }
 }
-
-  .search-results {
-    max-height: 250px; /* Even shorter dropdown */
-    font-size: 0.85rem; /* Slightly smaller base text */
-  }
-}

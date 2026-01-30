@@ -74,7 +74,7 @@
 
   <!-- Map Legend -->
   <div class="map-legend">
-    <h4>Borough</h4>
+    <h2>Borough</h2>
     <div class="legend-item">
       <img
         src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png"
@@ -93,7 +93,7 @@
 
   <!-- Sensor Legend -->
   <div class="sensor-legend">
-    <h4>Air Quality Sensors</h4>
+    <h2>Air Quality Sensors</h2>
     <div class="legend-item">
       <img
         src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png"
@@ -172,7 +172,7 @@
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
       zoomToBoundsOnClick: true,
-      maxClusterRadius: 50,
+      maxClusterRadius: 90,
       iconCreateFunction: function(cluster) {
           return L.divIcon({
               html: '<div><span>' + cluster.getChildCount() + '</span></div>',
@@ -186,7 +186,7 @@
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
       zoomToBoundsOnClick: true,
-      maxClusterRadius: 50,
+      maxClusterRadius: 90,
       iconCreateFunction: function(cluster) {
           return L.divIcon({
               html: '<div><span>' + cluster.getChildCount() + '</span></div>',
@@ -316,7 +316,7 @@
       div.innerHTML = `
           <label style="display: flex; align-items: center; cursor: pointer; font-size: 0.9rem;">
               <input type="checkbox" id="sensorToggle" style="margin-right: 8px; cursor: pointer;">
-              <span>Show Sensors</span>
+              <span>Show Active Sensors</span>
           </label>
       `;
 

@@ -1,0 +1,214 @@
+// Database Schema for AirAware London
+// Use at: https://dbdiagram.io
+// PostgreSQL + TimescaleDB for time-series data
+
+Table users {
+  id integer [pk, increment]
+  username varchar(150) [unique, not null]
+  email varchar(254)
+  password varchar(128) [not null]
+  first_name varchar(150)
+  last_name varchar(150)
+  is_staff boolean [default: false]
+  is_active boolean [default: true]
+  is_superuser boolean [default: false]
+  date_joined timestamp [default: `now()`]
+  last_login timestamp
+  
+  Note: 'Django built-in User model for authentication'
+}
+
+Table schools {
+  id integer [pk, increment]
+  name varchar(255) [not null]
+  address varchar(255) [not null]
+  city varchar(100)
+  postcode varchar(10)
+  borough varchar(100)
+  
+  // Contact
+  phone varchar(20)
+  email varchar(254)
+  website varchar(200)
+  
+  // Location
+  latitude decimal(9,6) [not null]
+  longitude decimal(9,6) [not null]
+  
+  // School metadata
+  school_type varchar(50) [default: 'primary', note: 'nursery or primary']
+  student_count integer
+  
+  // LAEI 2022 Baseline Data (modelled pollution)
+  no2_2022 decimal(6,2) [note: 'Nitrogen Dioxide µg/m³']
+  nox_2022 decimal(6,2) [note: 'Nitrogen Oxides µg/m³']
+  pm25_2022 decimal(6,2) [note: 'PM2.5 µg/m³']
+  pm10_mean_2022 decimal(6,2) [note: 'PM10 annual mean µg/m³']
+  pm10_days_2022 decimal(6,2) [note: 'Days exceeding PM10 limit']
+  laei_data_available boolean [default: false]
+  
+  // Sensor Integration
+  data_source varchar(20) [default: 'LAEI', note: 'DIRECT | ADJUSTED | LAEI']
+  direct_sensor_id integer [ref: > sensors.id, note: 'Urban background sensor within 150m']
+  direct_sensor_distance decimal(7,1) [note: 'Distance in meters']
+  reference_sensor_id integer [ref: > sensors.id, note: 'Nearest LAQN for adjustment']
+  reference_sensor_distance decimal(8,1) [note: 'Distance in meters']
+  
+  // Timestamps
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  Indexes {
+    (latitude, longitude) [name: 'idx_schools_location']
+    borough [name: 'idx_schools_borough']
+    data_source [name: 'idx_schools_data_source']
+  }
+  
+  Note: 'Primary schools and nurseries in Lambeth/Southwark with air quality data'
+}
+
+Table sensors {
+  id integer [pk, increment]
+  site_code varchar(50) [unique, not null]
+  name varchar(200) [not null]
+  
+  // Location
+  latitude float [not null]
+  longitude float [not null]
+  
+  // Classification
+  network varchar(20) [not null, note: 'LAQN or BREATHE']
+  site_type varchar(30) [default: 'urban_background', note: 'roadside | urban_background | kerbside etc']
+  borough varchar(100)
+  
+  // Status
+  is_active boolean [default: true]
+  date_opened date
+  date_closed date
+  
+  // Metadata (JSON field)
+  metadata jsonb [note: 'Network-specific configuration']
+  
+  // Timestamps
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  Indexes {
+    (network, is_active) [name: 'idx_sensors_network_active']
+    (latitude, longitude) [name: 'idx_sensors_location']
+    site_type [name: 'idx_sensors_type']
+  }
+  
+  Note: 'Air quality monitoring stations from LAQN (reference-grade) and Breathe London (calibrated low-cost)'
+}
+
+Table readings {
+  id integer [pk, increment]
+  sensor_id integer [ref: > sensors.id, not null]
+  
+  // Time-series data (TimescaleDB hypertable)
+  timestamp timestamp [not null]
+  
+  // Pollutant concentrations (µg/m³)
+  no2 decimal(8,3) [note: 'Nitrogen Dioxide']
+  nox decimal(8,3) [note: 'Nitrogen Oxides']
+  pm25 decimal(8,3) [note: 'Particulate Matter 2.5µm']
+  pm10 decimal(8,3) [note: 'Particulate Matter 10µm']
+  o3 decimal(8,3) [note: 'Ozone']
+  
+  // Data quality
+  is_ratified boolean [default: false, note: 'LAQN data validation status']
+  data_source varchar(50) [note: 'API source identifier']
+  
+  // Timestamps
+  created_at timestamp [default: `now()`]
+  
+  Indexes {
+    (sensor_id, timestamp) [name: 'idx_readings_sensor_time']
+    timestamp [name: 'idx_readings_timestamp']
+  }
+  
+  Note: 'Hourly pollution readings - TimescaleDB optimized for time-series queries'
+}
+
+Table sensor_annual_stats {
+  id integer [pk, increment]
+  sensor_id integer [ref: > sensors.id, not null]
+  year integer [not null]
+  
+  // Annual averages (µg/m³)
+  no2_mean decimal(8,3)
+  nox_mean decimal(8,3)
+  pm25_mean decimal(8,3)
+  pm10_mean decimal(8,3)
+  
+  // Data completeness
+  data_capture_percent decimal(5,2) [note: 'Percentage of valid readings']
+  reading_count integer
+  
+  // Timestamps
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  Indexes {
+    (sensor_id, year) [unique, name: 'idx_stats_sensor_year']
+  }
+  
+  Note: 'Pre-calculated annual statistics for performance'
+}
+
+Table subscriptions {
+  id integer [pk, increment]
+  user_id integer [ref: - users.id, unique, not null]
+  
+  // Stripe integration
+  stripe_customer_id varchar(255)
+  stripe_subscription_id varchar(255)
+  
+  // Subscription status
+  status varchar(20) [default: 'incomplete', note: 'active | canceled | past_due | trialing | incomplete']
+  current_period_start timestamp
+  current_period_end timestamp
+  
+  // Timestamps
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  Indexes {
+    status [name: 'idx_subscriptions_status']
+    user_id [name: 'idx_subscriptions_user']
+  }
+  
+  Note: 'User subscriptions for dashboard access - £2.50/month via Stripe'
+}
+
+Table payments {
+  id integer [pk, increment]
+  subscription_id integer [ref: > subscriptions.id, not null]
+  
+  // Stripe payment tracking
+  stripe_payment_intent_id varchar(255) [unique, not null]
+  
+  // Payment details
+  amount decimal(10,2) [not null]
+  currency varchar(3) [default: 'gbp']
+  status varchar(20) [default: 'pending', note: 'succeeded | pending | failed | refunded']
+  
+  // Timestamp
+  created_at timestamp [default: `now()`]
+  
+  Indexes {
+    (subscription_id, created_at) [name: 'idx_payments_subscription']
+    status [name: 'idx_payments_status']
+  }
+  
+  Note: 'Payment audit trail for customer support and financial records'
+}
+
+// Relationships Summary:
+// - User 1:1 Subscription (one subscription per user)
+// - Subscription 1:N Payments (payment history)
+// - Sensor 1:N Readings (time-series data)
+// - Sensor 1:N SensorAnnualStats (aggregated statistics)
+// - Sensor 1:N Schools (as direct_sensor - urban background within 150m)
+// - Sensor 1:N Schools (as reference_sensor - nearest LAQN for adjustment)
