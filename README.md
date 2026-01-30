@@ -593,6 +593,8 @@ This project is licensed under the MIT License.
 - **Greater London Authority** - LAEI 2022 modelled data
 - **OpenAQ** - Open air quality data platform
 - **Code Institute** - Project supervision and guidance
+- **GitHub Copilot** - AI-powered development assistance
+- **William S. Vincent** - *Django for Beginners* - Foundational Django concepts and best practices
 
 ---
 
