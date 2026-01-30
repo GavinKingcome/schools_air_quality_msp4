@@ -1,0 +1,818 @@
+[
+{
+  "model": "air_quality.sensor",
+  "pk": 1,
+  "fields": {
+    "site_code": "LB5",
+    "name": "Lambeth - Bondway Interchange",
+    "latitude": 51.4854867739729,
+    "longitude": -0.124545234819213,
+    "network": "LAQN",
+    "site_type": "industrial",
+    "borough": "Lambeth",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=LB5",
+      "data_owner": "Lambeth",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.138Z",
+    "updated_at": "2026-01-18T14:05:59.138Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 2,
+  "fields": {
+    "site_code": "LB4",
+    "name": "Lambeth - Brixton Road",
+    "latitude": 51.464113541162,
+    "longitude": -0.11458102695123,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Lambeth",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=LB4",
+      "data_owner": "Lambeth",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.146Z",
+    "updated_at": "2026-01-18T14:05:59.146Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 3,
+  "fields": {
+    "site_code": "LB1",
+    "name": "Lambeth - Christchurch Road",
+    "latitude": 51.444249,
+    "longitude": -0.121731,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Lambeth",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=LB1",
+      "data_owner": "Lambeth",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.148Z",
+    "updated_at": "2026-01-18T14:05:59.148Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 4,
+  "fields": {
+    "site_code": "LB3",
+    "name": "Lambeth - Loughborough Junct",
+    "latitude": 51.464866,
+    "longitude": -0.099161,
+    "network": "LAQN",
+    "site_type": "urban_background",
+    "borough": "Lambeth",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=LB3",
+      "data_owner": "Lambeth",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.149Z",
+    "updated_at": "2026-01-18T14:05:59.149Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 5,
+  "fields": {
+    "site_code": "LB6",
+    "name": "Lambeth - Streatham Green",
+    "latitude": 51.4282131429499,
+    "longitude": -0.13186863879576,
+    "network": "LAQN",
+    "site_type": "urban_background",
+    "borough": "Lambeth",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=LB6",
+      "data_owner": "Lambeth",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.151Z",
+    "updated_at": "2026-01-18T14:05:59.151Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 6,
+  "fields": {
+    "site_code": "LB2",
+    "name": "Lambeth - Vauxhall Cross",
+    "latitude": 51.4849123099475,
+    "longitude": -0.125173736606014,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Lambeth",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=LB2",
+      "data_owner": "Lambeth",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.152Z",
+    "updated_at": "2026-01-18T14:05:59.152Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 7,
+  "fields": {
+    "site_code": "SK5",
+    "name": "Southwark - A2 Old Kent Road",
+    "latitude": 51.4804994936467,
+    "longitude": -0.0595528932573422,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SK5",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.276Z",
+    "updated_at": "2026-01-18T14:05:59.276Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 8,
+  "fields": {
+    "site_code": "SK9",
+    "name": "Southwark - A2 Old Kent Road FIDAS",
+    "latitude": 51.4804994936467,
+    "longitude": -0.0595528932573422,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SK9",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.280Z",
+    "updated_at": "2026-01-18T14:05:59.280Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 9,
+  "fields": {
+    "site_code": "SK6",
+    "name": "Southwark - Elephant and Castle",
+    "latitude": 51.4931557048667,
+    "longitude": -0.101527038274853,
+    "network": "LAQN",
+    "site_type": "urban_background",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SK6",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.284Z",
+    "updated_at": "2026-01-18T14:05:59.284Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 10,
+  "fields": {
+    "site_code": "SK7",
+    "name": "Southwark - Heygate",
+    "latitude": 51.4929813788003,
+    "longitude": -0.0985378910481832,
+    "network": "LAQN",
+    "site_type": "urban_background",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SK7",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.286Z",
+    "updated_at": "2026-01-18T14:05:59.286Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 11,
+  "fields": {
+    "site_code": "SK1",
+    "name": "Southwark - Larcom Street",
+    "latitude": 51.490548,
+    "longitude": -0.09661,
+    "network": "LAQN",
+    "site_type": "urban_background",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SK1",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.289Z",
+    "updated_at": "2026-01-18T14:05:59.289Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 12,
+  "fields": {
+    "site_code": "SKA",
+    "name": "Southwark - Lower Road",
+    "latitude": 51.4965604167321,
+    "longitude": -0.0530504472531612,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SKA",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.292Z",
+    "updated_at": "2026-01-18T14:05:59.292Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 13,
+  "fields": {
+    "site_code": "SK2",
+    "name": "Southwark - Old Kent Road",
+    "latitude": 51.4819456792926,
+    "longitude": -0.0627176235171689,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SK2",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.295Z",
+    "updated_at": "2026-01-18T14:05:59.295Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 14,
+  "fields": {
+    "site_code": "SKC",
+    "name": "Southwark - South Circular Road",
+    "latitude": 51.442633,
+    "longitude": -0.077653974,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SKC",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.298Z",
+    "updated_at": "2026-01-18T14:05:59.298Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 15,
+  "fields": {
+    "site_code": "SK8",
+    "name": "Southwark - Tower Bridge Road",
+    "latitude": 51.5013906712066,
+    "longitude": -0.0782034373606952,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SK8",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.299Z",
+    "updated_at": "2026-01-18T14:05:59.299Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 16,
+  "fields": {
+    "site_code": "SKB",
+    "name": "Southwark - Vicarage Grove",
+    "latitude": 51.4735803479615,
+    "longitude": -0.0877818536754426,
+    "network": "LAQN",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "site_link": "http://www.londonair.org.uk/london/asp/publicdetails.asp?site=SKB",
+      "data_owner": "Southwark",
+      "local_authority_id": null
+    },
+    "created_at": "2026-01-18T14:05:59.300Z",
+    "updated_at": "2026-01-18T14:05:59.300Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 17,
+  "fields": {
+    "site_code": "BL0026",
+    "name": "St Thomas' Hospital",
+    "latitude": 51.50006,
+    "longitude": -0.1188033,
+    "network": "BREATHE",
+    "site_type": "urban_background",
+    "borough": "Lambeth",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "St Thomas' Hospital",
+      "photo_url": "https://www.airquality.london/image/120643.jpg",
+      "site_type": "Hospital",
+      "start_date": "2025-07-30T00:00:00Z",
+      "device_code": "14751",
+      "installation_code": "120643"
+    },
+    "created_at": "2026-01-18T14:58:05.392Z",
+    "updated_at": "2026-01-18T14:58:05.413Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 18,
+  "fields": {
+    "site_code": "BL0057",
+    "name": "St Annes RC Primary School",
+    "latitude": 51.48563,
+    "longitude": -0.119157,
+    "network": "BREATHE",
+    "site_type": "urban_background",
+    "borough": "Lambeth",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "St Annes RC Primary School",
+      "photo_url": "https://www.airquality.london/image/120004.jpg",
+      "site_type": "School",
+      "start_date": "2025-04-09T00:00:00Z",
+      "device_code": "13546",
+      "installation_code": "120004"
+    },
+    "created_at": "2026-01-18T14:58:05.398Z",
+    "updated_at": "2026-01-18T14:58:05.404Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 19,
+  "fields": {
+    "site_code": "BL0068",
+    "name": "Stockwell Primary",
+    "latitude": 51.46672,
+    "longitude": -0.118178,
+    "network": "BREATHE",
+    "site_type": "urban_background",
+    "borough": "Lambeth",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "Stockwell Primary School",
+      "photo_url": "https://www.airquality.london/image/120046.jpg",
+      "site_type": "School",
+      "start_date": "2025-04-12T00:00:00Z",
+      "device_code": "14626",
+      "installation_code": "120046"
+    },
+    "created_at": "2026-01-18T14:58:05.400Z",
+    "updated_at": "2026-01-18T14:58:05.408Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 20,
+  "fields": {
+    "site_code": "BL0100",
+    "name": "Sunnyhill Primary School",
+    "latitude": 51.42881,
+    "longitude": -0.120563,
+    "network": "BREATHE",
+    "site_type": "urban_background",
+    "borough": "Lambeth",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "Sunnyhill Primary School",
+      "photo_url": "https://www.airquality.london/image/119938.jpg",
+      "site_type": "School",
+      "start_date": "2025-03-28T00:00:00Z",
+      "device_code": "13305",
+      "installation_code": "119938"
+    },
+    "created_at": "2026-01-18T14:58:05.402Z",
+    "updated_at": "2026-01-18T14:58:05.402Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 21,
+  "fields": {
+    "site_code": "BL0157",
+    "name": "Southbank BID",
+    "latitude": 51.502492,
+    "longitude": -0.116176,
+    "network": "BREATHE",
+    "site_type": "urban_background",
+    "borough": "Lambeth",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "",
+      "photo_url": "https://www.airquality.london/image/120627.jpg",
+      "site_type": "Street",
+      "start_date": "2025-07-25T00:00:00Z",
+      "device_code": "13527",
+      "installation_code": "120627"
+    },
+    "created_at": "2026-01-18T14:58:05.410Z",
+    "updated_at": "2026-01-18T14:58:05.410Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 22,
+  "fields": {
+    "site_code": "BL0001",
+    "name": "Elephant & Castle",
+    "latitude": 51.493229,
+    "longitude": -0.1015538,
+    "network": "BREATHE",
+    "site_type": "urban_background",
+    "borough": "Southwark",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "",
+      "photo_url": "https://www.airquality.london/image/119854.jpg",
+      "site_type": "Co-Location (Gold)",
+      "start_date": "2025-03-12T00:00:00Z",
+      "device_code": "7724",
+      "installation_code": "119854"
+    },
+    "created_at": "2026-01-18T14:58:05.415Z",
+    "updated_at": "2026-01-18T14:58:05.443Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 23,
+  "fields": {
+    "site_code": "CLDP0031",
+    "name": "Guy's Hospital",
+    "latitude": 51.5032463,
+    "longitude": -0.087747,
+    "network": "BREATHE",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": "2021-06-23T10:00:00Z",
+      "facility": "",
+      "photo_url": "https://www.airquality.london/image/CLDP0031.jpg",
+      "site_type": "Hospital",
+      "start_date": "2021-06-04T13:15:11Z",
+      "device_code": "AFJD2TT0",
+      "installation_code": "CLDP0031"
+    },
+    "created_at": "2026-01-18T14:58:05.417Z",
+    "updated_at": "2026-01-18T14:58:05.417Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 24,
+  "fields": {
+    "site_code": "BL0058",
+    "name": "Charlotte Sharman Primary School",
+    "latitude": 51.49611,
+    "longitude": -0.10559,
+    "network": "BREATHE",
+    "site_type": "urban_background",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": "2025-07-22T00:00:00Z",
+      "facility": "Charlotte Sharman Primary School",
+      "photo_url": "https://www.airquality.london/image/119777.jpg",
+      "site_type": "School",
+      "start_date": "2025-03-12T00:00:00Z",
+      "device_code": "14612",
+      "installation_code": "119777"
+    },
+    "created_at": "2026-01-18T14:58:05.419Z",
+    "updated_at": "2026-01-18T14:58:05.442Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 25,
+  "fields": {
+    "site_code": "BL0062",
+    "name": "Tower Bridge Primary School",
+    "latitude": 51.50195,
+    "longitude": -0.07756,
+    "network": "BREATHE",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "Tower Bridge Primary School",
+      "photo_url": "https://www.airquality.london/image/119748.jpg",
+      "site_type": "School",
+      "start_date": "2025-03-07T00:00:00Z",
+      "device_code": "14606",
+      "installation_code": "119748"
+    },
+    "created_at": "2026-01-18T14:58:05.421Z",
+    "updated_at": "2026-01-18T14:58:05.429Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 26,
+  "fields": {
+    "site_code": "BL0027",
+    "name": "Guy's Hospital",
+    "latitude": 51.50325,
+    "longitude": -0.087747,
+    "network": "BREATHE",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "Guy's Hospital",
+      "photo_url": "https://www.airquality.london/image/120347.jpg",
+      "site_type": "Hospital",
+      "start_date": "2025-06-07T00:00:00Z",
+      "device_code": "13506",
+      "installation_code": "120347"
+    },
+    "created_at": "2026-01-18T14:58:05.423Z",
+    "updated_at": "2026-01-18T14:58:05.450Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 27,
+  "fields": {
+    "site_code": "CLDP0107",
+    "name": "SWK-BL2 : Croxted Road/Dalkeith Road",
+    "latitude": 51.4457321,
+    "longitude": -0.0951486,
+    "network": "BREATHE",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": "2024-12-14T00:00:00Z",
+      "facility": "",
+      "photo_url": "https://www.airquality.london/image/CLDP0107.jpg",
+      "site_type": "Street",
+      "start_date": "2021-07-30T11:30:00Z",
+      "device_code": "AY9PGKC4",
+      "installation_code": "CLDP0107"
+    },
+    "created_at": "2026-01-18T14:58:05.425Z",
+    "updated_at": "2026-01-18T14:58:05.425Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 28,
+  "fields": {
+    "site_code": "CLDP0108",
+    "name": "SWK-BL1 : Croxted Road / Guernsey Grove",
+    "latitude": 51.4492226,
+    "longitude": -0.099177,
+    "network": "BREATHE",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": false,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": "2024-12-14T00:00:00Z",
+      "facility": "",
+      "photo_url": "https://www.airquality.london/image/CLDP0108.jpg",
+      "site_type": "Street",
+      "start_date": "2021-07-30T12:30:00Z",
+      "device_code": "A61DSG0C",
+      "installation_code": "CLDP0108"
+    },
+    "created_at": "2026-01-18T14:58:05.426Z",
+    "updated_at": "2026-01-18T14:58:05.426Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 29,
+  "fields": {
+    "site_code": "BL0018",
+    "name": "London Wildlife Trust Centre For Wildlife Gardening",
+    "latitude": 51.462928,
+    "longitude": -0.075408,
+    "network": "BREATHE",
+    "site_type": "urban_background",
+    "borough": "Southwark",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "London Wildlife Trust Centre For Wildlife Gardening",
+      "photo_url": "https://www.airquality.london/image/119865.jpg",
+      "site_type": "Community",
+      "start_date": "2025-03-21T00:00:00Z",
+      "device_code": "13605",
+      "installation_code": "119865"
+    },
+    "created_at": "2026-01-18T14:58:05.428Z",
+    "updated_at": "2026-01-18T14:58:05.445Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 30,
+  "fields": {
+    "site_code": "BL0084",
+    "name": "Oliver Goldsmith Primary School",
+    "latitude": 51.47429,
+    "longitude": -0.078138,
+    "network": "BREATHE",
+    "site_type": "urban_background",
+    "borough": "Southwark",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "Oliver Goldsmith Primary School",
+      "photo_url": "https://www.airquality.london/image/119749.jpg",
+      "site_type": "School",
+      "start_date": "2025-03-07T00:00:00Z",
+      "device_code": "14867",
+      "installation_code": "119749"
+    },
+    "created_at": "2026-01-18T14:58:05.431Z",
+    "updated_at": "2026-01-18T14:58:05.431Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 31,
+  "fields": {
+    "site_code": "BL0121",
+    "name": "Inverton Road",
+    "latitude": 51.45795,
+    "longitude": -0.0476851,
+    "network": "BREATHE",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "",
+      "photo_url": "https://www.airquality.london/image/120674.jpg",
+      "site_type": "Street",
+      "start_date": "2025-08-06T00:00:00Z",
+      "device_code": "13141",
+      "installation_code": "120674"
+    },
+    "created_at": "2026-01-18T14:58:05.433Z",
+    "updated_at": "2026-01-18T14:58:05.435Z"
+  }
+},
+{
+  "model": "air_quality.sensor",
+  "pk": 32,
+  "fields": {
+    "site_code": "BL0120",
+    "name": "Peckham Rye",
+    "latitude": 51.463877,
+    "longitude": -0.0664407,
+    "network": "BREATHE",
+    "site_type": "roadside",
+    "borough": "Southwark",
+    "is_active": true,
+    "date_opened": null,
+    "date_closed": null,
+    "metadata": {
+      "sponsor": "GLA",
+      "end_date": null,
+      "facility": "",
+      "photo_url": "https://www.airquality.london/image/120675.jpg",
+      "site_type": "Street",
+      "start_date": "2025-08-06T00:00:00Z",
+      "device_code": "14425",
+      "installation_code": "120675"
+    },
+    "created_at": "2026-01-18T14:58:05.437Z",
+    "updated_at": "2026-01-18T14:58:05.439Z"
+  }
+}
+]
