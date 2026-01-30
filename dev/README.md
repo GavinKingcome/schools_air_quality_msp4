@@ -5,6 +5,7 @@ This folder contains development scripts and data files used during project deve
 ## Scripts
 
 ### Data Checking Scripts
+
 - `check_hill_mead.py` - Verify Hill Mead Primary School data
 - `check_laqn_data.py` - Test LAQN API connectivity
 - `check_laqn_mismatch.py` - Debug LAQN sensor mismatches
@@ -13,6 +14,7 @@ This folder contains development scripts and data files used during project deve
 - `check_working_sensors.py` - Identify active sensors
 
 ### Data Processing Scripts
+
 - `extract_laei_local.py` - Extract LAEI data for local area
 - `process_schools.py` - Process raw school data into database format
 - `db_snapshot.py` - Create database backup snapshots
@@ -20,6 +22,7 @@ This folder contains development scripts and data files used during project deve
 ## Data Files
 
 ### Processed Data
+
 - `schools.geojson` - GeoJSON export of school locations
 - `schools_processed.csv` - Cleaned school data
 - `schools_with_laei.csv` - Schools with LAEI baseline data
@@ -27,6 +30,7 @@ This folder contains development scripts and data files used during project deve
 - `laei_summary.json` - Summary of LAEI data coverage
 
 ## Documentation
+
 - `data_access_guide.md` - Internal guide for accessing various data sources
 
 ---
