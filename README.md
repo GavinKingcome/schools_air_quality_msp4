@@ -594,7 +594,7 @@ This project is licensed under the MIT License.
 - **OpenAQ** - Open air quality data platform
 - **Code Institute** - Project supervision and guidance
 - **GitHub Copilot** - AI-powered development assistance
-- **William S. Vincent** - *Django for Beginners* - Foundational Django concepts and best practices
+- **William S. Vincent** - _Django for Beginners_ - Foundational Django concepts and best practices
 
 ---
 

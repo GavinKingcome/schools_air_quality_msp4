@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third-party apps
+    'django_celery_beat',  # Celery periodic task scheduling
     # Project apps
     'schools',
     'air_quality',
@@ -145,3 +147,25 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Login/Logout redirects
 LOGIN_REDIRECT_URL = '/map/'
 LOGOUT_REDIRECT_URL = '/'
+
+# =============================================================================
+# CELERY CONFIGURATION
+# =============================================================================
+
+# Celery broker URL (Redis)
+# On Heroku, this will automatically use REDIS_URL from Heroku Redis addon
+# Locally, you'll need to run Redis: brew install redis && redis-server
+CELERY_BROKER_URL = config('REDIS_URL', default='redis://localhost:6379/0')
+
+# Celery result backend (optional - stores task results)
+CELERY_RESULT_BACKEND = config('REDIS_URL', default='redis://localhost:6379/0')
+
+# Celery timezone
+CELERY_TIMEZONE = 'Europe/London'
+
+# Celery task configuration
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes max per task
+
+# Django Celery Beat - stores periodic tasks in database
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'

@@ -21,3 +21,8 @@ typing_extensions==4.15.0
 tzdata==2025.3
 urllib3==2.6.3
 whitenoise==6.11.0
+
+# Task queue for automated data fetching
+celery==5.3.6
+redis==5.0.1
+django-celery-beat==2.5.0
