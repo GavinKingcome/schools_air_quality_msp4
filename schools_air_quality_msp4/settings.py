@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third-party apps
-    'django_celery_beat',  # Celery periodic task scheduling
+    # 'django_celery_beat',  # For Celery Beat - not needed with Heroku Scheduler
     # Project apps
     'schools',
     'air_quality',

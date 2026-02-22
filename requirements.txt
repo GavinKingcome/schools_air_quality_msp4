@@ -22,7 +22,8 @@ tzdata==2025.3
 urllib3==2.6.3
 whitenoise==6.11.0
 
-# Task queue for automated data fetching
+# Task queue for automated data fetching (Celery ready for future scaling)
 celery==5.3.6
 redis==5.0.1
-django-celery-beat==2.7.0
+# django-celery-beat==2.7.0  # Commented out - not needed for Heroku Scheduler
+# Uncomment when upgrading to full Celery Beat scheduling
