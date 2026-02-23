@@ -273,7 +273,11 @@
       marker.bindPopup(popupContent, {
           maxWidth: 450,
           autoPan: true,
-          autoPanPaddings: [50,50]
+          autoPanPaddings: [50,50],
+          keepInView: true,
+          closeButton: true,
+          autoClose: false,
+          closeOnClick: false
       });
       markersMap.set(school.id, { marker, school });
 
@@ -304,7 +308,12 @@
           </div>
       `;
 
-      marker.bindPopup(popupContent);
+      marker.bindPopup(popupContent, {
+          keepInView: true,
+          closeButton: true,
+          autoClose: false,
+          closeOnClick: false
+      });
       sensorLayer.addLayer(marker);
   });
 
