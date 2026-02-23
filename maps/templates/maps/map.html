@@ -271,9 +271,10 @@
       `;
 
       marker.bindPopup(popupContent, {
-          maxWidth: 450,
+          maxWidth: window.innerWidth <= 768 ? 300 : 450,
+          maxHeight: window.innerWidth <= 768 ? 400 : 500,
           autoPan: true,
-          autoPanPaddings: [50,50],
+          autoPanPadding: [50, 100],
           keepInView: true,
           closeButton: true,
           autoClose: false,
@@ -309,6 +310,10 @@
       `;
 
       marker.bindPopup(popupContent, {
+          maxWidth: window.innerWidth <= 768 ? 300 : 450,
+          maxHeight: window.innerWidth <= 768 ? 400 : 500,
+          autoPan: true,
+          autoPanPadding: [50, 100],
           keepInView: true,
           closeButton: true,
           autoClose: false,
