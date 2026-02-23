@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from air_quality.models import Sensor
+from django.contrib.auth.models import User
 
 
 class School(models.Model):
@@ -175,8 +176,8 @@ class School(models.Model):
         
         return result
     
-    def _is_reading_fresh(self, reading, max_age_seconds: int = 86400) -> bool:
-        """Check if reading is recent enough (default: 2 hours)."""
+    def _is_reading_fresh(self, reading, max_age_seconds: int = 172800) -> bool:
+        """Check if reading is recent enough (default: 48 hours to account for API delays)."""
         if not reading or not reading.timestamp:
             return False
         age = (timezone.now() - reading.timestamp).total_seconds()
@@ -256,3 +257,52 @@ class School(models.Model):
             }
         
         return status
+    
+    # School Notes
+class SchoolNote(models.Model):
+    """
+    User-submitted notes about a school's air quality environment.
+    
+    Allows parents, teachers and administrators to share observations
+    such as nearby construction, traffic changes, or ventilation concerns
+    that may affect air quality readings.
+    """
+    
+    CATEGORY_CHOICES = [
+        ('observation', 'General Observation'),
+        ('concern', 'Air Quality Concern'),
+        ('improvement', 'Improvement Suggestion'),
+        ('update', 'School Environment Update'),
+    ]
+    
+    school = models.ForeignKey(
+        'School',
+        on_delete=models.CASCADE,
+        related_name='notes'
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='school_notes'
+    )
+    
+    title = models.CharField(max_length=200)
+    content = models.TextField(
+        help_text='Share observations about air quality conditions at this school.'
+    )
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default='observation'
+    )
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'School Note'
+        verbose_name_plural = 'School Notes'
+    
+    def __str__(self):
+        return f"{self.title} - {self.school.name}"
