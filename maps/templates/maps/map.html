@@ -350,11 +350,21 @@
       }, 100);
   });
 
-  // Reset map view when popup closes
+  // Track popup open time to prevent immediate close from resetting view
+  let popupOpenTime = null;
+  map.on('popupopen', function() {
+      popupOpenTime = Date.now();
+  });
+
+  // Reset map view when popup closes (but only if it was open for at least 500ms)
   map.on('popupclose', function() {
-      if (window.originalMapBounds) {
+      const popupWasOpenFor = popupOpenTime ? Date.now() - popupOpenTime : 1000;
+      
+      // Only reset if popup was open for more than 500ms (prevents immediate close issues)
+      if (popupWasOpenFor > 500 && window.originalMapBounds) {
           map.fitBounds(window.originalMapBounds, window.originalMapZoomOptions);
       }
+      
       // Show legends and controls again on mobile
       if (window.innerWidth <= 768) {
           document.querySelector('.map-legend').style.display = 'block';
@@ -363,6 +373,8 @@
           const toggleControl = document.querySelector('.sensor-toggle-control');
           if (toggleControl) toggleControl.style.display = 'block';
       }
+      
+      popupOpenTime = null;
   });
 
   // Hide legends and controls on mobile when popup opens (so popup appears on top)
