@@ -197,25 +197,33 @@
   });
 
   // Helper function to create pollution display with guidelines
-    const createPollutantDisplay = (name, value, whoLimit, euLimit, ukLimit) => {
+    const createPollutantDisplay = (name, value, whoLimit, euLimit, ukLimit, dataSource = null) => {
       if (value === null) return '';
 
       const meetsWHO = value <= whoLimit;
       const meetsEU = value <= euLimit;
       const meetsUK = value <= ukLimit;
 
+      // Data source badge
+      let sourceBadge = '';
+      if (dataSource === 'live') {
+          sourceBadge = '<span style="display: inline-block; padding: 2px 8px; background: #28a745; color: white; border-radius: 3px; font-size: 0.75em; margin-left: 8px;">Live</span>';
+      } else if (dataSource === 'baseline') {
+          sourceBadge = '<span style="display: inline-block; padding: 2px 8px; background: #6c757d; color: white; border-radius: 3px; font-size: 0.75em; margin-left: 8px;">Baseline 2022</span>';
+      }
+
       return `
           <div style="margin: 15px 0; padding: 12px; background: #f8f9fa; border-radius: 6px;">
-              <div style="font-weight: 600; margin-bottom: 8px;">${name}: ${value.toFixed(1)} µg/m³</div>
+              <div style="font-weight: 600; margin-bottom: 8px;">${name}: ${value.toFixed(1)} µg/m³${sourceBadge}</div>
               <div style="font-size: 0.85em; line-height: 1.6;">
                   <div style="color: ${meetsWHO ? '#28a745' : '#dc3545'};">
-                      ${meetsWHO ? '✓' : '✗'} ${meetsWHO ? 'Meets' : 'Exceeds'} WHO guideline (${whoLimit})
+                      ${meetsWHO ? 'Meets' : 'Exceeds'} WHO guideline (${whoLimit})
                   </div>
                   <div style="color: ${meetsEU ? '#28a745' : '#dc3545'};">
-                      ${meetsEU ? '✓' : '✗'} ${meetsEU ? 'Meets' : 'Exceeds'} EU 2024 standard (${euLimit})
+                      ${meetsEU ? 'Meets' : 'Exceeds'} EU 2024 standard (${euLimit})
                   </div>
                   <div style="color: ${meetsUK ? '#28a745' : '#dc3545'};">
-                      ${meetsUK ? '✓' : '✗'} ${meetsUK ? 'Meets' : 'Exceeds'} UK legal limit (${ukLimit})
+                      ${meetsUK ? 'Meets' : 'Exceeds'} UK legal limit (${ukLimit})
                   </div>
               </div>
               <div style="margin-top: 8px; height: 8px; background: #e9ecef; border-radius: 4px; position: relative;">
@@ -261,13 +269,13 @@
                       <p class="small text-muted mb-0">No nearby sensors for real-time data</p>
                       `}
                       
-                      ${school.current_no2 !== null || school.current_pm25 !== null || school.current_pm10 !== null ? `
+                      ${school.current_no2 !== null || school.current_pm25 !== null || school.current_pm10 !== null || school.laei_data_available ? `
                           <hr class="my-3">
-                          <h6 class="mb-2">Current Estimates</h6>
-                          ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40) : ''}
-                          ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25) : ''}
-                          ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40) : ''}
-                          ${school.reading_timestamp ? `<p class="small text-muted mt-2 mb-0">Last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
+                          <h6 class="mb-2">Air Quality Data</h6>
+                          ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40, school.data_source !== 'LAEI_ONLY' ? 'live' : 'baseline') : school.no2_2022 !== null ? createPollutantDisplay('NO₂', school.no2_2022, 10, 20, 40, 'baseline') : ''}
+                          ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25, 'live') : school.pm25_2022 !== null ? createPollutantDisplay('PM2.5', school.pm25_2022, 5, 10, 25, 'baseline') : ''}
+                          ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40, 'live') : school.pm10_mean_2022 !== null ? createPollutantDisplay('PM10', school.pm10_mean_2022, 15, 20, 40, 'baseline') : ''}
+                          ${school.reading_timestamp ? `<p class="small text-muted mt-2 mb-0">Sensor last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
                       ` : '<p class="text-muted fst-italic mt-2 mb-0">No air quality data available</p>'}
                   </div>
               </div>
