@@ -172,7 +172,8 @@
   const southwarkCluster = L.markerClusterGroup({
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
-      zoomToBoundsOnClick: false,  // Disable auto-zoom to prevent popup issues
+      zoomToBoundsOnClick: true,
+      disableClusteringAtZoom: isMobile ? null : null,
       maxClusterRadius: 90,
       iconCreateFunction: function(cluster) {
           return L.divIcon({
@@ -186,7 +187,8 @@
   const lambethCluster = L.markerClusterGroup({
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
-      zoomToBoundsOnClick: false,  // Disable auto-zoom to prevent popup issues
+      zoomToBoundsOnClick: true,
+      disableClusteringAtZoom: isMobile ? null : null,
       maxClusterRadius: 90,
       iconCreateFunction: function(cluster) {
           return L.divIcon({
@@ -313,6 +315,15 @@
   // Add clusters to map
   map.addLayer(southwarkCluster);
   map.addLayer(lambethCluster);
+
+  // Close any open popups when clicking a cluster to prevent conflicts
+  southwarkCluster.on('clusterclick', function(e) {
+      map.closePopup();
+  });
+  
+  lambethCluster.on('clusterclick', function(e) {
+      map.closePopup();
+  });
 
   // Reset marker opacity when clusters expand (fixes translucent markers after decluster)
   southwarkCluster.on('animationend', function() {
