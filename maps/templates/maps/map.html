@@ -259,6 +259,14 @@
               <p style="font-size: 0.85em; color: #6c757d;">No nearby sensors for real-time data</p>
             `}
 
+              ${school.current_no2 !== null || school.current_pm25 !== null || school.current_pm10 !== null ? `
+                  <hr style="margin: 15px 0; border: none; border-top: 1px solid #dee2e6;">
+                  <h4 style="margin: 10px 0;">${school.data_source === 'DIRECT' ? 'Current Readings' : school.data_source === 'ADJUSTED' ? 'Sensor-Adjusted Estimates' : 'Current Estimates'}</h4>
+                  ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40) : ''}
+                  ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25) : ''}
+                  ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40) : ''}
+                  ${school.reading_timestamp ? `<p style="font-size: 0.85em; color: #6c757d; margin-top: 10px;">Last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
+              ` : ''}
 
               ${school.laei_data_available ? `
                   <hr style="margin: 15px 0; border: none; border-top: 1px solid #dee2e6;">

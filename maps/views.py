@@ -41,7 +41,13 @@ def map_view(request):
             'student_count': school.student_count,
             'latitude': float(school.latitude),
             'longitude': float(school.longitude),
-            # LAEI 2022 pollution data
+            # Current/adjusted readings
+            'current_no2': current_reading.get('no2'),
+            'current_pm25': current_reading.get('pm25'),
+            'current_pm10': current_reading.get('pm10'),
+            'reading_method': current_reading.get('method'),
+            'reading_confidence': current_reading.get('confidence'),
+            # LAEI 2022 pollution data (baseline)
             'no2_2022': float(school.no2_2022) if school.no2_2022 else None,
             'nox_2022': float(school.nox_2022) if school.nox_2022 else None,
             'pm25_2022': float(school.pm25_2022) if school.pm25_2022 else None,
