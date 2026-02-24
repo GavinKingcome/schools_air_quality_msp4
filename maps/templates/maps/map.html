@@ -306,6 +306,15 @@
   map.addLayer(southwarkCluster);
   map.addLayer(lambethCluster);
 
+  // Reset marker opacity when clusters expand (fixes translucent markers after decluster)
+  southwarkCluster.on('animationend', function() {
+      markersMap.forEach(({marker}) => marker.setOpacity(1));
+  });
+  
+  lambethCluster.on('animationend', function() {
+      markersMap.forEach(({marker}) => marker.setOpacity(1));
+  });
+
   // Add sensor markers to layer (not to map yet)
   sensors.forEach(sensor => {
       const icon = sensor.network === 'LAQN' ? laqnSensorIcon : breatheSensorIcon;

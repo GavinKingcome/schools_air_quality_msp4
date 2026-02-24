@@ -9,7 +9,7 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
@@ -28,11 +28,13 @@
 
 ---
 
-## 🎯 Overview
+## Overview
 
 AirAware London helps parents, school administrators, and policymakers make informed decisions about children's exposure to air pollution. The platform combines real-time sensor data from the London Air Quality Network (LAQN) and Breathe London with modelled pollution data (LAEI 2022) to provide comprehensive air quality information for 133 schools across Lambeth and Southwark.
 
-**Live Demo:** [http://127.0.0.1:8000/map/](http://127.0.0.1:8000/map/)
+**Live Demo:** [https://schools-air-quality-msp4.herokuapp.com/map/](https://schools-air-quality-msp4.herokuapp.com/map/)
+
+**Local Development:** [http://127.0.0.1:8000/map/](http://127.0.0.1:8000/map/)
 
 ### Key Objectives
 
@@ -43,9 +45,9 @@ AirAware London helps parents, school administrators, and policymakers make info
 
 ---
 
-## ✨ Features
+## Features
 
-### ✅ Implemented (MVP)
+### Implemented (MVP)
 
 - **Interactive Map Dashboard**
   - Leaflet.js map with color-coded school markers based on PM2.5 levels
@@ -54,7 +56,7 @@ AirAware London helps parents, school administrators, and policymakers make info
   - 133 schools displayed across Lambeth and Southwark
 
 - **Real-Time Data Integration**
-  - Automated hourly data fetching via cron jobs
+  - Automated hourly data fetching via Heroku Scheduler
   - LAQN API integration (reference-grade monitoring stations)
   - Breathe London API via OpenAQ (calibrated low-cost sensors)
   - TimescaleDB optimization for time-series queries
@@ -80,44 +82,47 @@ AirAware London helps parents, school administrators, and policymakers make info
   - 39 comprehensive tests covering models, views, and data processing
   - TDD approach demonstrated
 
-### 🔮 Planned (Future Enhancements)
+### Planned (Future Enhancements)
 
 - Filter schools by air quality levels
 - Air quality alert notifications
 - School comparison tool
 - Historical trends visualization
 - PDF report exports
-- Full WCAG 2.1 AA accessibility compliance
+- WCAG 2.1 AA accessibility compliance
 - Data quality metrics dashboard
 
 ---
 
-## 🔑 Demo Credentials
+## Demo Credentials
 
 ### For Assessors
 
 **Map Access:**
 
 - No login required for demo
-- Navigate to: [http://127.0.0.1:8000/map/](http://127.0.0.1:8000/map/)
+- Production: [https://schools-air-quality-msp4.herokuapp.com/map/](https://schools-air-quality-msp4.herokuapp.com/map/)
+- Local: [http://127.0.0.1:8000/map/](http://127.0.0.1:8000/map/)
 - Subscription requirement temporarily disabled (see `maps/views.py` lines 6-7)
 
 **Admin Panel Access:**
 
-- URL: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+- Production: [https://schools-air-quality-msp4.herokuapp.com/admin/](https://schools-air-quality-msp4.herokuapp.com/admin/)
+- Local: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 - Username: `demo_admin`
 - Password: `Demo2026!`
 - Permissions: View/edit schools and air quality data (staff user, not superuser)
 
 **Subscription Page:**
 
-- URL: [http://127.0.0.1:8000/subscriptions/](http://127.0.0.1:8000/subscriptions/)
+- Production: [https://schools-air-quality-msp4.herokuapp.com/subscriptions/](https://schools-air-quality-msp4.herokuapp.com/subscriptions/)
+- Local: [http://127.0.0.1:8000/subscriptions/](http://127.0.0.1:8000/subscriptions/)
 - View Stripe integration (test mode)
 - Note: Real Stripe test keys required for actual checkout
 
 ---
 
-## 🛠 Technology Stack
+## Technology Stack
 
 ### Backend
 
@@ -126,6 +131,8 @@ AirAware London helps parents, school administrators, and policymakers make info
 - **PostgreSQL 17** - Primary database
 - **TimescaleDB** - Time-series extension for sensor readings
 - **psycopg2** - PostgreSQL adapter
+- **Celery 5.3.6** - Asynchronous task queue (configured, not yet deployed — see docs/CELERY_SETUP.md)
+- **Redis** - Message broker for Celery
 
 ### Frontend
 
@@ -154,9 +161,15 @@ AirAware London helps parents, school administrators, and policymakers make info
 - **Git** - Version control
 - **GitHub** - Code repository
 
+### Deployment & Automation
+
+- **Heroku** - Cloud platform (PostgreSQL, Scheduler addon)
+- **Heroku Scheduler** - Free cron-like job scheduling (production)
+- **Celery + Redis** - Scalable task queue (implemented, ready for scaling)
+
 ---
 
-## 📦 Installation
+## Installation
 
 ### Prerequisites
 
@@ -272,7 +285,7 @@ python manage.py createsuperuser
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### Database Settings
 
@@ -328,7 +341,18 @@ Access at: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 ### Automated Data Updates
 
-Set up cron jobs for hourly data fetching:
+**Production (Heroku):**
+
+The application uses Heroku Scheduler for automated hourly data fetching:
+
+- LAQN readings: Every hour at :10 (`python manage.py fetch_laqn_readings`)
+- Breathe London readings: Every hour at :20 (`python manage.py fetch_breathe_readings`)
+
+No additional setup required - jobs are pre-configured in the Heroku dashboard.
+
+**Local Development (Optional):**
+
+For local testing with cron:
 
 ```bash
 crontab -e
@@ -344,9 +368,11 @@ Add these lines:
 10 * * * * cd /path/to/project && /path/to/venv/bin/python manage.py fetch_breathe_readings >> /tmp/breathe_cron.log 2>&1
 ```
 
----
+**Scaling with Celery (Future):**
 
-## 📊 Data Management
+For high-frequency updates or when scaling beyond 10 boroughs, see [docs/CELERY_SETUP.md](docs/CELERY_SETUP.md) for Celery worker configuration.
+
+---
 
 ### Management Commands
 
@@ -406,7 +432,7 @@ python manage.py shell -c "from air_quality.models import Reading; print(Reading
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Run All Tests
 
@@ -435,7 +461,7 @@ coverage html  # Generate HTML report
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 schools_air_quality_msp4/
@@ -481,17 +507,18 @@ schools_air_quality_msp4/
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 Additional documentation available in `/docs/`:
 
 - **[Database Schema (ERD)](docs/database_schema.dbml)** - Entity-Relationship Diagram (view at [dbdiagram.io](https://dbdiagram.io))
 - **[User Stories](docs/USER_STORIES.md)** - 18 user stories with implementation status
 - **[Wireframes](docs/WIREFRAMES.md)** - UI/UX wireframes for all key pages
+- **[Celery Setup Guide](docs/CELERY_SETUP.md)** - Scaling guide for high-volume deployments
 
 ---
 
-## 🔒 Security Notes
+## Security Notes
 
 ### For Assessors
 
@@ -531,7 +558,7 @@ Before deploying to production:
 
 ---
 
-## 🚧 Future Enhancements
+## Future Enhancements
 
 ### Phase 2 Features
 
@@ -571,13 +598,13 @@ Before deploying to production:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Gavin Kingcome**
 
@@ -586,7 +613,7 @@ This project is licensed under the MIT License.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **London Air Quality Network (LAQN)** - Reference-grade monitoring data
 - **Breathe London** - Calibrated sensor network
@@ -598,7 +625,7 @@ This project is licensed under the MIT License.
 
 ---
 
-## 📞 Support
+## Support
 
 For questions or issues regarding this project:
 
@@ -608,4 +635,4 @@ For questions or issues regarding this project:
 
 ---
 
-**Last Updated:** 29 January 2026
+**Last Updated:** 22 February 2026

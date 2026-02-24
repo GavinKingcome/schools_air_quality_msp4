@@ -1,41 +1,92 @@
-{% extends 'base.html' %} {% block title %}Schools - Early Years Schools
-Pollution Monitor{% endblock %} {% block content %}
-<div style="max-width: 1200px; margin: 0 auto; padding: 2rem">
-  <h2 style="color: #333; margin-bottom: 1.5rem">
-    Schools in Southwark & Lambeth
-  </h2>
+{% extends 'base.html' %}
+
+{% block title %}Schools - Early Years Schools Pollution Monitor{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+  <h2 class="mb-4">Schools in Southwark &amp; Lambeth</h2>
+
+  <!-- Search and Filter -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <form method="get" class="row g-3">
+        <div class="col-md-4">
+          <label for="q" class="form-label">Search</label>
+          <input
+            type="text"
+            name="q"
+            id="q"
+            class="form-control"
+            placeholder="School name or postcode..."
+            value="{{ query }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="borough" class="form-label">Borough</label>
+          <select name="borough" id="borough" class="form-select">
+            <option value="">All boroughs</option>
+            <option value="Lambeth" {% if borough == 'Lambeth' %}selected{% endif %}>Lambeth</option>
+            <option value="Southwark" {% if borough == 'Southwark' %}selected{% endif %}>Southwark</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="type" class="form-label">School type</label>
+          <select name="type" id="type" class="form-select">
+            <option value="">All types</option>
+            <option value="primary" {% if school_type == 'primary' %}selected{% endif %}>Primary</option>
+            <option value="nursery" {% if school_type == 'nursery' %}selected{% endif %}>Nursery</option>
+          </select>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+          <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <p class="text-muted mb-3">{{ school_count }} school{{ school_count|pluralize }} found</p>
 
   {% if schools %}
-  <div style="display: grid; gap: 1rem">
+  <div class="row g-3">
     {% for school in schools %}
-    <div
-      style="
-        background: white;
-        padding: 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      "
-    >
-      <h3 style="color: #667eea; margin-bottom: 0.5rem">{{ school.name }}</h3>
-      <p style="color: #666; margin: 0.25rem 0">
-        <strong>Type:</strong> {{ school.get_school_type_display }}
-      </p>
-      <p style="color: #666; margin: 0.25rem 0">
-        <strong>Address:</strong> {{ school.address }}, {{ school.city }}
-      </p>
-      <p style="color: #666; margin: 0.25rem 0">
-        <strong>Postcode:</strong> {{ school.postcode }}
-      </p>
-      {% if school.student_count %}
-      <p style="color: #666; margin: 0.25rem 0">
-        <strong>Students:</strong> {{ school.student_count }}
-      </p>
-      {% endif %}
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{% url 'schools:school_detail' school.pk %}" class="text-decoration-none">
+              {{ school.name }}
+            </a>
+          </h5>
+          <p class="card-text text-muted mb-1">
+            {{ school.get_school_type_display }}
+          </p>
+          <p class="card-text mb-1">{{ school.address }}, {{ school.postcode }}</p>
+          {% if school.student_count %}
+          <p class="card-text"><small class="text-muted">{{ school.student_count }} students</small></p>
+          {% endif %}
+
+          <!-- Data source badge -->
+          {% if school.data_source == 'DIRECT' %}
+          <span class="badge bg-success">Direct Sensor</span>
+          {% elif school.data_source == 'ADJUSTED' %}
+          <span class="badge bg-info">Sensor Adjusted</span>
+          {% else %}
+          <span class="badge bg-secondary">LAEI Baseline</span>
+          {% endif %}
+        </div>
+        <div class="card-footer bg-transparent">
+          <a href="{% url 'schools:school_detail' school.pk %}" class="btn btn-sm btn-outline-primary">
+            View Details
+          </a>
+        </div>
+      </div>
     </div>
     {% endfor %}
   </div>
   {% else %}
-  <p style="color: #666">No schools found in the database.</p>
+  <div class="alert alert-info">
+    No schools found matching your search. <a href="{% url 'schools:schools_list' %}">Clear filters</a>
+  </div>
   {% endif %}
 </div>
 {% endblock %}

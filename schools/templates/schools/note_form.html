@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {% if note %}Edit Note{% else %}Add Note{% endif %} - {{ school.name }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'schools:schools_list' %}">Schools</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'schools:school_detail' school.pk %}">{{ school.name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">
+        {% if note %}Edit Note{% else %}Add Note{% endif %}
+      </li>
+    </ol>
+  </nav>
+
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card auth-card">
+        <div class="card-body">
+          <h2 class="card-title">
+            {% if note %}Edit Note{% else %}Add Note{% endif %}
+          </h2>
+          <p class="text-muted mb-4">
+            {% if note %}
+              Update your observation about {{ school.name }}.
+            {% else %}
+              Share an observation about air quality conditions at {{ school.name }}.
+            {% endif %}
+          </p>
+
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="mb-3">
+              <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                {% for error in field.errors %}
+                <div class="invalid-feedback d-block">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+              {% if field.help_text %}
+              <div class="form-text">{{ field.help_text }}</div>
+              {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary">
+                {% if note %}Update Note{% else %}Add Note{% endif %}
+              </button>
+              <a href="{% url 'schools:school_detail' school.pk %}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

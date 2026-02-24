@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import School
+from .models import School, SchoolNote  # Add SchoolNote to this import
 
 # Register your models here.
 @admin.register(School)
@@ -24,3 +24,10 @@ class SchoolAdmin(admin.ModelAdmin):
         }),
     )
 
+
+@admin.register(SchoolNote)
+class SchoolNoteAdmin(admin.ModelAdmin):
+    list_display = ('title', 'school', 'author', 'category', 'created_at')
+    list_filter = ('category', 'created_at')
+    search_fields = ('title', 'content', 'school__name')
+    readonly_fields = ('created_at', 'updated_at')

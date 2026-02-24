@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ school.name }} - Early Years Schools Pollution Monitor{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'schools:schools_list' %}">Schools</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ school.name }}</li>
+    </ol>
+  </nav>
+
+  <!-- School Header -->
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <h2>{{ school.name }}</h2>
+      <p class="text-muted mb-1">{{ school.get_school_type_display }} &middot; {{ school.borough }}</p>
+      <p class="mb-0">{{ school.address }}, {{ school.city }}, {{ school.postcode }}</p>
+    </div>
+    {% if user.is_staff %}
+    <a href="{% url 'schools:school_edit' school.pk %}" class="btn btn-outline-primary">
+      Edit School
+    </a>
+    {% endif %}
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Left Column: Air Quality Data -->
+    <div class="col-lg-8">
+
+      <!-- Current Air Quality Reading -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">Current Air Quality</h5>
+        </div>
+        <div class="card-body">
+          {% if current_reading.method %}
+          <div class="row text-center g-3">
+            {% if current_reading.no2 is not None %}
+            <div class="col-md-4">
+              <div class="p-3 border rounded">
+                <h6 class="text-muted">NO&#8322;</h6>
+                <p class="display-6 mb-0">{{ current_reading.no2 }}</p>
+                <small class="text-muted">&micro;g/m&sup3;</small>
+              </div>
+            </div>
+            {% endif %}
+            {% if current_reading.pm25 is not None %}
+            <div class="col-md-4">
+              <div class="p-3 border rounded">
+                <h6 class="text-muted">PM2.5</h6>
+                <p class="display-6 mb-0">{{ current_reading.pm25 }}</p>
+                <small class="text-muted">&micro;g/m&sup3;</small>
+              </div>
+            </div>
+            {% endif %}
+            {% if current_reading.pm10 is not None %}
+            <div class="col-md-4">
+              <div class="p-3 border rounded">
+                <h6 class="text-muted">PM10</h6>
+                <p class="display-6 mb-0">{{ current_reading.pm10 }}</p>
+                <small class="text-muted">&micro;g/m&sup3;</small>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Data Source Info -->
+          <div class="mt-3 p-2 bg-light rounded">
+            <small class="text-muted">
+              <strong>Data source:</strong>
+              {% if current_reading.method == 'direct' %}
+                Direct sensor reading ({{ current_reading.sensor_code }}, {{ current_reading.sensor_distance|floatformat:0 }}m away)
+              {% elif current_reading.method == 'laei_adjusted' %}
+                LAEI baseline adjusted by {{ current_reading.reference_sensor }} sensor
+              {% else %}
+                LAEI 2022 modelled annual average
+              {% endif %}
+              &middot;
+              <strong>Confidence:</strong> {{ current_reading.confidence }}
+            </small>
+          </div>
+          {% else %}
+          <p class="text-muted">No air quality data currently available for this school.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Threshold Comparison -->
+      {% if threshold_status %}
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">Guideline Comparison</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Pollutant</th>
+                  <th>Value (&micro;g/m&sup3;)</th>
+                  <th>UK Limit</th>
+                  <th>EU 2024</th>
+                  <th>WHO</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for pollutant, data in threshold_status.items %}
+                <tr>
+                  <td>
+                    {% if pollutant == 'no2' %}NO&#8322;{% elif pollutant == 'pm25' %}PM2.5{% else %}PM10{% endif %}
+                  </td>
+                  <td><strong>{{ data.value }}</strong></td>
+                  <td>
+                    {% if data.meets_uk %}
+                      <span class="badge bg-success">Pass</span>
+                    {% else %}
+                      <span class="badge bg-danger">Exceeds</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if data.meets_eu_2024 %}
+                      <span class="badge bg-success">Pass</span>
+                    {% else %}
+                      <span class="badge bg-warning text-dark">Exceeds</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if data.meets_who %}
+                      <span class="badge bg-success">Pass</span>
+                    {% else %}
+                      <span class="badge bg-danger">Exceeds</span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Notes Section -->
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Community Notes</h5>
+          {% if user.is_authenticated %}
+          <a href="{% url 'schools:note_create' school.pk %}" class="btn btn-sm btn-primary">
+            Add Note
+          </a>
+          {% endif %}
+        </div>
+        <div class="card-body">
+          {% if notes %}
+            {% for note in notes %}
+            <div class="border-bottom pb-3 mb-3">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h6 class="mb-1">{{ note.title }}</h6>
+                  <span class="badge bg-secondary mb-2">{{ note.get_category_display }}</span>
+                </div>
+                {% if user == note.author %}
+                <div>
+                  <a href="{% url 'schools:note_edit' note.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                  <a href="{% url 'schools:note_delete' note.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+                {% endif %}
+              </div>
+              <p class="mb-1">{{ note.content }}</p>
+              <small class="text-muted">
+                By {{ note.author.username }} &middot; {{ note.created_at|date:"d M Y, H:i" }}
+                {% if note.updated_at != note.created_at %}
+                  &middot; (edited)
+                {% endif %}
+              </small>
+            </div>
+            {% endfor %}
+          {% else %}
+            <p class="text-muted mb-0">
+              No notes yet.
+              {% if user.is_authenticated %}
+                <a href="{% url 'schools:note_create' school.pk %}">Be the first to share an observation.</a>
+              {% else %}
+                <a href="{% url 'login' %}">Log in</a> to share an observation.
+              {% endif %}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: School Info -->
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">School Information</h5>
+        </div>
+        <div class="card-body">
+          {% if school.student_count %}
+          <p class="mb-2"><strong>Students:</strong> {{ school.student_count }}</p>
+          {% endif %}
+          {% if school.phone %}
+          <p class="mb-2"><strong>Phone:</strong> {{ school.phone }}</p>
+          {% endif %}
+          {% if school.email %}
+          <p class="mb-2"><strong>Email:</strong> <a href="mailto:{{ school.email }}">{{ school.email }}</a></p>
+          {% endif %}
+          {% if school.website %}
+          <p class="mb-2"><strong>Website:</strong> <a href="{{ school.website }}" target="_blank" rel="noopener noreferrer">Visit site</a></p>
+          {% endif %}
+          
+          <hr />
+
+          <p class="mb-2"><strong>Data source:</strong> {{ school.get_data_source_display }}</p>
+          {% if school.direct_sensor %}
+          <p class="mb-2"><strong>Nearest sensor:</strong> {{ school.direct_sensor.name }} ({{ school.direct_sensor_distance|floatformat:0 }}m)</p>
+          {% elif school.reference_sensor %}
+          <p class="mb-2"><strong>Reference sensor:</strong> {{ school.reference_sensor.name }} ({{ school.reference_sensor_distance|floatformat:0 }}m)</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Map Link -->
+      <div class="card mt-3">
+        <div class="card-body text-center">
+          <a href="{% url 'maps:map' %}" class="btn btn-outline-primary w-100">
+            View on Map
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
