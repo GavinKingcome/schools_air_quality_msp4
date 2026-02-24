@@ -1,0 +1,340 @@
+[
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 1,
+  "fields": {
+    "sensor": 2,
+    "year": 2024,
+    "no2_mean": 48.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 2,
+  "fields": {
+    "sensor": 5,
+    "year": 2024,
+    "no2_mean": 17.0,
+    "pm25_mean": null,
+    "pm10_mean": 16.0,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 3,
+  "fields": {
+    "sensor": 7,
+    "year": 2024,
+    "no2_mean": 21.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 4,
+  "fields": {
+    "sensor": 9,
+    "year": 2024,
+    "no2_mean": 16.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 5,
+  "fields": {
+    "sensor": 12,
+    "year": 2024,
+    "no2_mean": 22.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 6,
+  "fields": {
+    "sensor": 14,
+    "year": 2024,
+    "no2_mean": 23.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 7,
+  "fields": {
+    "sensor": 15,
+    "year": 2024,
+    "no2_mean": 26.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 8,
+  "fields": {
+    "sensor": 16,
+    "year": 2024,
+    "no2_mean": 26.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 9,
+  "fields": {
+    "sensor": 1,
+    "year": 2023,
+    "no2_mean": 30.0,
+    "pm25_mean": null,
+    "pm10_mean": 39.0,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 10,
+  "fields": {
+    "sensor": 2,
+    "year": 2023,
+    "no2_mean": 58.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 11,
+  "fields": {
+    "sensor": 5,
+    "year": 2023,
+    "no2_mean": 24.0,
+    "pm25_mean": null,
+    "pm10_mean": 17.0,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 12,
+  "fields": {
+    "sensor": 7,
+    "year": 2023,
+    "no2_mean": 24.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 13,
+  "fields": {
+    "sensor": 9,
+    "year": 2023,
+    "no2_mean": 20.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 14,
+  "fields": {
+    "sensor": 12,
+    "year": 2023,
+    "no2_mean": 27.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 15,
+  "fields": {
+    "sensor": 14,
+    "year": 2023,
+    "no2_mean": 26.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 16,
+  "fields": {
+    "sensor": 15,
+    "year": 2023,
+    "no2_mean": 29.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 17,
+  "fields": {
+    "sensor": 16,
+    "year": 2023,
+    "no2_mean": 31.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 18,
+  "fields": {
+    "sensor": 1,
+    "year": 2022,
+    "no2_mean": 29.0,
+    "pm25_mean": null,
+    "pm10_mean": 38.0,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 19,
+  "fields": {
+    "sensor": 2,
+    "year": 2022,
+    "no2_mean": 65.0,
+    "pm25_mean": null,
+    "pm10_mean": 37.0,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 20,
+  "fields": {
+    "sensor": 5,
+    "year": 2022,
+    "no2_mean": 23.0,
+    "pm25_mean": null,
+    "pm10_mean": 18.0,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 21,
+  "fields": {
+    "sensor": 7,
+    "year": 2022,
+    "no2_mean": 26.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 22,
+  "fields": {
+    "sensor": 9,
+    "year": 2022,
+    "no2_mean": 22.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 23,
+  "fields": {
+    "sensor": 12,
+    "year": 2022,
+    "no2_mean": 27.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 24,
+  "fields": {
+    "sensor": 14,
+    "year": 2022,
+    "no2_mean": 26.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 25,
+  "fields": {
+    "sensor": 15,
+    "year": 2022,
+    "no2_mean": 30.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+},
+{
+  "model": "air_quality.sensorannualstats",
+  "pk": 26,
+  "fields": {
+    "sensor": 16,
+    "year": 2022,
+    "no2_mean": 32.0,
+    "pm25_mean": null,
+    "pm10_mean": null,
+    "o3_mean": null,
+    "capture_rate": null
+  }
+}
+]
