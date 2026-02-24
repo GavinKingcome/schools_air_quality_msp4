@@ -272,9 +272,9 @@
                       ${school.current_no2 !== null || school.current_pm25 !== null || school.current_pm10 !== null || school.laei_data_available ? `
                           <hr class="my-3">
                           <h6 class="mb-2">Air Quality Data</h6>
-                          ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40, school.data_source !== 'LAEI_ONLY' ? 'live' : 'baseline') : school.no2_2022 !== null ? createPollutantDisplay('NO₂', school.no2_2022, 10, 20, 40, 'baseline') : ''}
-                          ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25, school.data_source !== 'LAEI_ONLY' ? 'live' : 'baseline') : school.pm25_2022 !== null ? createPollutantDisplay('PM2.5', school.pm25_2022, 5, 10, 25, 'baseline') : ''}
-                          ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40, school.data_source !== 'LAEI_ONLY' ? 'live' : 'baseline') : school.pm10_mean_2022 !== null ? createPollutantDisplay('PM10', school.pm10_mean_2022, 15, 20, 40, 'baseline') : ''}
+                          ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40, school.data_source !== 'LAEI_ONLY' ? 'live' : null) : school.no2_2022 !== null ? createPollutantDisplay('NO₂', school.no2_2022, 10, 20, 40, 'baseline') : ''}
+                          ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25, school.data_source !== 'LAEI_ONLY' ? 'live' : null) : school.pm25_2022 !== null ? createPollutantDisplay('PM2.5', school.pm25_2022, 5, 10, 25, 'baseline') : ''}
+                          ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40, school.data_source !== 'LAEI_ONLY' ? 'live' : null) : school.pm10_mean_2022 !== null ? createPollutantDisplay('PM10', school.pm10_mean_2022, 15, 20, 40, 'baseline') : ''}
                           ${school.reading_timestamp ? `<p class="small text-muted mt-2 mb-0">Sensor last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
                       ` : '<p class="text-muted fst-italic mt-2 mb-0">No air quality data available</p>'}
                   </div>
