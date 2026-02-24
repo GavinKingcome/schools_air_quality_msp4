@@ -259,22 +259,23 @@
               <p style="font-size: 0.85em; color: #6c757d;">No nearby sensors for real-time data</p>
             `}
 
-              ${school.current_no2 !== null || school.current_pm25 !== null || school.current_pm10 !== null ? `
+              ${(school.data_source === 'DIRECT' || school.data_source === 'ADJUSTED') && (school.current_no2 !== null || school.current_pm25 !== null || school.current_pm10 !== null) ? `
                   <hr style="margin: 15px 0; border: none; border-top: 1px solid #dee2e6;">
-                  <h4 style="margin: 10px 0;">${school.data_source === 'DIRECT' ? 'Current Readings' : school.data_source === 'ADJUSTED' ? 'Sensor-Adjusted Estimates' : 'Current Estimates'}</h4>
+                  <h4 style="margin: 10px 0;">${school.data_source === 'DIRECT' ? 'Current Readings' : 'Sensor-Adjusted Estimates'}</h4>
                   ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40) : ''}
                   ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25) : ''}
                   ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40) : ''}
                   ${school.reading_timestamp ? `<p style="font-size: 0.85em; color: #6c757d; margin-top: 10px;">Last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
               ` : ''}
 
-              ${school.laei_data_available ? `
+              ${school.laei_data_available && (school.data_source === 'LAEI_ONLY' || school.data_source === 'ADJUSTED') ? `
                   <hr style="margin: 15px 0; border: none; border-top: 1px solid #dee2e6;">
-                  <h4 style="margin: 10px 0;">Modeled Annual Averages</h4>
+                  <h4 style="margin: 10px 0;">${school.data_source === 'ADJUSTED' ? 'LAEI Baseline (for comparison)' : 'Annual Average Estimates'}</h4>
                   ${createPollutantDisplay('NO₂', school.no2_2022, 10, 20, 40)}
                   ${createPollutantDisplay('PM2.5', school.pm25_2022, 5, 10, 25)}
                   ${createPollutantDisplay('PM10', school.pm10_mean_2022, 15, 20, 40)}
-              ` : '<p style="color: #6c757d; font-style: italic; margin-top: 10px;">No air quality data available</p>'}
+                  ${school.data_source === 'LAEI_ONLY' ? '<p style="font-size: 0.85em; color: #6c757d; margin-top: 5px;">Modeled data from 2022 — current conditions may vary</p>' : ''}
+              ` : school.laei_data_available ? '' : '<p style="color: #6c757d; font-style: italic; margin-top: 10px;">No air quality data available</p>'}
           </div>
       `;
 
