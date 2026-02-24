@@ -392,22 +392,8 @@
       }, 100);
   });
 
-  // Track popup open time to prevent immediate close from resetting view
-  let popupOpenTime = null;
-  map.on('popupopen', function() {
-      popupOpenTime = Date.now();
-  });
-
-  // Reset map view when popup closes (but only if it was open for at least 500ms)
+  // Handle popup close - show legends and controls again on mobile
   map.on('popupclose', function() {
-      const popupWasOpenFor = popupOpenTime ? Date.now() - popupOpenTime : 1000;
-      
-      // Only reset if it was a school popup and was open for more than 500ms (prevents immediate close issues)
-      // Don't reset for sensor popups
-      if (window.currentPopupType === 'school' && popupWasOpenFor > 500 && window.originalMapBounds) {
-          map.fitBounds(window.originalMapBounds, window.originalMapZoomOptions);
-      }
-      
       // Show legends and controls again on mobile
       if (window.innerWidth <= 768) {
           document.querySelector('.map-legend').style.display = 'block';
@@ -417,7 +403,6 @@
           if (toggleControl) toggleControl.style.display = 'block';
       }
       
-      popupOpenTime = null;
       window.currentPopupType = null;
   });
 
