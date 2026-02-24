@@ -8,6 +8,34 @@
 body {
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Skip Link (accessibility) */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 9999;
+  text-decoration: none;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
 }
 
 /* Header Styles */
@@ -26,6 +54,15 @@ body {
   margin: 0 auto;
 }
 
+.branding-link {
+  text-decoration: none;
+  color: white;
+}
+
+.branding-link:hover {
+  color: white;
+}
+
 .branding h1 {
   font-size: 1.8rem;
   font-weight: 700;
@@ -42,11 +79,12 @@ body {
 /* Navigation */
 .main-nav {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 .nav-link {
-  color: white;
+  color: white !important;
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
@@ -57,11 +95,105 @@ body {
 
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.15);
+  color: white !important;
+}
+
+/* Logout button styled as nav link */
+.nav-logout-form {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Register button - slightly more prominent */
+.nav-register {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.nav-register:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Main Content */
 main {
-  min-height: calc(100vh - 100px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer */
+.site-footer {
+  background: #2d3748;
+  color: #a0aec0;
+  padding: 0.75rem 1.5rem;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-info p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.footer-tagline {
+  font-size: 0.75rem !important;
+  opacity: 0.7;
+  margin-top: 0.15rem !important;
+}
+
+.footer-links p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.footer-links a {
+  color: #90cdf4;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+/* Django Messages */
+.alert {
+  border-radius: 6px;
+}
+
+/* Forms (used by login, register, and school profile pages) */
+.auth-card {
+  border: none;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+.auth-card .card-body {
+  padding: 2rem;
+}
+
+.auth-card .card-title {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
 /* Mobile Responsive Styles */
@@ -85,9 +217,10 @@ main {
   }
 
   .main-nav {
-    gap: 1rem;
+    gap: 0.75rem;
     width: 100%;
     justify-content: flex-start;
+    flex-wrap: wrap;
   }
 
   .nav-link {
@@ -95,8 +228,9 @@ main {
     padding: 0.4rem 0.8rem;
   }
 
-  main {
-    min-height: calc(100vh - 80px);
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
   }
 }
 
@@ -120,9 +254,5 @@ main {
   .nav-link {
     font-size: 0.85rem;
     padding: 0.3rem 0.6rem;
-  }
-
-  main {
-    min-height: calc(100vh - 70px);
   }
 }
