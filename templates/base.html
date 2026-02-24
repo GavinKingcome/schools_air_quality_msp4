@@ -47,7 +47,7 @@
           <a href="{% url 'maps:map' %}" class="nav-link">Map</a>
           <a href="{% url 'schools:schools_list' %}" class="nav-link">Schools</a>
           {% if user.is_authenticated %}
-            <a href="{% url 'subscriptions:subscription_status' %}" class="nav-link">My Account</a>
+            <a href="{% url 'subscriptions:manage' %}" class="nav-link">My Account</a>
             {% if user.is_staff %}
               <a href="{% url 'admin:index' %}" class="nav-link">Admin</a>
             {% endif %}

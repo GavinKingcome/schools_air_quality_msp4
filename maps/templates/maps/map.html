@@ -251,7 +251,7 @@
       const marker = L.marker([school.latitude, school.longitude], { icon: icon });
 
       const popupContent = `
-          <div class="card border-0" style="min-width: 300px; max-width: 400px;">
+          <div class="card border-0" style="min-width: ${window.innerWidth <= 768 ? '250px' : '300px'}; max-width: ${window.innerWidth <= 768 ? '260px' : '400px'};">
               <div class="card-body p-3">
                   <h5 class="card-title mb-3">${school.name}</h5>
                   <div class="card-text">
@@ -286,10 +286,11 @@
       `;
 
       marker.bindPopup(popupContent, {
-          maxWidth: window.innerWidth <= 768 ? 280 : 450,
-          maxHeight: window.innerWidth <= 768 ? 350 : 500,
+          maxWidth: window.innerWidth <= 768 ? 260 : 450,
+          minWidth: window.innerWidth <= 768 ? 250 : 300,
+          maxHeight: window.innerWidth <= 768 ? 300 : 500,
           autoPan: true,
-          autoPanPadding: window.innerWidth <= 768 ? [10, 10] : [50, 100],
+          autoPanPadding: window.innerWidth <= 768 ? [5, 50] : [50, 100],
           keepInView: true,
           closeButton: true,
           autoClose: false,
@@ -354,10 +355,11 @@
       `;
 
       marker.bindPopup(popupContent, {
-          maxWidth: window.innerWidth <= 768 ? 280 : 450,
-          maxHeight: window.innerWidth <= 768 ? 350 : 500,
+          maxWidth: window.innerWidth <= 768 ? 260 : 450,
+          minWidth: window.innerWidth <= 768 ? 250 : 250,
+          maxHeight: window.innerWidth <= 768 ? 300 : 500,
           autoPan: true,
-          autoPanPadding: window.innerWidth <= 768 ? [10, 10] : [50, 100],
+          autoPanPadding: window.innerWidth <= 768 ? [5, 50] : [50, 100],
           keepInView: true,
           closeButton: true,
           autoClose: false,
