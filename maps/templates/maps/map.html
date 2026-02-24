@@ -168,10 +168,11 @@
     const sensorLayer = L.layerGroup();
 
   // Create marker cluster groups for each borough
+  const isMobile = window.innerWidth <= 768;
   const southwarkCluster = L.markerClusterGroup({
-      spiderfyOnMaxZoom: true,
+      spiderfyOnMaxZoom: !isMobile,  // Disable spiderfy on mobile to prevent popup conflicts
       showCoverageOnHover: false,
-      zoomToBoundsOnClick: true,
+      zoomToBoundsOnClick: !isMobile,  // Disable auto-zoom on mobile to prevent popup issues
       maxClusterRadius: 90,
       iconCreateFunction: function(cluster) {
           return L.divIcon({
@@ -183,9 +184,9 @@
   });
 
   const lambethCluster = L.markerClusterGroup({
-      spiderfyOnMaxZoom: true,
+      spiderfyOnMaxZoom: !isMobile,  // Disable spiderfy on mobile to prevent popup conflicts
       showCoverageOnHover: false,
-      zoomToBoundsOnClick: true,
+      zoomToBoundsOnClick: !isMobile,  // Disable auto-zoom on mobile to prevent popup issues
       maxClusterRadius: 90,
       iconCreateFunction: function(cluster) {
           return L.divIcon({
@@ -290,7 +291,8 @@
           keepInView: true,
           closeButton: true,
           autoClose: false,
-          closeOnClick: false
+          closeOnClick: false,
+          closeOnEscapeKey: false
       });
       
       // Mark this as a school popup
@@ -348,7 +350,8 @@
           keepInView: true,
           closeButton: true,
           autoClose: false,
-          closeOnClick: false
+          closeOnClick: false,
+          closeOnEscapeKey: false
       });
       
       // Mark this as a sensor popup
@@ -407,12 +410,16 @@
   });
 
   // Hide legends and controls on mobile when popup opens (so popup appears on top)
-  map.on('popupopen', function() {
+  map.on('popupopen', function(e) {
       if (window.innerWidth <= 768) {
-          document.querySelector('.map-legend').style.display = 'none';
-          document.querySelector('.sensor-legend').style.display = 'none';
-          document.querySelector('.map-search-container').style.display = 'none';
+          const legend = document.querySelector('.map-legend');
+          const sensorLegend = document.querySelector('.sensor-legend');
+          const searchContainer = document.querySelector('.map-search-container');
           const toggleControl = document.querySelector('.sensor-toggle-control');
+          
+          if (legend) legend.style.display = 'none';
+          if (sensorLegend) sensorLegend.style.display = 'none';
+          if (searchContainer) searchContainer.style.display = 'none';
           if (toggleControl) toggleControl.style.display = 'none';
       }
   });
