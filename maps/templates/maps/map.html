@@ -170,9 +170,9 @@
   // Create marker cluster groups for each borough
   const isMobile = window.innerWidth <= 768;
   const southwarkCluster = L.markerClusterGroup({
-      spiderfyOnMaxZoom: !isMobile,  // Disable spiderfy on mobile to prevent popup conflicts
+      spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
-      zoomToBoundsOnClick: !isMobile,  // Disable auto-zoom on mobile to prevent popup issues
+      zoomToBoundsOnClick: false,  // Disable auto-zoom to prevent popup issues
       maxClusterRadius: 90,
       iconCreateFunction: function(cluster) {
           return L.divIcon({
@@ -184,9 +184,9 @@
   });
 
   const lambethCluster = L.markerClusterGroup({
-      spiderfyOnMaxZoom: !isMobile,  // Disable spiderfy on mobile to prevent popup conflicts
+      spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
-      zoomToBoundsOnClick: !isMobile,  // Disable auto-zoom on mobile to prevent popup issues
+      zoomToBoundsOnClick: false,  // Disable auto-zoom to prevent popup issues
       maxClusterRadius: 90,
       iconCreateFunction: function(cluster) {
           return L.divIcon({
@@ -284,10 +284,10 @@
       `;
 
       marker.bindPopup(popupContent, {
-          maxWidth: window.innerWidth <= 768 ? 300 : 450,
-          maxHeight: window.innerWidth <= 768 ? 400 : 500,
+          maxWidth: window.innerWidth <= 768 ? 280 : 450,
+          maxHeight: window.innerWidth <= 768 ? 350 : 500,
           autoPan: true,
-          autoPanPadding: [50, 100],
+          autoPanPadding: window.innerWidth <= 768 ? [10, 10] : [50, 100],
           keepInView: true,
           closeButton: true,
           autoClose: false,
@@ -343,10 +343,10 @@
       `;
 
       marker.bindPopup(popupContent, {
-          maxWidth: window.innerWidth <= 768 ? 300 : 450,
-          maxHeight: window.innerWidth <= 768 ? 400 : 500,
+          maxWidth: window.innerWidth <= 768 ? 280 : 450,
+          maxHeight: window.innerWidth <= 768 ? 350 : 500,
           autoPan: true,
-          autoPanPadding: [50, 100],
+          autoPanPadding: window.innerWidth <= 768 ? [10, 10] : [50, 100],
           keepInView: true,
           closeButton: true,
           autoClose: false,
