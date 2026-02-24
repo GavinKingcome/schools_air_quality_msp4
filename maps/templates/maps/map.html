@@ -292,6 +292,12 @@
           autoClose: false,
           closeOnClick: false
       });
+      
+      // Mark this as a school popup
+      marker.on('popupopen', function() {
+          window.currentPopupType = 'school';
+      });
+      
       markersMap.set(school.id, { marker, school });
 
       // Add marker to appropriate cluster
@@ -344,6 +350,12 @@
           autoClose: false,
           closeOnClick: false
       });
+      
+      // Mark this as a sensor popup
+      marker.on('popupopen', function() {
+          window.currentPopupType = 'sensor';
+      });
+      
       sensorLayer.addLayer(marker);
   });
 
@@ -390,8 +402,9 @@
   map.on('popupclose', function() {
       const popupWasOpenFor = popupOpenTime ? Date.now() - popupOpenTime : 1000;
       
-      // Only reset if popup was open for more than 500ms (prevents immediate close issues)
-      if (popupWasOpenFor > 500 && window.originalMapBounds) {
+      // Only reset if it was a school popup and was open for more than 500ms (prevents immediate close issues)
+      // Don't reset for sensor popups
+      if (window.currentPopupType === 'school' && popupWasOpenFor > 500 && window.originalMapBounds) {
           map.fitBounds(window.originalMapBounds, window.originalMapZoomOptions);
       }
       
@@ -405,6 +418,7 @@
       }
       
       popupOpenTime = null;
+      window.currentPopupType = null;
   });
 
   // Hide legends and controls on mobile when popup opens (so popup appears on top)
