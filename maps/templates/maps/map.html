@@ -158,6 +158,36 @@
         maxZoom: 19
     }).addTo(map);
 
+    // Reset map to full view when popup closes
+    map.on('popupclose', function() {
+        // Reset map view to show all schools
+        if (window.originalMapBounds) {
+            map.fitBounds(window.originalMapBounds, window.originalMapZoomOptions || {});
+        } else {
+            map.setView([51.4893, -0.0927], 12);
+        }
+        
+        // Reset search and opacity (will be available after markers are created)
+        setTimeout(function() {
+            if (typeof selectedSchoolId !== 'undefined') {
+                selectedSchoolId = null;
+            }
+            if (typeof markersMap !== 'undefined') {
+                markersMap.forEach(({marker}) => marker.setOpacity(1));
+            }
+            const searchInput = document.getElementById('schoolSearch');
+            const searchResults = document.getElementById('searchResults');
+            const clearButton = document.getElementById('clearSearch');
+            if (searchInput) searchInput.value = '';
+            if (searchResults) searchResults.style.display = 'none';
+            if (clearButton) clearButton.style.display = 'none';
+            
+            // Show sensor toggle again
+            const sensorToggle = document.querySelector('.sensor-toggle-control');
+            if (sensorToggle) sensorToggle.style.display = 'block';
+        }, 100);
+    });
+
   // Get schools data from Django
     const schools = {{ schools_json|safe }};
     const sensors = {{ sensors_json|safe }};
@@ -290,9 +320,8 @@
           minWidth: window.innerWidth <= 768 ? 250 : 300,
           maxHeight: window.innerWidth <= 768 ? 300 : 500,
           autoPan: true,
-          autoPanPadding: window.innerWidth <= 768 ? [10, 120] : [50, 200],
-          offset: [0, -15],
-          keepInView: true,
+          autoPanPadding: window.innerWidth <= 768 ? [10, 10] : [50, 20],
+          offset: window.innerWidth <= 768 ? [-35, -15] : [0, -15],
           closeButton: true,
           autoClose: false,
           closeOnClick: false,
@@ -376,9 +405,8 @@
           minWidth: window.innerWidth <= 768 ? 250 : 250,
           maxHeight: window.innerWidth <= 768 ? 300 : 500,
           autoPan: true,
-          autoPanPadding: window.innerWidth <= 768 ? [10, 120] : [50, 200],
-          offset: [0, -15],
-          keepInView: true,
+          autoPanPadding: window.innerWidth <= 768 ? [10, 10] : [50, 20],
+          offset: window.innerWidth <= 768 ? [-35, -15] : [0, -15],
           closeButton: true,
           autoClose: false,
           closeOnClick: false,
