@@ -240,33 +240,37 @@
       const marker = L.marker([school.latitude, school.longitude], { icon: icon });
 
       const popupContent = `
-          <div style="min-width: 300px; max-width: 400px;">
-              <h3 style="margin-top: 0;">${school.name}</h3>
-              <p><strong>Type:</strong> ${school.school_type}</p>
-              <p><strong>Borough:</strong> ${school.borough}</p>
-              <p><strong>Address:</strong> ${school.address}</p>
-              <p><strong>Postcode:</strong> ${school.postcode}</p>
-              ${school.student_count ? `<p><strong>Students:</strong> ${school.student_count}</p>` : ''}
-
-              ${school.data_source === 'DIRECT' ? `
-              <p><strong>Data Source:</strong> Direct sensor reading</p>
-              <p style="font-size: 0.85em; color: #28a745;">Sensor ${school.direct_sensor} (genuinely local)</p>
-              ` : school.data_source === 'ADJUSTED' ? `
-              <p><strong>Data Source:</strong> LAEI × sensor adjustment</p>
-              <p style="font-size: 0.85em; color: #333; font-weight: 600;">Reference sensor ${school.reference_sensor}${school.is_school_hours === false && school.reading_timestamp ? ' (latest reading from outside school hours)' : ''}</p>
-              ` : `
-              <p><strong>Data Source:</strong> LAEI modeled baseline</p>
-              <p style="font-size: 0.85em; color: #6c757d;">No nearby sensors for real-time data</p>
-            `}
-
-              ${school.current_no2 !== null || school.current_pm25 !== null || school.current_pm10 !== null ? `
-                  <hr style="margin: 15px 0; border: none; border-top: 1px solid #dee2e6;">
-                  <h4 style="margin: 10px 0;">Current Estimates</h4>
-                  ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40) : ''}
-                  ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25) : ''}
-                  ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40) : ''}
-                  ${school.reading_timestamp ? `<p style="font-size: 0.85em; color: #6c757d; margin-top: 10px;">Last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
-              ` : '<p style="color: #6c757d; font-style: italic; margin-top: 10px;">No air quality data available</p>'}
+          <div class="card border-0" style="min-width: 300px; max-width: 400px;">
+              <div class="card-body p-3">
+                  <h5 class="card-title mb-3">${school.name}</h5>
+                  <div class="card-text">
+                      <p class="mb-1"><strong>Type:</strong> ${school.school_type}</p>
+                      <p class="mb-1"><strong>Borough:</strong> ${school.borough}</p>
+                      <p class="mb-1"><strong>Address:</strong> ${school.address}</p>
+                      <p class="mb-1"><strong>Postcode:</strong> ${school.postcode}</p>
+                      ${school.student_count ? `<p class="mb-2"><strong>Students:</strong> ${school.student_count}</p>` : ''}
+                      
+                      ${school.data_source === 'DIRECT' ? `
+                      <p class="mb-1"><strong>Data Source:</strong> Direct sensor reading</p>
+                      <p class="small text-success mb-0">Sensor ${school.direct_sensor} (genuinely local)</p>
+                      ` : school.data_source === 'ADJUSTED' ? `
+                      <p class="mb-1"><strong>Data Source:</strong> LAEI × sensor adjustment</p>
+                      <p class="small fw-semibold mb-0">Reference sensor ${school.reference_sensor}${school.is_school_hours === false && school.reading_timestamp ? ' (latest reading from outside school hours)' : ''}</p>
+                      ` : `
+                      <p class="mb-1"><strong>Data Source:</strong> LAEI modeled baseline</p>
+                      <p class="small text-muted mb-0">No nearby sensors for real-time data</p>
+                      `}
+                      
+                      ${school.current_no2 !== null || school.current_pm25 !== null || school.current_pm10 !== null ? `
+                          <hr class="my-3">
+                          <h6 class="mb-2">Current Estimates</h6>
+                          ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40) : ''}
+                          ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25) : ''}
+                          ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40) : ''}
+                          ${school.reading_timestamp ? `<p class="small text-muted mt-2 mb-0">Last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
+                      ` : '<p class="text-muted fst-italic mt-2 mb-0">No air quality data available</p>'}
+                  </div>
+              </div>
           </div>
       `;
 
@@ -300,12 +304,16 @@
       const marker = L.marker([sensor.latitude, sensor.longitude], { icon: icon });
 
       const popupContent = `
-          <div style="min-width: 250px;">
-              <h3 style="margin-top: 0;">${sensor.site_code}</h3>
-              <p><strong>Network:</strong> ${sensor.network}</p>
-              <p><strong>Type:</strong> ${sensor.site_type.replace('_', ' ')}</p>
-              <p><strong>Reference Grade:</strong> ${sensor.is_reference_grade ? 'Yes (LAQN)' : 'No (Low-cost calibrated)'}</p>
-              <p><strong>Urban Background:</strong> ${sensor.is_urban_background ? 'Yes' : 'No'}</p>
+          <div class="card border-0" style="min-width: 250px;">
+              <div class="card-body p-3">
+                  <h5 class="card-title mb-3">${sensor.site_code}</h5>
+                  <div class="card-text">
+                      <p class="mb-1"><strong>Network:</strong> ${sensor.network}</p>
+                      <p class="mb-1"><strong>Type:</strong> ${sensor.site_type.replace('_', ' ')}</p>
+                      <p class="mb-1"><strong>Reference Grade:</strong> ${sensor.is_reference_grade ? 'Yes (LAQN)' : 'No (Low-cost calibrated)'}</p>
+                      <p class="mb-0"><strong>Urban Background:</strong> ${sensor.is_urban_background ? 'Yes' : 'No'}</p>
+                  </div>
+              </div>
           </div>
       `;
 
