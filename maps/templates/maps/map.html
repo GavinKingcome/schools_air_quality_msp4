@@ -259,10 +259,10 @@
                       ${school.student_count ? `<p class="mb-2"><strong>Students:</strong> ${school.student_count}</p>` : ''}
                       
                       ${school.data_source === 'DIRECT' ? `
-                      <p class="mb-1"><strong>Data Source:</strong> Direct sensor reading</p>
+                      <p class="mb-1"><strong>Data Source:</strong> Breathe London sensor</p>
                       <p class="small text-success mb-0">Sensor ${school.direct_sensor} (local)</p>
                       ` : school.data_source === 'ADJUSTED' ? `
-                      <p class="mb-1"><strong>Data Source:</strong> LAEI × sensor adjustment</p>
+                      <p class="mb-1"><strong>Data Source:</strong> LAEI × LAQN sensor adjustment</p>
                       <p class="small fw-semibold mb-0">Reference sensor ${school.reference_sensor}${school.is_school_hours === false && school.reading_timestamp ? ' (latest reading from outside school hours)' : ''}</p>
                       ` : `
                       <p class="mb-1"><strong>Data Source:</strong> LAEI modeled baseline</p>
