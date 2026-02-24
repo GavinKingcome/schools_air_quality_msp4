@@ -139,6 +139,7 @@ class School(models.Model):
                     'confidence': 'high' if self.direct_sensor.is_reference_grade else 'medium-high',
                     'sensor_code': self.direct_sensor.site_code,
                     'sensor_distance': float(self.direct_sensor_distance) if self.direct_sensor_distance else None,
+                    'reading_timestamp': reading.timestamp,
                 })
                 return result
         

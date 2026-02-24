@@ -25,10 +25,18 @@ def map_view(request):
         else:  # laei_only or empty
             data_source = 'LAEI_ONLY'
         
-        # Get adjustment factor info if available
-        adjustment_factors = current_reading.get('adjustment_factors', {})
-        reading_timestamp = adjustment_factors.get('reading_timestamp')
-        is_school_hours = adjustment_factors.get('is_school_hours', True)
+        # Get timestamp - for DIRECT it's at top level, for ADJUSTED it's in adjustment_factors
+        reading_timestamp = current_reading.get('reading_timestamp')
+        if not reading_timestamp:
+            adjustment_factors = current_reading.get('adjustment_factors', {})
+            reading_timestamp = adjustment_factors.get('reading_timestamp')
+            is_school_hours = adjustment_factors.get('is_school_hours', True)
+        else:
+            # For DIRECT readings, check school hours
+            is_school_hours = True  # Direct sensor readings don't have this check yet
+            if reading_timestamp:
+                reading_hour = reading_timestamp.hour
+                is_school_hours = 7 <= reading_hour < 19
         
         schools_data.append({
             'id': school.id,
