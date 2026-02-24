@@ -278,7 +278,7 @@
                           ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40, school.data_source === 'DIRECT' ? 'live' : null) : school.no2_2022 !== null ? createPollutantDisplay('NO₂', school.no2_2022, 10, 20, 40, 'baseline') : ''}
                           ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25, school.data_source === 'DIRECT' ? 'live' : null) : school.pm25_2022 !== null ? createPollutantDisplay('PM2.5', school.pm25_2022, 5, 10, 25, 'baseline') : ''}
                           ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40, school.data_source === 'DIRECT' ? 'live' : null) : school.pm10_mean_2022 !== null ? createPollutantDisplay('PM10', school.pm10_mean_2022, 15, 20, 40, 'baseline') : ''}
-                          ${school.reading_timestamp ? `<p class="small text-muted mt-2 mb-0">Sensor last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
+                          ${school.reading_timestamp && (school.data_source === 'DIRECT' || school.data_source === 'ADJUSTED') ? `<p class="small text-muted mt-2 mb-0">Sensor last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
                       ` : '<p class="text-muted fst-italic mt-2 mb-0">No air quality data available</p>'}
                   </div>
               </div>
@@ -326,13 +326,29 @@
       map.closePopup();
   });
 
+  // Track currently selected school from search
+  let selectedSchoolId = null;
+
   // Reset marker opacity when clusters expand (fixes translucent markers after decluster)
+  // But preserve search selection opacity if a school is selected
   southwarkCluster.on('animationend', function() {
-      markersMap.forEach(({marker}) => marker.setOpacity(1));
+      markersMap.forEach(({marker, school}) => {
+          if (selectedSchoolId !== null) {
+              marker.setOpacity(school.id === selectedSchoolId ? 1 : 0.2);
+          } else {
+              marker.setOpacity(1);
+          }
+      });
   });
   
   lambethCluster.on('animationend', function() {
-      markersMap.forEach(({marker}) => marker.setOpacity(1));
+      markersMap.forEach(({marker, school}) => {
+          if (selectedSchoolId !== null) {
+              marker.setOpacity(school.id === selectedSchoolId ? 1 : 0.2);
+          } else {
+              marker.setOpacity(1);
+          }
+      });
   });
 
   // Add sensor markers to layer (not to map yet)
@@ -473,7 +489,8 @@
             searchResults.innerHTML = '';
             // Show sensor toggle again when search cleared
             if (sensorToggle) sensorToggle.style.display = 'block';
-            // Reset all markers to full opacity
+            // Reset all markers to full opacity and clear selection
+            selectedSchoolId = null;
             markersMap.forEach(({marker}) => marker.setOpacity(1));
             return;
         }
@@ -509,6 +526,12 @@
                     const schoolId = parseInt(this.dataset.schoolId);
                     const {marker, school} = markersMap.get(schoolId);
 
+                    // Set selected school and dim all others
+                    selectedSchoolId = schoolId;
+                    markersMap.forEach(({marker: m, school: s}) => {
+                        m.setOpacity(s.id === schoolId ? 1 : 0.2);
+                    });
+
                     // Zoom to marker and open popup
                     map.setView([school.latitude, school.longitude], 16);
                     marker.openPopup();
@@ -528,7 +551,8 @@
             searchResults.style.display = 'block';
         }
 
-        // Dim non-matching markers
+        // Dim non-matching markers (and clear any previous selection)
+        selectedSchoolId = null;
         markersMap.forEach(({marker, school}) => {
             const matches = school.name.toLowerCase().includes(searchTerm) ||
                           school.postcode.toLowerCase().includes(searchTerm) ||
@@ -548,7 +572,8 @@
         const sensorToggle = document.querySelector('.sensor-toggle-control');
         if (sensorToggle) sensorToggle.style.display = 'block';
 
-        // Reset all markers to full opacity
+        // Reset all markers to full opacity and clear selection
+        selectedSchoolId = null;
         markersMap.forEach(({marker}) => marker.setOpacity(1));
 
          // Zoom back out to show all schools
@@ -571,5 +596,35 @@
             searchResults.style.display = 'none';
         }
     });
+
+    // Check for school parameter in URL and zoom to that school
+    const urlParams = new URLSearchParams(window.location.search);
+    const schoolIdParam = urlParams.get('school');
+    if (schoolIdParam) {
+        const schoolId = parseInt(schoolIdParam);
+        const schoolData = markersMap.get(schoolId);
+        
+        if (schoolData) {
+            const {marker, school} = schoolData;
+            
+            // Set selected school and dim all others
+            selectedSchoolId = schoolId;
+            markersMap.forEach(({marker: m, school: s}) => {
+                m.setOpacity(s.id === schoolId ? 1 : 0.2);
+            });
+            
+            // Determine which cluster the marker belongs to and use zoomToShowLayer
+            const cluster = school.borough === 'Southwark' ? southwarkCluster : lambethCluster;
+            
+            // Use zoomToShowLayer to automatically expand clusters and show the marker
+            cluster.zoomToShowLayer(marker, function() {
+                // After the cluster has expanded and zoomed, open the popup
+                marker.openPopup();
+            });            
+            // Update search input to show the school name
+            searchInput.value = school.name;
+            clearButton.style.display = 'block';
+        }
+    }
 </script>
 {% endblock %}

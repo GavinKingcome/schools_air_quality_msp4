@@ -41,12 +41,29 @@ def schools_list(request):
     if school_type:
         schools = schools.filter(school_type=school_type)
     
+    # Add current reading method to each school for accurate badge display
+    schools_with_method = []
+    for school in schools:
+        current_reading = school.get_current_reading()
+        method = current_reading.get('method', '')
+        
+        # Map method to data_source for display consistency with map
+        if method == 'direct':
+            actual_data_source = 'DIRECT'
+        elif method == 'laei_adjusted':
+            actual_data_source = 'ADJUSTED'
+        else:  # laei_only or empty
+            actual_data_source = 'LAEI_ONLY'
+        
+        school.actual_data_source = actual_data_source
+        schools_with_method.append(school)
+    
     context = {
-        'schools': schools,
+        'schools': schools_with_method,
         'query': query,
         'borough': borough,
         'school_type': school_type,
-        'school_count': schools.count(),
+        'school_count': len(schools_with_method),
     }
     return render(request, 'schools/schools_list.html', context)
 

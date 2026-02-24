@@ -66,9 +66,9 @@
           {% endif %}
 
           <!-- Data source badge -->
-          {% if school.data_source == 'DIRECT' %}
+          {% if school.actual_data_source == 'DIRECT' %}
           <span class="badge bg-success">Direct Sensor</span>
-          {% elif school.data_source == 'ADJUSTED' %}
+          {% elif school.actual_data_source == 'ADJUSTED' %}
           <span class="badge bg-info">Sensor Adjusted</span>
           {% else %}
           <span class="badge bg-secondary">LAEI Baseline</span>

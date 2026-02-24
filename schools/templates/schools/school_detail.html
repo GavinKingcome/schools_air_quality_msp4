@@ -216,7 +216,15 @@
           
           <hr />
 
-          <p class="mb-2"><strong>Data source:</strong> {{ school.get_data_source_display }}</p>
+          <p class="mb-2"><strong>Data source:</strong> 
+            {% if current_reading.method == 'direct' %}
+              Direct sensor reading
+            {% elif current_reading.method == 'laei_adjusted' %}
+              LAEI adjusted by LAQN sensor
+            {% else %}
+              LAEI baseline only
+            {% endif %}
+          </p>
           {% if school.direct_sensor %}
           <p class="mb-2"><strong>Nearest sensor:</strong> {{ school.direct_sensor.name }} ({{ school.direct_sensor_distance|floatformat:0 }}m)</p>
           {% elif school.reference_sensor %}
@@ -228,7 +236,7 @@
       <!-- Map Link -->
       <div class="card mt-3">
         <div class="card-body text-center">
-          <a href="{% url 'maps:map' %}" class="btn btn-outline-primary w-100">
+          <a href="{% url 'maps:map' %}?school={{ school.id }}" class="btn btn-outline-primary w-100">
             View on Map
           </a>
         </div>
