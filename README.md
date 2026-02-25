@@ -59,7 +59,7 @@ AirAware London helps parents, school administrators, and policymakers make info
   - Automated hourly data fetching via Heroku Scheduler
   - LAQN API integration (reference-grade monitoring stations)
   - Breathe London API via OpenAQ (calibrated low-cost sensors)
-  - TimescaleDB optimization for time-series queries
+  - PostgreSQL database optimized for time-series data storage
 
 - **Hybrid Data Strategy**
   - **Direct readings:** Schools within 150m of urban background sensors
@@ -128,8 +128,7 @@ AirAware London helps parents, school administrators, and policymakers make info
 
 - **Python 3.13**
 - **Django 6.0** - Web framework
-- **PostgreSQL 17** - Primary database
-- **TimescaleDB** - Time-series extension for sensor readings
+- **PostgreSQL 17** - Primary database for all data storage
 - **psycopg2** - PostgreSQL adapter
 - **Celery 5.3.6** - Asynchronous task queue (configured, not yet deployed — see docs/CELERY_SETUP.md)
 - **Redis** - Message broker for Celery
@@ -174,7 +173,7 @@ AirAware London helps parents, school administrators, and policymakers make info
 ### Prerequisites
 
 - Python 3.13+
-- PostgreSQL 17 with TimescaleDB extension
+- PostgreSQL 17
 - Git
 
 ### Step 1: Clone Repository
@@ -198,14 +197,13 @@ source venv/bin/activate  # On macOS/Linux
 pip install -r requirements.txt
 ```
 
-### Step 4: Set Up PostgreSQL + TimescaleDB
+### Step 4: Set Up PostgreSQL
 
 **Create Database:**
 
 ```sql
 CREATE DATABASE schools_air_quality_db;
 \c schools_air_quality_db
-CREATE EXTENSION IF NOT EXISTS timescaledb;
 ```
 
 **Create Database User:**
@@ -595,6 +593,16 @@ Before deploying to production:
    - Data quality metrics
    - API health monitoring
    - User analytics
+
+### Scaling & Infrastructure
+
+1. **TimescaleDB Migration**
+   - Migrate from standard PostgreSQL to TimescaleDB when scaling beyond MVP
+   - Recommended when:
+     - Expanding to 5+ London boroughs
+     - 100,000+ sensor readings stored
+     - Multi-year historical data retention required
+   - Benefits: Automated data retention policies, optimized time-series queries, compression
 
 ---
 
