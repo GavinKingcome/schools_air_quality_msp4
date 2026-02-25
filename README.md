@@ -68,7 +68,7 @@ AirAware London helps parents, school administrators, and policymakers make info
 
 - **Subscription System**
   - Stripe integration (£2.50/month)
-  - User authentication with Django's built-in auth
+  - User authentication with Django's built-in auth (login, registration, password reset)
   - Subscription management page
   - **Demo mode enabled** for assessment (subscription requirement temporarily disabled)
 
@@ -324,6 +324,51 @@ For testing subscription checkout:
 3. Create product "Air Quality Dashboard Access" at £2.50/month
 4. Add keys to `.env`
 5. Uncomment `@subscription_required` decorator in `maps/views.py` (lines 6-7)
+
+### Email Configuration (Password Reset)
+
+**Current Implementation (Development/Demo):**
+
+Password reset functionality is available at `/password-reset/` with email backend configured to print to console/logs:
+
+- **Local Development:** Reset emails print to terminal console
+- **Heroku Production:** Reset emails print to Heroku logs
+
+To view password reset link on Heroku:
+
+```bash
+heroku logs --tail --app schools-air-quality-msp4
+```
+
+Then look for the reset URL in the logs after requesting a password reset.
+
+**Alternative: Command-Line Password Reset**
+
+For immediate password reset on Heroku:
+
+```bash
+heroku run python manage.py changepassword username
+```
+
+**Future Configuration (Production SMTP):**
+
+To enable actual email delivery, configure SMTP settings in `.env`:
+
+```env
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=your-app-password
+DEFAULT_FROM_EMAIL=noreply@yourdomain.com
+```
+
+Recommended email services:
+
+- **SendGrid** - Heroku addon, 100 free emails/day
+- **Mailgun** - 5,000 free emails/month
+- **Gmail SMTP** - Simple for testing (requires app-specific password)
 
 ---
 
