@@ -1,5 +1,5 @@
 """
-Celery configuration for AirAware London.
+Celery configuration for Early Years Schools Pollution Monitor.
 
 This module sets up Celery for asynchronous task processing and periodic
 task scheduling. It handles:

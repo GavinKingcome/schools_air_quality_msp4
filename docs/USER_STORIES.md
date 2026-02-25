@@ -1,8 +1,8 @@
-# User Stories - AirAware London
+# User Stories - Early Years Schools Pollution Monitor
 
 ## Project Overview
 
-AirAware London provides real-time air quality monitoring for primary schools and nurseries in Lambeth and Southwark, helping parents, school staff, and administrators make informed decisions about outdoor activities and air quality management.
+Early Years Schools Pollution Monitor provides real-time air quality monitoring for primary schools and nurseries in Lambeth and Southwark, helping parents, school staff, and administrators make informed decisions about outdoor activities and air quality management.
 
 ## Implementation Status
 

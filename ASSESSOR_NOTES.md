@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**AirAware London** - Django-based web application providing real-time air quality monitoring for 133 schools across Lambeth and Southwark boroughs.
+**Early Years Schools Pollution Monitor** - Django-based web application providing real-time air quality monitoring for 133 schools across Lambeth and Southwark boroughs.
 
 ## Live Deployment 🌐
 
@@ -367,4 +367,4 @@ A: Verify credentials. Try creating new staff user with `python manage.py create
 
 ---
 
-**Thank you for assessing AirAware London!** 🌍✨
+**Thank you for assessing Early Years Schools Pollution Monitor!** 🌍✨

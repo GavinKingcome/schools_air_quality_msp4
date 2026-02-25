@@ -530,7 +530,7 @@ The 8 test failures are assertion mismatches between test expectations and actua
 
 ### Summary
 
-The AirAware London platform has undergone comprehensive manual and automated testing across multiple dimensions:
+The Early Years Schools Pollution Monitor platform has undergone comprehensive manual and automated testing across multiple dimensions:
 
 ✅ **All Core Features Functional** - Map display, school data, sensor integration, search, admin interface  
 ✅ **Cross-Browser Compatible** - Tested on Chrome, Firefox, Safari, Edge  

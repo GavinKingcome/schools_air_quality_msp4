@@ -1,8 +1,8 @@
-# Wireframes - AirAware London
+# Wireframes - Early Years Schools Pollution Monitor
 
 ## Overview
 
-This document provides wireframes and layout specifications for all key pages in the AirAware London application.
+This document provides wireframes and layout specifications for all key pages in the Early Years Schools Pollution Monitor application.
 
 ---
 
@@ -15,7 +15,7 @@ This document provides wireframes and layout specifications for all key pages in
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │ ╔════════════════════════════════════════════════════════════╗ │
-│ ║  AirAware London        [Home] [Map] [Subscription] [Admin] ║ │
+│ ║  Early Years Schools Pollution Monitor        [Home] [Map] [Subscription] [Admin] ║ │
 │ ║                                      [Logout] [👤 username]  ║ │
 │ ╚════════════════════════════════════════════════════════════╝ │
 ├────────────────────────────────────────────────────────────────┤
@@ -84,7 +84,7 @@ This document provides wireframes and layout specifications for all key pages in
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │ ╔════════════════════════════════════════════════════════════╗ │
-│ ║  AirAware London        [Home] [Map] [Login] [Subscribe]   ║ │
+│ ║  Early Years Schools Pollution Monitor        [Home] [Map] [Login] [Subscribe]   ║ │
 │ ╚════════════════════════════════════════════════════════════╝ │
 ├────────────────────────────────────────────────────────────────┤
 │                                                                │
@@ -92,7 +92,7 @@ This document provides wireframes and layout specifications for all key pages in
 │                                                                │
 │  ┌────────────────────────────────────────────────────────┐   │
 │  │                                                        │   │
-│  │              💨 AirAware London                        │   │
+│  │              💨 Early Years Schools Pollution Monitor                        │   │
 │  │                                                        │   │
 │  │                  £2.50 / month                         │   │
 │  │                                                        │   │
@@ -144,7 +144,7 @@ This document provides wireframes and layout specifications for all key pages in
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │ ╔════════════════════════════════════════════════════════════╗ │
-│ ║  AirAware London        [Home] [Login] [Subscribe]         ║ │
+│ ║  Early Years Schools Pollution Monitor        [Home] [Login] [Subscribe]         ║ │
 │ ╚════════════════════════════════════════════════════════════╝ │
 ├────────────────────────────────────────────────────────────────┤
 │                                                                │
@@ -288,7 +288,7 @@ This document provides wireframes and layout specifications for all key pages in
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │ ╔════════════════════════════════════════════════════════════╗ │
-│ ║  AirAware London        [Home] [Map] [Subscription] [Admin] ║ │
+│ ║  Early Years Schools Pollution Monitor        [Home] [Map] [Subscription] [Admin] ║ │
 │ ║                                      [Logout] [👤 username]  ║ │
 │ ╚════════════════════════════════════════════════════════════╝ │
 ├────────────────────────────────────────────────────────────────┤
@@ -381,7 +381,7 @@ This document provides wireframes and layout specifications for all key pages in
 │                         stripe                                 │
 ├────────────────────────────────────────────────────────────────┤
 │                                                                │
-│  Pay AirAware London                                           │
+│  Pay Early Years Schools Pollution Monitor                                           │
 │                                                                │
 │  Email: ___________________________________                    │
 │                                                                │
@@ -493,7 +493,7 @@ This document provides wireframes and layout specifications for all key pages in
 
 ## Notes for Assessors
 
-These wireframes represent the **implemented** features of AirAware London. The design follows Bootstrap conventions for rapid development while maintaining clean, professional aesthetics. Mobile responsiveness is achieved through Bootstrap's grid system and custom CSS media queries.
+These wireframes represent the **implemented** features of Early Years Schools Pollution Monitor. The design follows Bootstrap conventions for rapid development while maintaining clean, professional aesthetics. Mobile responsiveness is achieved through Bootstrap's grid system and custom CSS media queries.
 
 **Tools Used:**
 

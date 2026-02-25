@@ -1,4 +1,4 @@
-# Air Quality Data Access Guide for AirAware London
+# Air Quality Data Access Guide for Early Years Schools Pollution Monitor
 
 This guide covers how to access the three main data sources for your project: LAQN (reference monitors), Breathe London (low-cost sensors), and LAEI (modelled concentrations).
 
@@ -20,14 +20,15 @@ The LAQN API is free and open under the UK Open Government Licence.
 
 **Key Endpoints:**
 
-| Endpoint | Description |
-|----------|-------------|
-| `/Information/MonitoringSites/GroupName=London/Json` | List all monitoring sites with coordinates |
-| `/Information/MonitoringSiteSpecies/GroupName=London/Json` | Sites with pollutants measured |
-| `/Hourly/MonitoringIndex/GroupName=London/Json` | Current hourly readings |
-| `/Data/Site/SiteCode={code}/StartDate={date}/EndDate={date}/Json` | Historical data for a site |
+| Endpoint                                                          | Description                                |
+| ----------------------------------------------------------------- | ------------------------------------------ |
+| `/Information/MonitoringSites/GroupName=London/Json`              | List all monitoring sites with coordinates |
+| `/Information/MonitoringSiteSpecies/GroupName=London/Json`        | Sites with pollutants measured             |
+| `/Hourly/MonitoringIndex/GroupName=London/Json`                   | Current hourly readings                    |
+| `/Data/Site/SiteCode={code}/StartDate={date}/EndDate={date}/Json` | Historical data for a site                 |
 
 **Example - Get all London sites:**
+
 ```python
 import requests
 
@@ -42,12 +43,14 @@ for site in sites:
 ```
 
 **Example - Get hourly data for a specific site:**
+
 ```python
 url = "https://api.erg.ic.ac.uk/AirQuality/Data/Site/SiteCode=LB6/StartDate=2025-01-01/EndDate=2025-01-07/Json"
 response = requests.get(url)
 ```
 
 **Site types:**
+
 - Roadside / Kerbside - near traffic
 - Urban Background - representative of general urban exposure
 - Suburban - lower density areas
@@ -55,10 +58,12 @@ response = requests.get(url)
 ### Lambeth & Southwark Sites
 
 You'll want to filter the API response for:
-- `@LocalAuthorityName == "Lambeth"` 
+
+- `@LocalAuthorityName == "Lambeth"`
 - `@LocalAuthorityName == "Southwark"`
 
 Known key sites in these boroughs:
+
 - **LB6** - Lambeth - Streatham Green (Urban Background) - 99% data capture
 - **SK1** - Southwark - Old Kent Road (Roadside)
 - **SK5** - Southwark - A2 (Roadside)
@@ -83,11 +88,13 @@ After registration, you receive an API key for accessing sensor data.
 
 **Data license:** UK Open Government Licence v3.0 (requires attribution)
 
-**Attribution required:** 
+**Attribution required:**
+
 > "Contains Breathe London data licensed under the Open Government License v3.0"
 > Link to: https://www.breathelondon.org/
 
 ### What sensors measure:
+
 - NO₂ (nitrogen dioxide)
 - PM2.5 (fine particulate matter)
 - PM10 (coarse particulate matter)
@@ -103,6 +110,7 @@ This includes 100 AQMesh pod locations from the pilot phase.
 ### Finding Sensors Near Schools
 
 Once you have API access, you can query sensors by:
+
 - `SiteLocationType` (Hospital, School, etc.)
 - `OtherTags` (may include borough names like "Lambeth")
 - `OrganisationName`
@@ -125,16 +133,17 @@ Once you have API access, you can query sensors by:
 
 ### Available Files
 
-| File Type | Description | Format |
-|-----------|-------------|--------|
-| Concentrations - ASCII | 20m grid concentrations | CSV/TXT |
-| Concentrations - Excel | Same data in spreadsheet format | XLSX |
-| Concentrations - GIS | Shapefiles for mapping | ESRI SHP |
-| Grid Emissions Summary | 1km grid emissions by source | Excel/GIS |
+| File Type              | Description                     | Format    |
+| ---------------------- | ------------------------------- | --------- |
+| Concentrations - ASCII | 20m grid concentrations         | CSV/TXT   |
+| Concentrations - Excel | Same data in spreadsheet format | XLSX      |
+| Concentrations - GIS   | Shapefiles for mapping          | ESRI SHP  |
+| Grid Emissions Summary | 1km grid emissions by source    | Excel/GIS |
 
 ### Concentration Data Fields
 
 For each 20m grid cell:
+
 - **NOx** - Nitrogen oxides (µg/m³)
 - **NO₂** - Nitrogen dioxide (µg/m³)
 - **PM10** - Particulate matter <10µm (µg/m³)
@@ -213,14 +222,14 @@ from math import radians, sin, cos, sqrt, atan2
 def haversine(lat1, lon1, lat2, lon2):
     """Calculate distance in meters between two points"""
     R = 6371000  # Earth's radius in meters
-    
+
     lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
     dlat = lat2 - lat1
     dlon = lon2 - lon1
-    
+
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
     c = 2 * atan2(sqrt(a), sqrt(1-a))
-    
+
     return R * c
 
 # For each school, find sensors within 500m
@@ -229,7 +238,7 @@ THRESHOLD = 500  # meters
 for school in schools:
     school_lat = school['geometry']['coordinates'][1]
     school_lon = school['geometry']['coordinates'][0]
-    
+
     nearby_sensors = []
     for sensor in all_sensors:
         distance = haversine(school_lat, school_lon, sensor['lat'], sensor['lon'])
@@ -252,7 +261,7 @@ def get_data_source_for_school(school, laqn_sensors, breathe_sensors, laei_grid)
     """
     school_lat = school['geometry']['coordinates'][1]
     school_lon = school['geometry']['coordinates'][0]
-    
+
     # Check LAQN first
     for sensor in laqn_sensors:
         dist = haversine(school_lat, school_lon, sensor['lat'], sensor['lon'])
@@ -263,7 +272,7 @@ def get_data_source_for_school(school, laqn_sensors, breathe_sensors, laei_grid)
                 'distance_m': dist,
                 'real_time': True
             }
-    
+
     # Check Breathe London
     for sensor in breathe_sensors:
         dist = haversine(school_lat, school_lon, sensor['lat'], sensor['lon'])
@@ -274,7 +283,7 @@ def get_data_source_for_school(school, laqn_sensors, breathe_sensors, laei_grid)
                 'distance_m': dist,
                 'real_time': True
             }
-    
+
     # Fall back to LAEI
     laei_value = get_laei_for_location(school_lat, school_lon, laei_grid)
     return {
@@ -295,7 +304,7 @@ class Sensor(models.Model):
         ('LAQN', 'London Air Quality Network'),
         ('BREATHE', 'Breathe London'),
     ]
-    
+
     code = models.CharField(max_length=50, unique=True)
     name = models.CharField(max_length=200)
     sensor_type = models.CharField(max_length=20, choices=SENSOR_TYPES)
@@ -307,17 +316,17 @@ class Sensor(models.Model):
 
 class SchoolDataSource(models.Model):
     school = models.OneToOneField('School', on_delete=models.CASCADE)
-    
+
     # Primary data source decision
     source_type = models.CharField(max_length=20)  # LAQN, BREATHE, LAEI
     sensor = models.ForeignKey(Sensor, null=True, blank=True, on_delete=models.SET_NULL)
     distance_to_sensor = models.IntegerField(null=True)  # meters
-    
+
     # LAEI baseline (always stored for comparison)
     laei_no2 = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     laei_pm25 = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     laei_pm10 = models.DecimalField(max_digits=6, decimal_places=2, null=True)
-    
+
     decision_notes = models.TextField(blank=True)
     last_updated = models.DateTimeField(auto_now=True)
 ```
@@ -326,14 +335,14 @@ class SchoolDataSource(models.Model):
 
 ## Key API Reference Links
 
-| Resource | URL |
-|----------|-----|
-| LAQN API Documentation | http://api.erg.ic.ac.uk/AirQuality/help |
-| LAQN Terms & Conditions | http://api.erg.ic.ac.uk/AirQuality/Information/Terms/pdf |
-| Breathe London API Registration | https://www.breathelondon.org/developers |
-| Breathe London Pilot Data | https://breathelondonpilot.org/ |
-| LAEI 2022 Download | https://data.london.gov.uk/dataset/london-atmospheric-emissions-inventory-laei-2022-2lg5g/ |
-| London Datastore Air Quality | https://data.london.gov.uk/air-quality/ |
+| Resource                        | URL                                                                                        |
+| ------------------------------- | ------------------------------------------------------------------------------------------ |
+| LAQN API Documentation          | http://api.erg.ic.ac.uk/AirQuality/help                                                    |
+| LAQN Terms & Conditions         | http://api.erg.ic.ac.uk/AirQuality/Information/Terms/pdf                                   |
+| Breathe London API Registration | https://www.breathelondon.org/developers                                                   |
+| Breathe London Pilot Data       | https://breathelondonpilot.org/                                                            |
+| LAEI 2022 Download              | https://data.london.gov.uk/dataset/london-atmospheric-emissions-inventory-laei-2022-2lg5g/ |
+| London Datastore Air Quality    | https://data.london.gov.uk/air-quality/                                                    |
 
 ---
 

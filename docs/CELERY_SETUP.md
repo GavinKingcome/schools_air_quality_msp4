@@ -1,4 +1,4 @@
-# Celery Setup Guide - AirAware London
+# Celery Setup Guide - Early Years Schools Pollution Monitor
 
 ## Overview
 

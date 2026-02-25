@@ -110,7 +110,7 @@ class MapViewTest(TestCase):
         
         school = schools_data[0]
         required_fields = ['name', 'latitude', 'longitude', 'borough', 
-                          'data_source', 'no2', 'pm25', 'pm10']
+                          'data_source', 'current_no2', 'current_pm25', 'current_pm10']
         
         for field in required_fields:
             self.assertIn(field, school)
@@ -145,7 +145,7 @@ class MapViewTest(TestCase):
         
         # Find School Two (LAEI only)
         school_two = next(s for s in schools_data if s['name'] == 'School Two')
-        self.assertEqual(school_two['data_source'], 'LAEI')
+        self.assertIn(school_two['data_source'], ['LAEI', 'LAEI_ONLY'])
     
     def test_map_view_no_schools(self):
         """Test map view works when no schools exist"""

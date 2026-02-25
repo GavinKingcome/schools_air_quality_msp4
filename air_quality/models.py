@@ -1,5 +1,5 @@
 """
-Air Quality Models for AirAware London
+Air Quality Models for Early Years Schools Pollution Monitor
 
 Hybrid data approach:
 1. Direct sensor reading: If urban background sensor within 150m
