@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.db import models  # needed for Q lookups in search
+from subscriptions.decorators import subscription_required
 
 from .models import School, SchoolNote
 from .forms import SchoolContactForm, SchoolNoteForm
@@ -89,6 +90,7 @@ def school_detail(request, pk):
 
 
 @login_required
+@subscription_required
 def school_edit(request, pk):
     """
     Edit school contact information.

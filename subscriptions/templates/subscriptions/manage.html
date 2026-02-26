@@ -1,50 +1,41 @@
-{% extends "base.html" %} {% block title %}Manage Subscription{% endblock %} {%
-block content %}
+{% extends "base.html" %}
+
+{% block title %}Manage Subscription{% endblock %}
+
+{% block content %}
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h2>Manage Your Subscription</h2>
-
       {% if subscription %}
       <div class="card mt-4">
         <div class="card-body">
           <h4 class="card-title">Subscription Status</h4>
           <p>
             <strong>Status:</strong>
-            <span
-              class="badge badge-{% if subscription.is_active %}success{% else %}secondary{% endif %}"
-            >
+            <span class="badge bg-{% if subscription.is_active %}success{% else %}secondary{% endif %}">
               {{ subscription.get_status_display }}
             </span>
           </p>
           <p>
-            <strong>Current Period:</strong> {{
-            subscription.current_period_start|date:"F d, Y" }} - {{
-            subscription.current_period_end|date:"F d, Y" }}
+            <strong>Current Period:</strong>
+            {{ subscription.current_period_start|date:"F d, Y" }} -
+            {{ subscription.current_period_end|date:"F d, Y" }}
           </p>
           <p>
-            <strong>Days Remaining:</strong> {{ subscription.days_remaining }}
-            days
+            <strong>Days Remaining:</strong> {{ subscription.days_remaining }} days
           </p>
-
           <hr />
-
           <p class="text-muted">
             To cancel your subscription, please contact support or manage your
             subscription through the Stripe customer portal.
           </p>
-          <a href="{% url 'map_view' %}" class="btn btn-primary"
-            >Back to Dashboard</a
-          >
+          <a href="{% url 'maps:map' %}" class="btn btn-primary">Back to Dashboard</a>
         </div>
       </div>
       {% else %}
       <p>No active subscription found.</p>
-      <a
-        href="{% url 'subscriptions:subscription_page' %}"
-        class="btn btn-primary"
-        >Subscribe Now</a
-      >
+      <a href="{% url 'subscriptions:subscription_page' %}" class="btn btn-primary">Subscribe Now</a>
       {% endif %}
     </div>
   </div>
