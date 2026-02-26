@@ -14,7 +14,7 @@
                     <h4>✓ Active Subscription</h4>
                     <p>Your subscription is active until {{ subscription.current_period_end|date:"F d, Y" }}</p>
                     <p>{{ subscription.days_remaining }} days remaining</p>
-                    <a href="{% url 'subscriptions:manage_subscription' %}" class="btn btn-primary">Manage Subscription</a>
+                    <a href="{% url 'subscriptions:manage' %}" class="btn btn-primary">Manage Subscription</a>
                 </div>
             {% else %}
                 <div class="card">

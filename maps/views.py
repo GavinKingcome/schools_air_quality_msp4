@@ -2,9 +2,9 @@ from django.shortcuts import render
 from schools.models import School
 from air_quality.models import Sensor
 import json
-# from subscriptions.decorators import subscription_required
+from subscriptions.decorators import subscription_required
 
-# @subscription_required  # Temporarily disabled for demo
+@subscription_required  # Temporarily disabled for demo
 def map_view(request):
     """Display all schools and sensors on a map"""
     schools = School.objects.all()
