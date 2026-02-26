@@ -593,20 +593,19 @@ Tests cover model creation, string representations, unique constraints, view res
 
 ### HTML Validation
 
-All pages validated using the [W3C Markup Validation Service](https://validator.w3.org/).
+All pages validated using the [W3C Markup Validation Service](https://validator.w3.org/). No errors found.
 
 ### CSS Validation
 
-Stylesheet validated using the [W3C CSS Validation Service (Jigsaw)](https://jigsaw.w3.org/css-validator/).
+Stylesheet validated using the [W3C CSS Validation Service (Jigsaw)](https://jigsaw.w3.org/css-validator/). No errors found.
 
 ### JavaScript
 
-JavaScript validated using [JSHint](https://jshint.com/).
+Not formally validated. Code uses ES6 features (const, arrow functions, template literals) and relies on Leaflet.js external library.
 
 ### Python (PEP8)
 
-Python code checked for PEP8 compliance using [CI Python Linter](https://pep8ci.herokuapp.com/).
-
+Not formally validated. Minor whitespace and line length issues remain.
 ---
 
 ## Deployment
