@@ -1,9 +1,9 @@
-# Early Years Schools Pollution Monitor - Air Quality Dashboard for Schools
+# Early Years Schools Pollution Monitor
 
 **A Django-based real-time air quality monitoring platform for primary schools and nurseries in Lambeth and Southwark.**
 
 ![Python](https://img.shields.io/badge/python-3.13-blue.svg)
-![Django](https://img.shields.io/badge/django-6.0-green.svg)
+![Django](https://img.shields.io/badge/django-4.2-green.svg)
 ![PostgreSQL](https://img.shields.io/badge/postgresql-17-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
@@ -12,19 +12,24 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [User Stories](#user-stories)
+- [Wireframes](#wireframes)
 - [Features](#features)
-- [Demo Credentials](#demo-credentials)
+- [Database Schema](#database-schema)
 - [Technology Stack](#technology-stack)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Running the Application](#running-the-application)
 - [Data Management](#data-management)
 - [Testing](#testing)
+- [Validation](#validation)
+- [Deployment](#deployment)
 - [Project Structure](#project-structure)
-- [Documentation](#documentation)
 - [Security Notes](#security-notes)
 - [Future Enhancements](#future-enhancements)
 - [License](#license)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
 ---
 
@@ -32,16 +37,214 @@
 
 Early Years Schools Pollution Monitor helps parents, school administrators, and policymakers make informed decisions about children's exposure to air pollution. The platform combines real-time sensor data from the London Air Quality Network (LAQN) and Breathe London with modelled pollution data (LAEI 2022) to provide comprehensive air quality information for 133 schools across Lambeth and Southwark.
 
-**Live Demo:** [https://schools-air-quality-msp4.herokuapp.com/map/](https://schools-air-quality-msp4.herokuapp.com/map/)
-
-**Local Development:** [http://127.0.0.1:8000/map/](http://127.0.0.1:8000/map/)
+**Live Demo:** [https://schools-air-quality-msp4-39fe66170249.herokuapp.com/](https://schools-air-quality-msp4-39fe66170249.herokuapp.com/)
 
 ### Key Objectives
 
-- **Real-time monitoring:** Hourly updates from 42 active sensors (16 LAQN + 26 Breathe London)
+- **Real-time monitoring:** Hourly updates from active sensors across two networks (LAQN and Breathe London)
 - **Hybrid data approach:** Direct sensor readings where available, modelled data with real-time adjustments elsewhere
-- **Accessibility:** Subscription-based access (£2.50/month) with demo mode for evaluation
+- **Tiered access:** Free map for all visitors; subscription-based premium features (£2.50/month via Stripe)
 - **Transparency:** Clear data source attribution for every school
+
+---
+
+## User Stories
+
+User stories were used to guide development using Agile methodology. Stories are grouped by user type and mapped to assessment learning outcomes where applicable.
+
+### Parent / Family (Free Tier)
+
+| ID    | As a... | I want to...                                         | So that...                                                         | Status  | LO  |
+| ----- | ------- | ---------------------------------------------------- | ------------------------------------------------------------------ | ------- | --- |
+| US-01 | Parent  | View an interactive map showing all schools          | I can see air quality across my area at a glance                   | ✅ Done | LO1 |
+| US-02 | Parent  | See colour-coded pollution levels on the map         | I can quickly identify which schools have good or poor air quality | ✅ Done | LO1 |
+| US-03 | Parent  | Search for a school by name or postcode              | I can find my child's school quickly                               | ✅ Done | LO1 |
+| US-04 | Parent  | Filter schools by borough                            | I can focus on schools relevant to me                              | ✅ Done | LO1 |
+| US-05 | Parent  | View detailed air quality data for a specific school | I can understand the pollution levels in detail                    | ✅ Done | LO2 |
+| US-06 | Parent  | See where the data comes from (sensor vs modelled)   | I can judge how reliable the reading is                            | ✅ Done | LO1 |
+| US-07 | Parent  | Register for an account                              | I can access additional features                                   | ✅ Done | LO3 |
+| US-08 | Parent  | Add community notes about a school's environment     | I can share observations with other parents                        | ✅ Done | LO2 |
+
+### Subscriber (Paid Tier — £2.50/month)
+
+| ID    | As a...    | I want to...                    | So that...                                  | Status  | LO  |
+| ----- | ---------- | ------------------------------- | ------------------------------------------- | ------- | --- |
+| US-09 | Subscriber | Pay securely via Stripe         | I can access premium features safely        | ✅ Done | LO4 |
+| US-10 | Subscriber | Manage my subscription status   | I can see when it renews or cancel it       | ✅ Done | LO4 |
+| US-11 | Subscriber | Edit school contact information | I can keep details up to date for my school | ✅ Done | LO2 |
+| US-12 | Subscriber | Edit and delete my own notes    | I can correct or remove my contributions    | ✅ Done | LO2 |
+
+### Site Administrator
+
+| ID    | As a... | I want to...                           | So that...                                     | Status  | LO  |
+| ----- | ------- | -------------------------------------- | ---------------------------------------------- | ------- | --- |
+| US-13 | Admin   | Access the Django admin panel          | I can manage all data and users                | ✅ Done | LO2 |
+| US-14 | Admin   | View and manage all school notes       | I can moderate community content               | ✅ Done | LO2 |
+| US-15 | Admin   | See which data source each school uses | I can monitor data quality across the platform | ✅ Done | LO1 |
+| US-16 | Admin   | View subscription and payment records  | I can handle customer support queries          | ✅ Done | LO4 |
+
+### Authentication & Security
+
+| ID    | As a... | I want to...                     | So that...                        | Status  | LO  |
+| ----- | ------- | -------------------------------- | --------------------------------- | ------- | --- |
+| US-17 | User    | Log in and log out securely      | My account is protected           | ✅ Done | LO3 |
+| US-18 | User    | Reset my password if I forget it | I can regain access to my account | ✅ Done | LO3 |
+
+---
+
+## Wireframes
+
+Wireframes were created during the design phase to plan the layout and user experience of key pages. The application follows a mobile-first responsive approach using Bootstrap 5.
+
+### Map View (Home Page)
+
+```
+┌──────────────────────────────────────────────────────┐
+│  Early Years Schools Pollution Monitor                │
+│  [Map] [Schools] [My Account] [Login] [Register]     │
+├──────────────────────────────────────────────────────┤
+│                                                       │
+│  ┌─────────────────────────────────────────────────┐ │
+│  │                                                  │ │
+│  │              LEAFLET MAP                         │ │
+│  │                                                  │ │
+│  │    📍 School markers (colour-coded by AQ)        │ │
+│  │    📍 Sensor markers (LAQN / Breathe London)     │ │
+│  │                                                  │ │
+│  │  ┌──────────────────┐                           │ │
+│  │  │ Legend            │                           │ │
+│  │  │ 🟢 Good          │                           │ │
+│  │  │ 🟡 Moderate      │                           │ │
+│  │  │ 🔴 Poor          │                           │ │
+│  │  └──────────────────┘                           │ │
+│  └─────────────────────────────────────────────────┘ │
+│                                                       │
+├──────────────────────────────────────────────────────┤
+│  Footer: © 2026 | LAQN | Breathe London | LAEI 2022  │
+└──────────────────────────────────────────────────────┘
+```
+
+### Schools List
+
+```
+┌──────────────────────────────────────────────────────┐
+│  Early Years Schools Pollution Monitor                │
+│  [Map] [Schools] [My Account] [Logout]               │
+├──────────────────────────────────────────────────────┤
+│                                                       │
+│  Schools (133 found)                                  │
+│                                                       │
+│  [Search by name or postcode______] [Borough ▼]      │
+│                                                       │
+│  ┌────────────────────────────────────────────┐      │
+│  │ 📍 Archbishop Sumner Primary      [LAQN]   │      │
+│  │    SE1 7AA · Lambeth · Primary School      │      │
+│  │    View Details →                           │      │
+│  ├────────────────────────────────────────────┤      │
+│  │ 📍 Bessemer Grange Primary     [ADJUSTED]  │      │
+│  │    SE5 0BE · Southwark · Primary School    │      │
+│  │    View Details →                           │      │
+│  ├────────────────────────────────────────────┤      │
+│  │ 📍 Charles Dickens Primary     [LAEI]      │      │
+│  │    SE1 1QQ · Southwark · Primary School    │      │
+│  │    View Details →                           │      │
+│  └────────────────────────────────────────────┘      │
+│                                                       │
+├──────────────────────────────────────────────────────┤
+│  Footer                                               │
+└──────────────────────────────────────────────────────┘
+```
+
+### School Detail
+
+```
+┌──────────────────────────────────────────────────────┐
+│  Early Years Schools Pollution Monitor                │
+│  [Map] [Schools] [My Account] [Logout]               │
+├──────────────────────────────────────────────────────┤
+│                                                       │
+│  Archbishop Sumner Primary School                     │
+│  SE1 7AA · Lambeth                                    │
+│                                                       │
+│  ┌─ Current Air Quality ──────────────────────┐      │
+│  │  NO₂: 32.5 µg/m³  ✅ Below WHO guideline   │      │
+│  │  PM2.5: 8.2 µg/m³  ⚠️ Above WHO guideline  │      │
+│  │  PM10: 15.1 µg/m³  ✅ Below WHO guideline   │      │
+│  │  Source: ADJUSTED · Confidence: Medium       │      │
+│  └─────────────────────────────────────────────┘      │
+│                                                       │
+│  ┌─ WHO Threshold Comparison ─────────────────┐      │
+│  │  Pollutant │ Value  │ Guideline │ Status    │      │
+│  │  NO₂       │ 32.5   │ 25.0      │ ⚠️ Above │      │
+│  │  PM2.5     │ 8.2    │ 15.0      │ ✅ Below  │      │
+│  │  PM10      │ 15.1   │ 45.0      │ ✅ Below  │      │
+│  └─────────────────────────────────────────────┘      │
+│                                                       │
+│  ┌─ Community Notes ──────────────────────────┐      │
+│  │  [Add Note]                                 │      │
+│  │                                              │      │
+│  │  📝 Heavy traffic at drop-off times         │      │
+│  │     By: parent123 · 25 Feb 2026             │      │
+│  │     [Edit] [Delete]                          │      │
+│  └─────────────────────────────────────────────┘      │
+│                                                       │
+├──────────────────────────────────────────────────────┤
+│  Footer                                               │
+└──────────────────────────────────────────────────────┘
+```
+
+### Subscription Page
+
+```
+┌──────────────────────────────────────────────────────┐
+│  Early Years Schools Pollution Monitor                │
+│  [Map] [Schools] [My Account] [Logout]               │
+├──────────────────────────────────────────────────────┤
+│                                                       │
+│  Air Quality Dashboard Subscription                   │
+│                                                       │
+│  ┌────────────────────────────────────────────┐      │
+│  │  Subscribe to Access Premium Features       │      │
+│  │                                              │      │
+│  │  £2.50 / month                               │      │
+│  │                                              │      │
+│  │  ✓ Edit school contact details              │      │
+│  │  ✓ Manage community notes                   │      │
+│  │  ✓ Priority support                         │      │
+│  │                                              │      │
+│  │  ┌──────────────────────────────────────┐   │      │
+│  │  │ For Assessment: Use test card         │   │      │
+│  │  │ 4242 4242 4242 4242                   │   │      │
+│  │  └──────────────────────────────────────┘   │      │
+│  │                                              │      │
+│  │  [ Subscribe Now ]                           │      │
+│  │                                              │      │
+│  │  Secure payment powered by Stripe.           │      │
+│  └────────────────────────────────────────────┘      │
+│                                                       │
+├──────────────────────────────────────────────────────┤
+│  Footer                                               │
+└──────────────────────────────────────────────────────┘
+```
+
+### Authentication Pages
+
+```
+┌─ Login ──────────────────┐  ┌─ Register ────────────────┐
+│                           │  │                            │
+│  Login                    │  │  Create Account            │
+│                           │  │                            │
+│  Username: [___________]  │  │  Username: [___________]   │
+│  Password: [___________]  │  │  Email:    [___________]   │
+│                           │  │  Password: [___________]   │
+│  [ Sign In ]              │  │  Confirm:  [___________]   │
+│                           │  │                            │
+│  Forgot password?         │  │  [ Register ]              │
+│  Don't have an account?   │  │                            │
+│  Register here            │  │  Already registered?       │
+│                           │  │  Login here                │
+└───────────────────────────┘  └────────────────────────────┘
+```
 
 ---
 
@@ -49,322 +252,26 @@ Early Years Schools Pollution Monitor helps parents, school administrators, and 
 
 ### Implemented (MVP)
 
-- **Interactive Map Dashboard**
-  - Leaflet.js map with color-coded school markers based on PM2.5 levels
-  - Click markers for detailed air quality popup (NO₂, PM2.5, PM10)
-  - Mobile-responsive design
-  - 133 schools displayed across Lambeth and Southwark
+**Interactive Map:** Leaflet-based map displaying 133 schools and 42 sensors with colour-coded markers indicating pollution levels. Schools show popup cards with current readings, data source badges, and WHO guideline comparisons.
 
-- **Real-Time Data Integration**
-  - Automated hourly data fetching via Heroku Scheduler
-  - LAQN API integration (reference-grade monitoring stations)
-  - Breathe London API via OpenAQ (calibrated low-cost sensors)
-  - PostgreSQL database optimized for time-series data storage
+**Tiered Data Sources:** Three-tier approach for air quality data — direct sensor readings for schools within 150m of a Breathe London sensor, LAEI baseline adjusted by real-time LAQN reference data for schools with a nearby reference sensor, and static LAEI 2022 modelled data as fallback.
 
-- **Hybrid Data Strategy**
-  - **Direct readings:** Schools within 150m of urban background sensors
-  - **Adjusted LAEI:** LAEI 2022 baseline × real-time adjustment factor for other schools
-  - Data source clearly indicated for each school
+**School Directory:** Searchable, filterable list of all 133 schools with detail pages showing current air quality, WHO threshold comparison tables, and community notes.
 
-- **Subscription System**
-  - Stripe integration (£2.50/month)
-  - User authentication with Django's built-in auth (login, registration, password reset)
-  - Subscription management page
-  - **Demo mode enabled** for assessment (subscription requirement temporarily disabled)
+**Community Notes (CRUD):** Authenticated users can create, read, update, and delete notes about schools. Authors can only edit/delete their own notes. Categories include observation, concern, improvement, and update.
 
-- **Admin Interfaces**
-  - School management (add, edit, view 133 schools)
-  - Sensor management (42 sensors with filtering)
-  - Readings and annual statistics views
-  - User and subscription management
+**Stripe Subscription:** Full e-commerce flow using Stripe Checkout for £2.50/month subscription. Includes webhook handling for subscription lifecycle events (created, updated, cancelled) and payment audit trail.
 
-- **Test Coverage**
-  - 39 comprehensive tests covering models, views, and data processing
-  - TDD approach demonstrated
+**Authentication System:** Django-based registration, login, logout, and password reset. Custom templates styled with Bootstrap 5. Role-based permissions — staff users can edit school contact details, subscribers access premium features.
 
-### Planned (Future Enhancements)
-
-- Filter schools by air quality levels
-- Air quality alert notifications
-- School comparison tool
-- Historical trends visualization
-- PDF report exports
-- WCAG 2.1 AA accessibility compliance
-- Data quality metrics dashboard
-
----
-
-## Demo Credentials
-
-### For Assessors
-
-**Map Access:**
-
-- No login required for demo
-- Production: [https://schools-air-quality-msp4.herokuapp.com/map/](https://schools-air-quality-msp4.herokuapp.com/map/)
-- Local: [http://127.0.0.1:8000/map/](http://127.0.0.1:8000/map/)
-- Subscription requirement temporarily disabled (see `maps/views.py` lines 6-7)
-
-**Admin Panel Access:**
-
-- Production: [https://schools-air-quality-msp4.herokuapp.com/admin/](https://schools-air-quality-msp4.herokuapp.com/admin/)
-- Local: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
-- Username: `demo_admin`
-- Password: `Demo2026!`
-- Permissions: View/edit schools and air quality data (staff user, not superuser)
-
-**Subscription Page:**
-
-- Production: [https://schools-air-quality-msp4.herokuapp.com/subscriptions/](https://schools-air-quality-msp4.herokuapp.com/subscriptions/)
-- Local: [http://127.0.0.1:8000/subscriptions/](http://127.0.0.1:8000/subscriptions/)
-- View Stripe integration (test mode)
-- Note: Real Stripe test keys required for actual checkout
+**Responsive Design:** Bootstrap 5 with custom CSS. Accessible navigation with skip links, ARIA labels, and semantic HTML. Footer with data source attribution links.
 
 ---
 
 ## Database Schema
 
-The application uses a relational database with 8 models across 3 Django apps:
+The application uses a relational database with 8 models across 4 Django apps:
 
-````mermaid
-erDiagram
-    User ||--o| Subscription : "has"
-    User ||--o{ SchoolNote : "authors"
-    Subscription ||--o{ Payment : "has"
-    Sensor ||--o{ Reading : "records"
-    Sensor ||--o{ SensorAnnualStats : "has"
-    Sensor ||--o{ School : "direct_sensor"
-    Sensor ||--o{ School : "reference_sensor"
-    School ||--o{ SchoolNote : "has"
-
-    User {
-        int id PK
-        string username
-        string email
-        string password
-        boolean is_staff
-        datetime date_joined
-    }
-
-    Subscription {
-        int id PK
-        int user_id FK
-        string status
-        string stripe_customer_id
-        string stripe_subscription_id
-        date current_period_start
-        date current_period_end
-        datetime created_at
-        datetime updated_at
-    }
-
-    Payment {
-        int id PK
-        int subscription_id FK
-        string stripe_payment_intent_id
-        decimal amount
-        string status
-        datetime created_at
-    }
-
-    Sensor {
-        int id PK
-        string site_code
-        string name
-        float latitude
-        float longitude
-        string network
-        string site_type
-        boolean is_active
-        json metadata
-    }
-
-    Reading {
-        int id PK
-        int sensor_id FK
-        datetime timestamp
-        float no2
-        float pm25
-        float pm10
-        float o3
-        float nox
-        boolean is_provisional
-    }
-
-    SensorAnnualStats {
-        int id PK
-        int sensor_id FK
-        int year
-        float no2_mean
-        float pm25_mean
-        float pm10_mean
-        float nox_mean
-        float capture_rate
-    }
-
-    School {
-        int id PK
-        int direct_sensor_id FK
-        int reference_sensor_id FK
-        string name
-        string address
-        string city
-        string borough
-        string postcode
-        float latitude
-        float longitude
-        string school_type
-        int student_count
-        string phone
-        string email
-        string website
-        float no2_2022
-        float nox_2022
-        float pm25_2022
-        float pm10_mean_2022
-        float pm10_days_2022
-        boolean laei_data_available
-        string data_source
-    }
-
-    SchoolNote {
-        int id PK
-        int school_id FK
-        int author_id FK
-        string title
-        string content
-        string category
-        datetime created_at
-        datetime updated_at
-    }
-
-- # Early Years Schools Pollution Monitor - Air Quality Dashboard for Schools
-
-**A Django-based real-time air quality monitoring platform for primary schools and nurseries in Lambeth and Southwark.**
-
-![Python](https://img.shields.io/badge/python-3.13-blue.svg)
-![Django](https://img.shields.io/badge/django-6.0-green.svg)
-![PostgreSQL](https://img.shields.io/badge/postgresql-17-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-
----
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Demo Credentials](#demo-credentials)
-- [Technology Stack](#technology-stack)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Running the Application](#running-the-application)
-- [Data Management](#data-management)
-- [Testing](#testing)
-- [Project Structure](#project-structure)
-- [Documentation](#documentation)
-- [Security Notes](#security-notes)
-- [Future Enhancements](#future-enhancements)
-- [License](#license)
-
----
-
-## Overview
-
-Early Years Schools Pollution Monitor helps parents, school administrators, and policymakers make informed decisions about children's exposure to air pollution. The platform combines real-time sensor data from the London Air Quality Network (LAQN) and Breathe London with modelled pollution data (LAEI 2022) to provide comprehensive air quality information for 133 schools across Lambeth and Southwark.
-
-**Live Demo:** [https://schools-air-quality-msp4.herokuapp.com/map/](https://schools-air-quality-msp4.herokuapp.com/map/)
-
-**Local Development:** [http://127.0.0.1:8000/map/](http://127.0.0.1:8000/map/)
-
-### Key Objectives
-
-- **Real-time monitoring:** Hourly updates from 42 active sensors (16 LAQN + 26 Breathe London)
-- **Hybrid data approach:** Direct sensor readings where available, modelled data with real-time adjustments elsewhere
-- **Accessibility:** Subscription-based access (£2.50/month) with demo mode for evaluation
-- **Transparency:** Clear data source attribution for every school
-
----
-
-## Features
-
-### Implemented (MVP)
-
-- **Interactive Map Dashboard**
-  - Leaflet.js map with color-coded school markers based on PM2.5 levels
-  - Click markers for detailed air quality popup (NO₂, PM2.5, PM10)
-  - Mobile-responsive design
-  - 133 schools displayed across Lambeth and Southwark
-
-- **Real-Time Data Integration**
-  - Automated hourly data fetching via Heroku Scheduler
-  - LAQN API integration (reference-grade monitoring stations)
-  - Breathe London API via OpenAQ (calibrated low-cost sensors)
-  - PostgreSQL database optimized for time-series data storage
-
-- **Hybrid Data Strategy**
-  - **Direct readings:** Schools within 150m of urban background sensors
-  - **Adjusted LAEI:** LAEI 2022 baseline × real-time adjustment factor for other schools
-  - Data source clearly indicated for each school
-
-- **Subscription System**
-  - Stripe integration (£2.50/month)
-  - User authentication with Django's built-in auth (login, registration, password reset)
-  - Subscription management page
-  - **Demo mode enabled** for assessment (subscription requirement temporarily disabled)
-
-- **Admin Interfaces**
-  - School management (add, edit, view 133 schools)
-  - Sensor management (42 sensors with filtering)
-  - Readings and annual statistics views
-  - User and subscription management
-
-- **Test Coverage**
-  - 39 comprehensive tests covering models, views, and data processing
-  - TDD approach demonstrated
-
-### Planned (Future Enhancements)
-
-- Filter schools by air quality levels
-- Air quality alert notifications
-- School comparison tool
-- Historical trends visualization
-- PDF report exports
-- WCAG 2.1 AA accessibility compliance
-- Data quality metrics dashboard
-
----
-
-## Demo Credentials
-
-### For Assessors
-
-**Map Access:**
-
-- No login required for demo
-- Production: [https://schools-air-quality-msp4.herokuapp.com/map/](https://schools-air-quality-msp4.herokuapp.com/map/)
-- Local: [http://127.0.0.1:8000/map/](http://127.0.0.1:8000/map/)
-- Subscription requirement temporarily disabled (see `maps/views.py` lines 6-7)
-
-**Admin Panel Access:**
-
-- Production: [https://schools-air-quality-msp4.herokuapp.com/admin/](https://schools-air-quality-msp4.herokuapp.com/admin/)
-- Local: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
-- Username: `demo_admin`
-- Password: `Demo2026!`
-- Permissions: View/edit schools and air quality data (staff user, not superuser)
-
-**Subscription Page:**
-
-- Production: [https://schools-air-quality-msp4.herokuapp.com/subscriptions/](https://schools-air-quality-msp4.herokuapp.com/subscriptions/)
-- Local: [http://127.0.0.1:8000/subscriptions/](http://127.0.0.1:8000/subscriptions/)
-- View Stripe integration (test mode)
-- Note: Real Stripe test keys required for actual checkout
-
----
-
-## Database Schema
-
-The application uses a relational database with 8 models across 3 Django apps:
 ```mermaid
 erDiagram
     User ||--o| Subscription : "has"
@@ -476,53 +383,48 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
-````
+```
 
-- The schema centres on three domains. Schools stores 133 primary schools and nurseries, each linked to up to two Sensors via direct_sensor (urban background sensor within 150m) and reference_sensor (nearest LAQN sensor for adjustment factors). Sensors produce Readings (hourly pollutant concentrations) and SensorAnnualStats (annual means used to calculate adjustment factors). SchoolNotes allow authenticated users to share community observations about a school's air quality environment. The Subscription and Payment models handle Stripe-based access control, with a one-to-one link between User and Subscription.
+The schema centres on three domains. **Schools** stores 133 primary schools and nurseries, each linked to up to two **Sensors** via `direct_sensor` (urban background sensor within 150m) and `reference_sensor` (nearest LAQN sensor for adjustment factors). Sensors produce **Readings** (hourly pollutant concentrations) and **SensorAnnualStats** (annual means used to calculate adjustment factors). **SchoolNotes** allow authenticated users to share community observations about a school's air quality environment. The **Subscription** and **Payment** models handle Stripe-based access control, with a one-to-one link between User and Subscription.
+
+---
 
 ## Technology Stack
 
 ### Backend
 
 - **Python 3.13**
-- **Django 6.0** - Web framework
-- **PostgreSQL 17** - Primary database for all data storage
-- **psycopg2** - PostgreSQL adapter
-- **Celery 5.3.6** - Asynchronous task queue (configured, not yet deployed — see docs/CELERY_SETUP.md)
-- **Redis** - Message broker for Celery
+- **Django 4.2** — Web framework
+- **PostgreSQL 17** — Primary database
+- **psycopg2** — PostgreSQL adapter
+- **WhiteNoise** — Static file serving
 
 ### Frontend
 
-- **Bootstrap 5** - Responsive UI framework
-- **Leaflet.js** - Interactive mapping
-- **Vanilla JavaScript** - Minimal client-side scripting
+- **Bootstrap 5** — Responsive UI framework
+- **Leaflet.js** — Interactive mapping
+- **Vanilla JavaScript** — Client-side scripting
 
 ### APIs & Data Sources
 
-- **London Air Quality Network (LAQN)** - Reference-grade monitoring stations
-- **Breathe London via OpenAQ** - Calibrated low-cost sensors
-- **LAEI 2022** - London Atmospheric Emissions Inventory (modelled baseline)
+- **London Air Quality Network (LAQN)** — Reference-grade monitoring stations
+- **Breathe London via OpenAQ** — Calibrated low-cost sensors
+- **LAEI 2022** — London Atmospheric Emissions Inventory (modelled baseline)
 
 ### Payment Processing
 
-- **Stripe** - Subscription billing (£2.50/month)
+- **Stripe** — Subscription billing (£2.50/month)
 
 ### Testing
 
-- **Django TestCase** - Unit and integration tests
-- **Coverage.py** - Test coverage analysis
+- **Django TestCase** — Unit and integration tests
+- **Coverage.py** — Test coverage analysis
 
-### Development Tools
+### Deployment
 
-- **python-decouple** - Environment variable management
-- **Git** - Version control
-- **GitHub** - Code repository
-
-### Deployment & Automation
-
-- **Heroku** - Cloud platform (PostgreSQL, Scheduler addon)
-- **Heroku Scheduler** - Free cron-like job scheduling (production)
-- **Celery + Redis** - Scalable task queue (implemented, ready for scaling)
+- **Heroku** — Cloud platform (PostgreSQL addon, Scheduler addon)
+- **Heroku Scheduler** — Automated hourly data fetching
+- **Git/GitHub** — Version control and repository
 
 ---
 
@@ -546,7 +448,7 @@ cd schools_air_quality_msp4
 ```bash
 python -m venv venv
 source venv/bin/activate  # On macOS/Linux
-# venv\Scripts\activate  # On Windows
+# venv\Scripts\activate   # On Windows
 ```
 
 ### Step 3: Install Dependencies
@@ -557,16 +459,8 @@ pip install -r requirements.txt
 
 ### Step 4: Set Up PostgreSQL
 
-**Create Database:**
-
 ```sql
 CREATE DATABASE schools_air_quality_db;
-\c schools_air_quality_db
-```
-
-**Create Database User:**
-
-```sql
 CREATE USER your_username WITH PASSWORD 'your_password';
 GRANT ALL PRIVILEGES ON DATABASE schools_air_quality_db TO your_username;
 ```
@@ -576,64 +470,38 @@ GRANT ALL PRIVILEGES ON DATABASE schools_air_quality_db TO your_username;
 Create a `.env` file in the project root:
 
 ```env
-# Django
 SECRET_KEY=your-secret-key-here
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1
-
-# Database
 DB_NAME=schools_air_quality_db
 DB_USER=your_username
 DB_PASSWORD=your_password
 DB_HOST=localhost
 DB_PORT=5432
-
-# API Keys
 BREATHE_LONDON_API_KEY=your-api-key-here
-
-# Stripe (optional for demo)
-STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_KEY_HERE
-STRIPE_SECRET_KEY=sk_test_YOUR_KEY_HERE
-STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET_HERE
-STRIPE_PRICE_ID=price_YOUR_PRICE_ID_HERE
-```
-
-**Generate Django Secret Key:**
-
-```bash
-python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_KEY
+STRIPE_SECRET_KEY=sk_test_YOUR_KEY
+STRIPE_WEBHOOK_SECRET=whsec_YOUR_SECRET
+STRIPE_PRICE_ID=price_YOUR_PRICE_ID
 ```
 
 ### Step 6: Run Migrations
 
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 
 ### Step 7: Load Initial Data
 
-**Import Schools:**
-
 ```bash
 python manage.py import_schools data/schools.csv
-```
-
-**Sync Sensors:**
-
-```bash
 python manage.py sync_laqn_sensors
 python manage.py sync_breathe_sensors
-```
-
-**Fetch Initial Readings:**
-
-```bash
 python manage.py fetch_laqn_readings
 python manage.py fetch_breathe_readings
 ```
 
-### Step 8: Create Superuser (Optional)
+### Step 8: Create Superuser
 
 ```bash
 python manage.py createsuperuser
@@ -643,94 +511,26 @@ python manage.py createsuperuser
 
 ## Configuration
 
-### Database Settings
+### API Keys
 
-Located in `schools_air_quality_msp4/settings.py`:
+**Breathe London:** Register at [breathelondon.org](https://www.breathelondon.org/), request an API key (2–3 day approval), and add to `.env` as `BREATHE_LONDON_API_KEY`.
 
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-    }
-}
-```
+**LAQN:** No API key required. Public endpoint at `https://api.erg.ic.ac.uk/AirQuality/`.
 
-### API Configuration
+### Stripe Setup
 
-**Breathe London:**
+1. Create a free account at [stripe.com](https://stripe.com)
+2. Switch to **Test mode** in the dashboard
+3. Go to Product Catalog → Add Product → "Air Quality Dashboard Access" at £2.50/month recurring
+4. Copy the Price ID (starts with `price_`) and API keys to `.env`
 
-- Register at [Breathe London Portal](https://www.breathelondon.org/)
-- Request API key (2-3 day approval time)
-- Add key to `.env` as `BREATHE_LONDON_API_KEY`
+### Email (Password Reset)
 
-**LAQN:**
-
-- No API key required
-- Public endpoint: `https://api.erg.ic.ac.uk/AirQuality/`
-
-### Stripe Configuration (Optional)
-
-For testing subscription checkout:
-
-1. Create account at [stripe.com](https://stripe.com)
-2. Get test API keys from dashboard
-3. Create product "Air Quality Dashboard Access" at £2.50/month
-4. Add keys to `.env`
-5. Uncomment `@subscription_required` decorator in `maps/views.py` (lines 6-7)
-
-### Email Configuration (Password Reset)
-
-**Current Implementation (Development/Demo):**
-
-Password reset functionality is available at `/password-reset/` with email backend configured to print to console/logs:
-
-- **Local Development:** Reset emails print to terminal console
-- **Heroku Production:** Reset emails print to Heroku logs
-
-To view password reset link on Heroku:
-
-```bash
-heroku logs --tail --app schools-air-quality-msp4
-```
-
-Then look for the reset URL in the logs after requesting a password reset.
-
-**Alternative: Command-Line Password Reset**
-
-For immediate password reset on Heroku:
-
-```bash
-heroku run python manage.py changepassword username
-```
-
-**Future Configuration (Production SMTP):**
-
-To enable actual email delivery, configure SMTP settings in `.env`:
-
-```env
-EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-EMAIL_HOST_USER=your-email@gmail.com
-EMAIL_HOST_PASSWORD=your-app-password
-DEFAULT_FROM_EMAIL=noreply@yourdomain.com
-```
-
-Recommended email services:
-
-- **SendGrid** - Heroku addon, 100 free emails/day
-- **Mailgun** - 5,000 free emails/month
-- **Gmail SMTP** - Simple for testing (requires app-specific password)
+Development uses Django's console email backend — reset links print to the terminal. On Heroku, they appear in `heroku logs --tail`. For production SMTP, configure SendGrid, Mailgun, or Gmail in `.env`.
 
 ---
 
-## 🚀 Running the Application
+## Running the Application
 
 ### Development Server
 
@@ -738,127 +538,101 @@ Recommended email services:
 python manage.py runserver
 ```
 
-Access at: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+Access at [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
-### Automated Data Updates
+### Automated Data Updates (Production)
 
-**Production (Heroku):**
+Heroku Scheduler runs hourly data fetches:
 
-The application uses Heroku Scheduler for automated hourly data fetching:
-
-- LAQN readings: Every hour at :10 (`python manage.py fetch_laqn_readings`)
-- Breathe London readings: Every hour at :20 (`python manage.py fetch_breathe_readings`)
-
-No additional setup required - jobs are pre-configured in the Heroku dashboard.
-
-**Local Development (Optional):**
-
-For local testing with cron:
-
-```bash
-crontab -e
-```
-
-Add these lines:
-
-```cron
-# Fetch LAQN readings every hour at :05
-5 * * * * cd /path/to/project && /path/to/venv/bin/python manage.py fetch_laqn_readings >> /tmp/laqn_cron.log 2>&1
-
-# Fetch Breathe London readings every hour at :10
-10 * * * * cd /path/to/project && /path/to/venv/bin/python manage.py fetch_breathe_readings >> /tmp/breathe_cron.log 2>&1
-```
-
-**Scaling with Celery (Future):**
-
-For high-frequency updates or when scaling beyond 10 boroughs, see [docs/CELERY_SETUP.md](docs/CELERY_SETUP.md) for Celery worker configuration.
+- `:10` — `python manage.py fetch_laqn_readings`
+- `:20` — `python manage.py fetch_breathe_readings`
 
 ---
 
+## Data Management
+
 ### Management Commands
 
-**Schools:**
-
 ```bash
-# Import schools from CSV
-python manage.py import_schools data/schools.csv
-
-# List schools
-python manage.py shell -c "from schools.models import School; print(School.objects.count())"
-```
-
-**Sensors:**
-
-```bash
-# Sync LAQN sensors
-python manage.py sync_laqn_sensors
-
-# Sync Breathe London sensors
-python manage.py sync_breathe_sensors
-
-# Check sensor count
-python manage.py shell -c "from air_quality.models import Sensor; print(f'Total: {Sensor.objects.count()}, Active: {Sensor.objects.filter(is_active=True).count()}')"
-```
-
-**Readings:**
-
-```bash
-# Fetch latest readings
-python manage.py fetch_laqn_readings
-python manage.py fetch_breathe_readings
-
-# Check reading count
-python manage.py shell -c "from air_quality.models import Reading; print(Reading.objects.count())"
+python manage.py import_schools data/schools.csv    # Import schools from CSV
+python manage.py sync_laqn_sensors                   # Sync LAQN sensors
+python manage.py sync_breathe_sensors                # Sync Breathe London sensors
+python manage.py fetch_laqn_readings                 # Fetch latest LAQN readings
+python manage.py fetch_breathe_readings              # Fetch latest Breathe readings
 ```
 
 ### Data Sources
 
-**LAEI 2022 (Baseline):**
+**LAEI 2022 (Baseline):** 20m × 20m grid modelled pollution concentrations from the Greater London Authority. Provides baseline NO₂, NOx, PM2.5, PM10 for each school.
 
-- 20m × 20m grid modelled pollution concentrations
-- Imported from Greater London Authority open data
-- Provides baseline NO₂, NOx, PM2.5, PM10 for each school
+**LAQN (Reference-Grade):** 3 active stations in Lambeth/Southwark providing hourly validated readings (16 registered, most currently inactive). Used to calculate real-time adjustment factors against annual means.
 
-**LAQN (Reference-Grade):**
-
-- 16 stations in Lambeth/Southwark
-- Hourly validated readings
-- Used for adjustment factors
-
-**Breathe London:**
-
-- 26 calibrated sensors in study area
-- Direct readings for schools within 150m
-- Urban background site type only
+**Breathe London:** 26 calibrated sensors in the study area. Provides direct readings for schools within 150m. Urban background site type only.
 
 ---
 
 ## Testing
 
-### Run All Tests
+### Running Tests
 
 ```bash
-python manage.py test
+python manage.py test                    # All tests
+python manage.py test schools            # Schools app
+python manage.py test air_quality        # Air quality app
+python manage.py test maps               # Maps app
+python manage.py test subscriptions      # Subscriptions app
 ```
 
-### Run Specific Test Files
+**Current Status:** 39/39 tests passing.
+
+Tests cover model creation, string representations, unique constraints, view responses, template rendering, JSON data structure, CRUD permissions, data source selection logic, and adjustment factor calculations.
+
+---
+
+## Validation
+
+### HTML Validation
+
+All pages validated using the [W3C Markup Validation Service](https://validator.w3.org/).
+
+### CSS Validation
+
+Stylesheet validated using the [W3C CSS Validation Service (Jigsaw)](https://jigsaw.w3.org/css-validator/).
+
+### JavaScript
+
+JavaScript validated using [JSHint](https://jshint.com/).
+
+### Python (PEP8)
+
+Python code checked for PEP8 compliance using [CI Python Linter](https://pep8ci.herokuapp.com/).
+
+---
+
+## Deployment
+
+### Heroku Deployment
+
+The application is deployed to Heroku with the following configuration:
+
+1. **Heroku app created** with PostgreSQL addon
+2. **Environment variables** set via `heroku config:set`
+3. **Procfile** configured with `web: gunicorn schools_air_quality_msp4.wsgi`
+4. **Static files** served via WhiteNoise with `CompressedManifestStaticFilesStorage`
+5. **Heroku Scheduler** configured for hourly data fetches
+
+**Deploy commands:**
 
 ```bash
-python manage.py test schools.tests
-python manage.py test air_quality.tests
-python manage.py test maps.tests
-python manage.py test subscriptions.tests
+git push heroku main
+heroku run python manage.py migrate -a schools-air-quality-msp4
 ```
 
-### Test Coverage
+**Live URL:** [https://schools-air-quality-msp4-39fe66170249.herokuapp.com/](https://schools-air-quality-msp4-39fe66170249.herokuapp.com/)
 
-```bash
-coverage run --source='.' manage.py test
-coverage report
-coverage html  # Generate HTML report
-```
+### Demo Credentials
 
-**Current Status:** 31/39 tests passing (8 trivial assertion mismatches documented in test files)
+For assessment purposes, register a new account on the live site and subscribe using Stripe test card `4242 4242 4242 4242` (any future expiry, any CVC) to test the full e-commerce flow.
 
 ---
 
@@ -866,56 +640,62 @@ coverage html  # Generate HTML report
 
 ```
 schools_air_quality_msp4/
-├── air_quality/              # Air quality data app
-│   ├── models.py            # Sensor, Reading, SensorAnnualStats
-│   ├── services/            # API integration services
+├── air_quality/                  # Air quality data app
+│   ├── models.py                # Sensor, Reading, SensorAnnualStats
+│   ├── services/                # API integration services
 │   │   ├── breathe_london_api.py
 │   │   └── laqn_api.py
-│   ├── management/commands/ # Data fetching commands
+│   ├── management/commands/     # Data fetching commands
 │   └── tests.py
-├── schools/                  # Schools app
-│   ├── models.py            # School model with pollution data
+├── schools/                      # Schools app
+│   ├── models.py                # School, SchoolNote
+│   ├── views.py                 # List, detail, edit, CRUD notes
+│   ├── forms.py                 # SchoolContactForm, SchoolNoteForm
 │   ├── admin.py
-│   └── tests.py
-├── maps/                     # Map visualization app
-│   ├── views.py             # Map view with school data
+│   ├── test_data_sources.py     # Data source selection tests
+│   └── templates/schools/
+│       ├── schools_list.html
+│       ├── school_detail.html
+│       ├── school_edit.html
+│       ├── note_form.html
+│       └── note_confirm_delete.html
+├── maps/                         # Map visualisation app
+│   ├── views.py                 # Map view with school/sensor data
 │   ├── templates/maps/
-│   │   └── map.html         # Leaflet map interface
+│   │   └── map.html             # Leaflet map interface
 │   └── tests.py
-├── subscriptions/           # Stripe subscription app
-│   ├── models.py            # Subscription, Payment models
-│   ├── views.py             # Checkout, webhooks
-│   ├── decorators.py        # @subscription_required
+├── subscriptions/                # Stripe subscription app
+│   ├── models.py                # Subscription, Payment
+│   ├── views.py                 # Checkout, webhooks, management
+│   ├── decorators.py            # @subscription_required
 │   ├── templates/subscriptions/
+│   │   ├── subscription.html
+│   │   ├── success.html
+│   │   ├── cancel.html
+│   │   └── manage.html
 │   └── admin.py
-├── docs/                     # Documentation
-│   ├── database_schema.dbml # ERD (use dbdiagram.io)
-│   ├── USER_STORIES.md      # Agile user stories
-│   └── WIREFRAMES.md        # UI wireframes
-├── static/                   # Static assets
-│   ├── css/
+├── static/                       # Static assets
+│   ├── css/style.css
 │   └── js/
-├── templates/               # Base templates
+├── templates/                    # Project-level templates
 │   ├── base.html
 │   └── registration/
-│       └── login.html
-├── .env                     # Environment variables (not in git)
+│       ├── login.html
+│       ├── register.html
+│       ├── password_reset_form.html
+│       ├── password_reset_done.html
+│       ├── password_reset_confirm.html
+│       └── password_reset_complete.html
+├── data/                         # CSV data files
+│   └── schools.csv
+├── .env                          # Environment variables (not in git)
 ├── .gitignore
-├── manage.py
+├── Procfile
 ├── requirements.txt
+├── runtime.txt
+├── manage.py
 └── README.md
 ```
-
----
-
-## Documentation
-
-Additional documentation available in `/docs/`:
-
-- **[Database Schema (ERD)](docs/database_schema.dbml)** - Entity-Relationship Diagram (view at [dbdiagram.io](https://dbdiagram.io))
-- **[User Stories](docs/USER_STORIES.md)** - 18 user stories with implementation status
-- **[Wireframes](docs/WIREFRAMES.md)** - UI/UX wireframes for all key pages
-- **[Celery Setup Guide](docs/CELERY_SETUP.md)** - Scaling guide for high-volume deployments
 
 ---
 
@@ -923,89 +703,34 @@ Additional documentation available in `/docs/`:
 
 ### For Assessors
 
-**Demo Mode:**
+**Stripe Integration:** The `@subscription_required` decorator is active on the `school_edit` view. The map is freely accessible. To test the subscription flow, register an account and subscribe using test card `4242 4242 4242 4242`.
 
-- `@subscription_required` decorator commented out in `maps/views.py` (lines 6-7)
-- Allows free access to map for evaluation purposes
-- In production, uncomment decorator to enforce subscription
+**API Key Management:** All sensitive keys are stored in environment variables via `.env` (local) and Heroku config vars (production). The `.gitignore` file prevents `.env` from being committed.
 
-**API Key Management:**
-
-- Breathe London API key in `.env` - keep confidential
-- Django `SECRET_KEY` rotated for security
-- Stripe keys use test mode (pk*test*_, sk*test*_)
-
-**Lessons Learned:**
-
-- ⚠️ `.env` was accidentally committed to git history (3 commits)
-- ✅ Resolved by rotating SECRET_KEY immediately
-- ✅ Breathe London key retained due to 2-3 day reapplication time
-- ✅ `.gitignore` properly configured to prevent future exposure
+**Lessons Learned:** The `.env` file was accidentally committed to git history early in development (3 commits). This was resolved by immediately rotating the Django `SECRET_KEY` and ensuring `.gitignore` was properly configured.
 
 ### Production Checklist
 
-Before deploying to production:
-
-- [ ] Set `DEBUG=False` in `.env`
-- [ ] Use production Stripe keys (not test mode)
-- [ ] Uncomment `@subscription_required` decorator
+- [ ] Set `DEBUG=False` in production
+- [ ] Use production Stripe keys
 - [ ] Configure `ALLOWED_HOSTS` with actual domain
-- [ ] Set up HTTPS/SSL certificates
-- [ ] Enable PostgreSQL SSL connections
-- [ ] Implement rate limiting on API endpoints
+- [ ] Enable HTTPS/SSL
 - [ ] Set up monitoring and error tracking
 - [ ] Configure regular database backups
-- [ ] Review and update CORS settings
 
 ---
 
 ## Future Enhancements
 
-### Phase 2 Features
+**Tiered Pricing:** Free tier for parents/families (basic map view), paid tier for schools/administrators (£2.50/month, full features including historical trends, comparisons, and data export).
 
-1. **Tiered Pricing**
-   - Free tier for parents/families (basic map view)
-   - Paid tier for schools/administrators (£2.50/month, full features)
+**Air Quality Alerts:** Email and SMS notifications when pollution exceeds WHO thresholds, with recommended actions for schools.
 
-2. **Advanced Filtering**
-   - Filter schools by pollution levels
-   - Filter by school type (primary vs nursery)
-   - Filter by borough
+**Historical Trends:** Interactive graphs showing pollution over time, seasonal patterns, and year-on-year comparisons.
 
-3. **Air Quality Alerts**
-   - Email notifications when pollution exceeds thresholds
-   - SMS alerts for critical air quality episodes
-   - Recommended actions (keep children indoors, etc.)
+**Data Export:** PDF reports for school governors, CSV downloads for researchers, and API access for third-party integrations.
 
-4. **Historical Trends**
-   - Interactive graphs showing pollution over time
-   - Compare current year to previous years
-   - Seasonal pattern analysis
-
-5. **Data Export**
-   - PDF reports for school governors
-   - CSV downloads for researchers
-   - API access for third-party integrations
-
-6. **Accessibility**
-   - Full WCAG 2.1 AA compliance
-   - Screen reader optimization
-   - High contrast mode
-
-7. **Admin Dashboard**
-   - Data quality metrics
-   - API health monitoring
-   - User analytics
-
-### Scaling & Infrastructure
-
-1. **TimescaleDB Migration**
-   - Migrate from standard PostgreSQL to TimescaleDB when scaling beyond MVP
-   - Recommended when:
-     - Expanding to 5+ London boroughs
-     - 100,000+ sensor readings stored
-     - Multi-year historical data retention required
-   - Benefits: Automated data retention policies, optimized time-series queries, compression
+**Borough Expansion:** Scale from 2 boroughs to all 33 London boroughs. Migration to TimescaleDB recommended when exceeding 100,000 sensor readings.
 
 ---
 
@@ -1026,594 +751,16 @@ This project is licensed under the MIT License.
 
 ## Acknowledgments
 
-- **London Air Quality Network (LAQN)** - Reference-grade monitoring data
-- **Breathe London** - Calibrated sensor network
-- **Greater London Authority** - LAEI 2022 modelled data
-- **OpenAQ** - Open air quality data platform
-- **Code Institute** - Project supervision and guidance
-- **GitHub Copilot** - AI-powered development assistance
-- **William S. Vincent** - _Django for Beginners_ - Foundational Django concepts and best practices
+- **London Air Quality Network (LAQN)** — Reference-grade monitoring data
+- **Breathe London** — Calibrated sensor network
+- **Greater London Authority** — LAEI 2022 modelled data
+- **OpenAQ** — Open air quality data platform
+- **Code Institute** — Project supervision and guidance
+- **GitHub Copilot** — AI-powered development assistance
+- **Claude (Anthropic)** — AI-assisted brainstorming, debugging, and development support
+- **Django Documentation** — Official documentation and tutorials
+- **William S. Vincent** — _Django for Beginners_ — Foundational Django concepts
 
 ---
 
-## Support
-
-For questions or issues regarding this project:
-
-1. Check existing documentation in `/docs/`
-2. Review test files for usage examples
-3. Contact: gavin@gavinkingcome.com
-
----
-
-**Last Updated:** 22 February 2026
-
-````
-
-## Technology Stack
-
-### Backend
-
-- **Python 3.13**
-- **Django 6.0** - Web framework
-- **PostgreSQL 17** - Primary database for all data storage
-- **psycopg2** - PostgreSQL adapter
-- **Celery 5.3.6** - Asynchronous task queue (configured, not yet deployed — see docs/CELERY_SETUP.md)
-- **Redis** - Message broker for Celery
-
-### Frontend
-
-- **Bootstrap 5** - Responsive UI framework
-- **Leaflet.js** - Interactive mapping
-- **Vanilla JavaScript** - Minimal client-side scripting
-
-### APIs & Data Sources
-
-- **London Air Quality Network (LAQN)** - Reference-grade monitoring stations
-- **Breathe London via OpenAQ** - Calibrated low-cost sensors
-- **LAEI 2022** - London Atmospheric Emissions Inventory (modelled baseline)
-
-### Payment Processing
-
-- **Stripe** - Subscription billing (£2.50/month)
-
-### Testing
-
-- **Django TestCase** - Unit and integration tests
-- **Coverage.py** - Test coverage analysis
-
-### Development Tools
-
-- **python-decouple** - Environment variable management
-- **Git** - Version control
-- **GitHub** - Code repository
-
-### Deployment & Automation
-
-- **Heroku** - Cloud platform (PostgreSQL, Scheduler addon)
-- **Heroku Scheduler** - Free cron-like job scheduling (production)
-- **Celery + Redis** - Scalable task queue (implemented, ready for scaling)
-
----
-
-## Installation
-
-### Prerequisites
-
-- Python 3.13+
-- PostgreSQL 17
-- Git
-
-### Step 1: Clone Repository
-
-```bash
-git clone https://github.com/GavinKingcome/schools_air_quality_msp4.git
-cd schools_air_quality_msp4
-````
-
-### Step 2: Create Virtual Environment
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On macOS/Linux
-# venv\Scripts\activate  # On Windows
-```
-
-### Step 3: Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Step 4: Set Up PostgreSQL
-
-**Create Database:**
-
-```sql
-CREATE DATABASE schools_air_quality_db;
-\c schools_air_quality_db
-```
-
-**Create Database User:**
-
-```sql
-CREATE USER your_username WITH PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE schools_air_quality_db TO your_username;
-```
-
-### Step 5: Configure Environment Variables
-
-Create a `.env` file in the project root:
-
-```env
-# Django
-SECRET_KEY=your-secret-key-here
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-
-# Database
-DB_NAME=schools_air_quality_db
-DB_USER=your_username
-DB_PASSWORD=your_password
-DB_HOST=localhost
-DB_PORT=5432
-
-# API Keys
-BREATHE_LONDON_API_KEY=your-api-key-here
-
-# Stripe (optional for demo)
-STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_KEY_HERE
-STRIPE_SECRET_KEY=sk_test_YOUR_KEY_HERE
-STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET_HERE
-STRIPE_PRICE_ID=price_YOUR_PRICE_ID_HERE
-```
-
-**Generate Django Secret Key:**
-
-```bash
-python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
-```
-
-### Step 6: Run Migrations
-
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-
-### Step 7: Load Initial Data
-
-**Import Schools:**
-
-```bash
-python manage.py import_schools data/schools.csv
-```
-
-**Sync Sensors:**
-
-```bash
-python manage.py sync_laqn_sensors
-python manage.py sync_breathe_sensors
-```
-
-**Fetch Initial Readings:**
-
-```bash
-python manage.py fetch_laqn_readings
-python manage.py fetch_breathe_readings
-```
-
-### Step 8: Create Superuser (Optional)
-
-```bash
-python manage.py createsuperuser
-```
-
----
-
-## Configuration
-
-### Database Settings
-
-Located in `schools_air_quality_msp4/settings.py`:
-
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-    }
-}
-```
-
-### API Configuration
-
-**Breathe London:**
-
-- Register at [Breathe London Portal](https://www.breathelondon.org/)
-- Request API key (2-3 day approval time)
-- Add key to `.env` as `BREATHE_LONDON_API_KEY`
-
-**LAQN:**
-
-- No API key required
-- Public endpoint: `https://api.erg.ic.ac.uk/AirQuality/`
-
-### Stripe Configuration (Optional)
-
-For testing subscription checkout:
-
-1. Create account at [stripe.com](https://stripe.com)
-2. Get test API keys from dashboard
-3. Create product "Air Quality Dashboard Access" at £2.50/month
-4. Add keys to `.env`
-5. Uncomment `@subscription_required` decorator in `maps/views.py` (lines 6-7)
-
-### Email Configuration (Password Reset)
-
-**Current Implementation (Development/Demo):**
-
-Password reset functionality is available at `/password-reset/` with email backend configured to print to console/logs:
-
-- **Local Development:** Reset emails print to terminal console
-- **Heroku Production:** Reset emails print to Heroku logs
-
-To view password reset link on Heroku:
-
-```bash
-heroku logs --tail --app schools-air-quality-msp4
-```
-
-Then look for the reset URL in the logs after requesting a password reset.
-
-**Alternative: Command-Line Password Reset**
-
-For immediate password reset on Heroku:
-
-```bash
-heroku run python manage.py changepassword username
-```
-
-**Future Configuration (Production SMTP):**
-
-To enable actual email delivery, configure SMTP settings in `.env`:
-
-```env
-EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-EMAIL_HOST_USER=your-email@gmail.com
-EMAIL_HOST_PASSWORD=your-app-password
-DEFAULT_FROM_EMAIL=noreply@yourdomain.com
-```
-
-Recommended email services:
-
-- **SendGrid** - Heroku addon, 100 free emails/day
-- **Mailgun** - 5,000 free emails/month
-- **Gmail SMTP** - Simple for testing (requires app-specific password)
-
----
-
-## 🚀 Running the Application
-
-### Development Server
-
-```bash
-python manage.py runserver
-```
-
-Access at: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-
-### Automated Data Updates
-
-**Production (Heroku):**
-
-The application uses Heroku Scheduler for automated hourly data fetching:
-
-- LAQN readings: Every hour at :10 (`python manage.py fetch_laqn_readings`)
-- Breathe London readings: Every hour at :20 (`python manage.py fetch_breathe_readings`)
-
-No additional setup required - jobs are pre-configured in the Heroku dashboard.
-
-**Local Development (Optional):**
-
-For local testing with cron:
-
-```bash
-crontab -e
-```
-
-Add these lines:
-
-```cron
-# Fetch LAQN readings every hour at :05
-5 * * * * cd /path/to/project && /path/to/venv/bin/python manage.py fetch_laqn_readings >> /tmp/laqn_cron.log 2>&1
-
-# Fetch Breathe London readings every hour at :10
-10 * * * * cd /path/to/project && /path/to/venv/bin/python manage.py fetch_breathe_readings >> /tmp/breathe_cron.log 2>&1
-```
-
-**Scaling with Celery (Future):**
-
-For high-frequency updates or when scaling beyond 10 boroughs, see [docs/CELERY_SETUP.md](docs/CELERY_SETUP.md) for Celery worker configuration.
-
----
-
-### Management Commands
-
-**Schools:**
-
-```bash
-# Import schools from CSV
-python manage.py import_schools data/schools.csv
-
-# List schools
-python manage.py shell -c "from schools.models import School; print(School.objects.count())"
-```
-
-**Sensors:**
-
-```bash
-# Sync LAQN sensors
-python manage.py sync_laqn_sensors
-
-# Sync Breathe London sensors
-python manage.py sync_breathe_sensors
-
-# Check sensor count
-python manage.py shell -c "from air_quality.models import Sensor; print(f'Total: {Sensor.objects.count()}, Active: {Sensor.objects.filter(is_active=True).count()}')"
-```
-
-**Readings:**
-
-```bash
-# Fetch latest readings
-python manage.py fetch_laqn_readings
-python manage.py fetch_breathe_readings
-
-# Check reading count
-python manage.py shell -c "from air_quality.models import Reading; print(Reading.objects.count())"
-```
-
-### Data Sources
-
-**LAEI 2022 (Baseline):**
-
-- 20m × 20m grid modelled pollution concentrations
-- Imported from Greater London Authority open data
-- Provides baseline NO₂, NOx, PM2.5, PM10 for each school
-
-**LAQN (Reference-Grade):**
-
-- 16 stations in Lambeth/Southwark
-- Hourly validated readings
-- Used for adjustment factors
-
-**Breathe London:**
-
-- 26 calibrated sensors in study area
-- Direct readings for schools within 150m
-- Urban background site type only
-
----
-
-## Testing
-
-### Run All Tests
-
-```bash
-python manage.py test
-```
-
-### Run Specific Test Files
-
-```bash
-python manage.py test schools.tests
-python manage.py test air_quality.tests
-python manage.py test maps.tests
-python manage.py test subscriptions.tests
-```
-
-### Test Coverage
-
-```bash
-coverage run --source='.' manage.py test
-coverage report
-coverage html  # Generate HTML report
-```
-
-**Current Status:** 31/39 tests passing (8 trivial assertion mismatches documented in test files)
-
----
-
-## Project Structure
-
-```
-schools_air_quality_msp4/
-├── air_quality/              # Air quality data app
-│   ├── models.py            # Sensor, Reading, SensorAnnualStats
-│   ├── services/            # API integration services
-│   │   ├── breathe_london_api.py
-│   │   └── laqn_api.py
-│   ├── management/commands/ # Data fetching commands
-│   └── tests.py
-├── schools/                  # Schools app
-│   ├── models.py            # School model with pollution data
-│   ├── admin.py
-│   └── tests.py
-├── maps/                     # Map visualization app
-│   ├── views.py             # Map view with school data
-│   ├── templates/maps/
-│   │   └── map.html         # Leaflet map interface
-│   └── tests.py
-├── subscriptions/           # Stripe subscription app
-│   ├── models.py            # Subscription, Payment models
-│   ├── views.py             # Checkout, webhooks
-│   ├── decorators.py        # @subscription_required
-│   ├── templates/subscriptions/
-│   └── admin.py
-├── docs/                     # Documentation
-│   ├── database_schema.dbml # ERD (use dbdiagram.io)
-│   ├── USER_STORIES.md      # Agile user stories
-│   └── WIREFRAMES.md        # UI wireframes
-├── static/                   # Static assets
-│   ├── css/
-│   └── js/
-├── templates/               # Base templates
-│   ├── base.html
-│   └── registration/
-│       └── login.html
-├── .env                     # Environment variables (not in git)
-├── .gitignore
-├── manage.py
-├── requirements.txt
-└── README.md
-```
-
----
-
-## Documentation
-
-Additional documentation available in `/docs/`:
-
-- **[Database Schema (ERD)](docs/database_schema.dbml)** - Entity-Relationship Diagram (view at [dbdiagram.io](https://dbdiagram.io))
-- **[User Stories](docs/USER_STORIES.md)** - 18 user stories with implementation status
-- **[Wireframes](docs/WIREFRAMES.md)** - UI/UX wireframes for all key pages
-- **[Celery Setup Guide](docs/CELERY_SETUP.md)** - Scaling guide for high-volume deployments
-
----
-
-## Security Notes
-
-### For Assessors
-
-**Demo Mode:**
-
-- `@subscription_required` decorator commented out in `maps/views.py` (lines 6-7)
-- Allows free access to map for evaluation purposes
-- In production, uncomment decorator to enforce subscription
-
-**API Key Management:**
-
-- Breathe London API key in `.env` - keep confidential
-- Django `SECRET_KEY` rotated for security
-- Stripe keys use test mode (pk*test*_, sk*test*_)
-
-**Lessons Learned:**
-
-- ⚠️ `.env` was accidentally committed to git history (3 commits)
-- ✅ Resolved by rotating SECRET_KEY immediately
-- ✅ Breathe London key retained due to 2-3 day reapplication time
-- ✅ `.gitignore` properly configured to prevent future exposure
-
-### Production Checklist
-
-Before deploying to production:
-
-- [ ] Set `DEBUG=False` in `.env`
-- [ ] Use production Stripe keys (not test mode)
-- [ ] Uncomment `@subscription_required` decorator
-- [ ] Configure `ALLOWED_HOSTS` with actual domain
-- [ ] Set up HTTPS/SSL certificates
-- [ ] Enable PostgreSQL SSL connections
-- [ ] Implement rate limiting on API endpoints
-- [ ] Set up monitoring and error tracking
-- [ ] Configure regular database backups
-- [ ] Review and update CORS settings
-
----
-
-## Future Enhancements
-
-### Phase 2 Features
-
-1. **Tiered Pricing**
-   - Free tier for parents/families (basic map view)
-   - Paid tier for schools/administrators (£2.50/month, full features)
-
-2. **Advanced Filtering**
-   - Filter schools by pollution levels
-   - Filter by school type (primary vs nursery)
-   - Filter by borough
-
-3. **Air Quality Alerts**
-   - Email notifications when pollution exceeds thresholds
-   - SMS alerts for critical air quality episodes
-   - Recommended actions (keep children indoors, etc.)
-
-4. **Historical Trends**
-   - Interactive graphs showing pollution over time
-   - Compare current year to previous years
-   - Seasonal pattern analysis
-
-5. **Data Export**
-   - PDF reports for school governors
-   - CSV downloads for researchers
-   - API access for third-party integrations
-
-6. **Accessibility**
-   - Full WCAG 2.1 AA compliance
-   - Screen reader optimization
-   - High contrast mode
-
-7. **Admin Dashboard**
-   - Data quality metrics
-   - API health monitoring
-   - User analytics
-
-### Scaling & Infrastructure
-
-1. **TimescaleDB Migration**
-   - Migrate from standard PostgreSQL to TimescaleDB when scaling beyond MVP
-   - Recommended when:
-     - Expanding to 5+ London boroughs
-     - 100,000+ sensor readings stored
-     - Multi-year historical data retention required
-   - Benefits: Automated data retention policies, optimized time-series queries, compression
-
----
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-## Author
-
-**Gavin Kingcome**
-
-- GitHub: [@GavinKingcome](https://github.com/GavinKingcome)
-- Email: gavin@gavinkingcome.com
-
----
-
-## Acknowledgments
-
-- **London Air Quality Network (LAQN)** - Reference-grade monitoring data
-- **Breathe London** - Calibrated sensor network
-- **Greater London Authority** - LAEI 2022 modelled data
-- **OpenAQ** - Open air quality data platform
-- **Code Institute** - Project supervision and guidance
-- **GitHub Copilot** - AI-powered development assistance
-- **William S. Vincent** - _Django for Beginners_ - Foundational Django concepts and best practices
-
----
-
-## Support
-
-For questions or issues regarding this project:
-
-1. Check existing documentation in `/docs/`
-2. Review test files for usage examples
-3. Contact: gavin@gavinkingcome.com
-
----
-
-**Last Updated:** 22 February 2026
+**Last Updated:** 27 February 2026

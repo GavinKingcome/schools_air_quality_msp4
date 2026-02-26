@@ -52,11 +52,11 @@
     <div class="col-md-6 col-lg-4">
       <div class="card h-100">
         <div class="card-body">
-          <h5 class="card-title">
+          <h3 class="card-title">
             <a href="{% url 'schools:school_detail' school.pk %}" class="text-decoration-none">
               {{ school.name }}
             </a>
-          </h5>
+          </h3>
           <p class="card-text text-muted mb-1">
             {{ school.get_school_type_display }}
           </p>
