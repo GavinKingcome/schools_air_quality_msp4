@@ -35,7 +35,7 @@
       <!-- Current Air Quality Reading -->
       <div class="card mb-4">
         <div class="card-header">
-          <h5 class="mb-0">Current Air Quality</h5>
+          <h3 class="mb-0">Current Air Quality</h3>
         </div>
         <div class="card-body">
           {% if current_reading.method %}
@@ -94,7 +94,7 @@
       {% if threshold_status %}
       <div class="card mb-4">
         <div class="card-header">
-          <h5 class="mb-0">Guideline Comparison</h5>
+          <h3 class="mb-0">Guideline Comparison</h3>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -148,7 +148,7 @@
       <!-- Notes Section -->
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">Community Notes</h5>
+          <h3 class="mb-0">Community Notes</h3>
           {% if user.is_authenticated %}
           <a href="{% url 'schools:note_create' school.pk %}" class="btn btn-sm btn-primary">
             Add Note
@@ -198,7 +198,7 @@
     <div class="col-lg-4">
       <div class="card">
         <div class="card-header">
-          <h5 class="mb-0">School Information</h5>
+          <h3 class="mb-0">School Information</h3>
         </div>
         <div class="card-body">
           {% if school.student_count %}
