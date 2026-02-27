@@ -617,6 +617,7 @@ Not formally validated. Code uses ES6 features (const, arrow functions, template
 Not formally validated. Minor whitespace and line length issues remain.
 
 ## Deployment
+- [heroku landing page](docs/validation/heriku_landing_page.png)
 
 ### Heroku Deployment
 
