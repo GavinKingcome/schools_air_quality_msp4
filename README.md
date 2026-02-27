@@ -595,9 +595,18 @@ Tests cover model creation, string representations, unique constraints, view res
 
 All pages validated using the [W3C Markup Validation Service](https://validator.w3.org/). No errors found.
 
+- [Map page](docs/validation/map_page.png)
+- [Schools list](docs/validation/schools_list.png)
+- [School details](docs/validation/school_details.png)
+- [Subscription page](docs/validation/subscription_page.png)
+- [Subscriptions page](docs/validation/subscriptions_page.png)
+- [Login page](docs/validation/login_page.png)
+
 ### CSS Validation
 
 Stylesheet validated using the [W3C CSS Validation Service (Jigsaw)](https://jigsaw.w3.org/css-validator/). No errors found.
+
+- [CSS validation](docs/validation/css.png)
 
 ### JavaScript
 
@@ -606,7 +615,6 @@ Not formally validated. Code uses ES6 features (const, arrow functions, template
 ### Python (PEP8)
 
 Not formally validated. Minor whitespace and line length issues remain.
----
 
 ## Deployment
 
