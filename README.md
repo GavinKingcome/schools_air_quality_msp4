@@ -709,20 +709,28 @@ schools_air_quality_msp4/
 
 ## Security Notes
 
+### Repository Hygiene
+
+All sensitive configuration has been removed from the repository and its entire commit history using `git filter-repo`. The `.env` file is listed in `.gitignore` and is not tracked by git.
+
+**Keys rotated after exposure:**
+- Django SECRET_KEY — rotated
+- Stripe API keys (publishable and secret) — rotated
+- Breathe London API key — rotation requested, pending reissue
+
+All production secrets are managed exclusively through Heroku config vars. No sensitive values exist in the codebase or commit history.
+
 ### For Assessors
 
-**Stripe Integration:** The `@subscription_required` decorator is active on the `school_edit` view. The map is freely accessible. To test the subscription flow, register an account and subscribe using test card `4242 4242 4242 4242`.
-
-**API Key Management:** All sensitive keys are stored in environment variables via `.env` (local) and Heroku config vars (production). The `.gitignore` file prevents `.env` from being committed.
-
-**Lessons Learned:** The `.env` file was accidentally committed to git history early in development (3 commits). This was resolved by immediately rotating the Django `SECRET_KEY` and ensuring `.gitignore` was properly configured.
+**Stripe Integration:** Register an account and subscribe using test card `4242 4242 4242 4242` (any future expiry, any CVC). The `@subscription_required` decorator is active on the `school_edit` view. The map is freely accessible.
 
 ### Production Checklist
 
-- [ ] Set `DEBUG=False` in production
-- [ ] Use production Stripe keys
-- [ ] Configure `ALLOWED_HOSTS` with actual domain
-- [ ] Enable HTTPS/SSL
+- [x] Remove secrets from git history
+- [x] Rotate all exposed keys
+- [x] DEBUG=False in production
+- [ ] Use production Stripe keys (currently test mode)
+- [ ] Configure HTTPS/SSL
 - [ ] Set up monitoring and error tracking
 - [ ] Configure regular database backups
 
