@@ -547,6 +547,8 @@ Heroku Scheduler runs hourly data fetches:
 - `:10` — `python manage.py fetch_laqn_readings`
 - `:20` — `python manage.py fetch_breathe_readings`
 
+**Note:** LAQN sensor availability varies — stations may go offline periodically. When live readings are unavailable, the application falls back to LAEI 2022 baseline data, ensuring all schools always display pollution estimates.
+
 ---
 
 ## Data Management
@@ -617,6 +619,7 @@ Not formally validated. Code uses ES6 features (const, arrow functions, template
 Not formally validated. Minor whitespace and line length issues remain.
 
 ## Deployment
+
 - [heroku landing page](docs/validation/heriku_landing_page.png)
 
 ### Heroku Deployment
@@ -714,6 +717,7 @@ schools_air_quality_msp4/
 All sensitive configuration has been removed from the repository and its entire commit history using `git filter-repo`. The `.env` file is listed in `.gitignore` and is not tracked by git.
 
 **Keys rotated after exposure:**
+
 - Django SECRET_KEY — rotated
 - Stripe API keys (publishable and secret) — rotated
 - Breathe London API key — rotation requested, pending reissue
