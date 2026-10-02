@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from schools.models import School
 from air_quality.models import Sensor
+from django.conf import settings
 import json
 
 def map_view(request):
@@ -85,6 +86,7 @@ def map_view(request):
     context = {
         'schools_json': json.dumps(schools_data),
         'sensors_json': json.dumps(sensors_data),
+        'carto_key': settings.CARTO_API_KEY,
     }
     
     return render(request, 'maps/map.html', context)

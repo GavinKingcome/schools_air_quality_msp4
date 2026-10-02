@@ -4,7 +4,7 @@
 
 ![Deployed Application on Heroku](screenshots/heroku-deployed.png)
 
-**Live URL:** https://schools-air-quality-msp4.herokuapp.com
+**Live URL:** https://schools-air-quality-msp4-39fe66170249.herokuapp.com/map/
 
 ---
 
@@ -82,6 +82,10 @@ heroku run python manage.py collectstatic --noinput
 ```
 
 ### 9. Open Your App
+1. Open your app: https://schools-air-quality-msp4-39fe66170249.herokuapp.com/map/
+2. Test map display with school markers
+3. Test admin access: https://schools-air-quality-msp4-39fe66170249.herokuapp.com/admin/
+4. Check logs: `heroku logs --tail`
 
 ```bash
 heroku open
@@ -177,4 +181,4 @@ After successful deployment:
 
 ---
 
-**Deployed URL**: https://schools-air-quality-msp4.herokuapp.com
+**Deployed URL**: https://schools-air-quality-msp4-39fe66170249.herokuapp.com/map/
