@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'air_quality',
     'maps',
     'subscriptions',
+    'childcare',
 ]
 
 MIDDLEWARE = [
