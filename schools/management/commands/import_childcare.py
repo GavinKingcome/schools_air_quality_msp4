@@ -1,1 +1,0 @@
-pd.read_csv(path, dtype={"Provider URN": str})
