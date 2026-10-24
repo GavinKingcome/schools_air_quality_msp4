@@ -39,7 +39,7 @@ PROVIDER_TYPE_MAP = {
     "Childcare on domestic premises": "domestic",
 }
 
-MIN_ROWS = 550  # same floor philosophy as the pipeline
+MIN_ROWS = 550  # same floor idea as the pipeline
 
 
 class Command(BaseCommand):
@@ -94,7 +94,9 @@ class Command(BaseCommand):
                               f"total in DB {ChildcareSetting.objects.count()}")
 
             if options["dry_run"]:
-                raise CommandError("Dry run requested - rolling back all changes.")
+                transaction.set_rollback(True)
+                self.stdout.write(self.style.WARNING("Dry run: all changes rolled back."))
+                return
 
         self.stdout.write(self.style.SUCCESS("Import committed."))
 
