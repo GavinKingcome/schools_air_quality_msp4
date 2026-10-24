@@ -48,3 +48,5 @@ laei_summary.json
 postgres_data/
 pgdata/
 
+# Raw GIAS extract (large, lives in the analysis repo)
+schools/southwark_lambeth.csv
