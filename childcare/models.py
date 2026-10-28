@@ -35,6 +35,11 @@ class ChildcareSetting(models.Model):
     northing = models.IntegerField(null=True, blank=True)
     lsoa21 = models.CharField(max_length=12, blank=True,
                               help_text='2021-boundary LSOA code, for IMD/IDACI joins')
+    constituency = models.CharField(max_length=100, blank=True)
+    deprivation_band = models.CharField(
+        max_length=20, blank=True,
+        help_text="Ofsted band: national IDACI quintile of the setting's LSOA",
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -31,6 +31,8 @@ REQUIRED_COLS = [
     "east1m",
     "north1m",
     "lsoa21cd",
+    "Parliamentary constituency",
+    "Deprivation band",
 ]
 
 PROVIDER_TYPE_MAP = {
@@ -85,6 +87,8 @@ class Command(BaseCommand):
                         "easting": int_or_none(getval(row, df, "east1m")),
                         "northing": int_or_none(getval(row, df, "north1m")),
                         "lsoa21": none_to_blank(row, df, "lsoa21cd"),
+                        "constituency": none_to_blank(row, df, "Parliamentary constituency"),
+                        "deprivation_band": none_to_blank(row, df, "Deprivation band"),
                     },
                 )
                 created += was_created
