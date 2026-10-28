@@ -2,6 +2,7 @@ from django.shortcuts import render
 from schools.models import School
 from air_quality.models import Sensor
 from django.conf import settings
+from childcare.models import ChildcareSetting
 import json
 
 def map_view(request):
@@ -82,10 +83,28 @@ def map_view(request):
             'is_reference_grade': sensor.is_reference_grade,
             'is_urban_background': sensor.is_urban_background,
         })
+        
+        # Prepare childcare data for JavaScript (mappable providers only)
+    childcare_data = [
+        {
+            'urn': c.urn,
+            'name': c.name,
+            'provider_type': c.get_provider_type_display(),
+            'places': c.places,
+            'postcode': c.postcode,
+            'borough': c.borough,
+            'latitude': c.latitude,
+            'longitude': c.longitude,
+        }
+        for c in ChildcareSetting.objects.filter(
+            latitude__isnull=False, longitude__isnull=False
+        ).exclude(provider_type__in=['childminder', 'domestic'])
+    ]
     
     context = {
         'schools_json': json.dumps(schools_data),
         'sensors_json': json.dumps(sensors_data),
+        'childcare_data': childcare_data,
         'carto_key': settings.CARTO_API_KEY,
     }
     
