@@ -182,6 +182,7 @@
         // Reset map to full view when popup closes (not for childcare popups)
     map.on('popupclose', function(e) {
         if (e.popup.options.className === 'childcare-popup') return;
+        if (selectedSchoolId === null) return;
         // Reset map view to show all schools
         if (window.originalMapBounds) {
             map.fitBounds(window.originalMapBounds, window.originalMapZoomOptions || {});
