@@ -19,11 +19,16 @@ class School(models.Model):
     ]
     
     # Basic Info
+    urn = models.CharField(max_length=20, unique=True, null=True, blank=True)  # Identity: the Department for Education URN from GIAS. Imports match on it.
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     postcode = models.CharField(max_length=10)
     borough = models.CharField(max_length=100, blank=True)
+    lsoa21 = models.CharField(
+        max_length=12, blank=True,
+        help_text='2021-boundary LSOA code, for IMD/IDACI joins',
+    )
     
     # Contact Information
     phone = models.CharField(max_length=20, blank=True, null=True)
