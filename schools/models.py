@@ -16,6 +16,9 @@ class School(models.Model):
     SCHOOL_TYPE_CHOICES = [
         ('nursery', 'Nursery School'),
         ('primary', 'Primary School'),
+        ('all_through', 'All-through School'),
+        ('special', 'Special School'),
+        ('independent', 'Independent School'),
     ]
     
     # Basic Info
@@ -42,6 +45,10 @@ class School(models.Model):
     # School Info
     school_type = models.CharField(max_length=50, choices=SCHOOL_TYPE_CHOICES, default='primary')
     student_count = models.IntegerField(null=True, blank=True, help_text="Approximate number of students")
+    has_pre_reception_provision = models.BooleanField(
+        default=False,
+        help_text='Nursery classes, or admits children aged 3 or under',
+    )
     
     # =========================================================================
     # LAEI 2022 Baseline Data (your existing fields)
