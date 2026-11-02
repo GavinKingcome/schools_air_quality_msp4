@@ -18,6 +18,15 @@ from django.db import transaction
 
 from schools.models import School
 
+# LAEI 2022 values added by build_slice.py. The names match the School fields.
+LAEI_COLS = [
+    "no2_2022",
+    "nox_2022",
+    "pm25_2022",
+    "pm10_mean_2022",
+    "pm10_days_2022",
+]
+
 REQUIRED_COLS = [
     "URN",
     "EstablishmentName",
@@ -35,6 +44,8 @@ REQUIRED_COLS = [
     "long",
     "lsoa21cd",
 ]
+
+REQUIRED_COLS += LAEI_COLS
 
 MIN_ROWS = 140  # 147 expected
 
@@ -73,6 +84,10 @@ class Command(BaseCommand):
         created = updated = 0
         with transaction.atomic():
             for row in df.to_dict("records"):
+                
+                # LAEI 2022 values: text in the CSV, Decimal in the database.
+                laei = {col: decimal_or_none(row[col]) for col in LAEI_COLS}
+                
                 # Fields that always come from GIAS.
                 fields = {
                     "name": row["EstablishmentName"],
@@ -86,6 +101,8 @@ class Command(BaseCommand):
                     "school_type": school_type(row),
                     "has_pre_reception_provision": row["has_pre_reception_provision"] == "True",
                     "student_count": int_or_none(row["NumberOfPupils"]),
+                    **laei,
+                    "laei_data_available": any(v is not None for v in laei.values()),
                 }
                 _, was_created = School.objects.update_or_create(
                     urn=row["URN"],
@@ -142,3 +159,7 @@ def phone_number(value):
     if not value:
         return None
     return value if value.startswith("0") else f"0{value}"
+
+def decimal_or_none(value):
+    """'23.95' -> Decimal('23.95'), '' -> None."""
+    return Decimal(value).quantize(Decimal("0.01")) if value else None
