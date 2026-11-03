@@ -128,7 +128,9 @@ class LAQNApi:
         
         # Format dates for LAQN API (DD-Mon-YYYY format required)
         start_str = start_date.strftime("%d-%b-%Y")
-        end_str = end_date.strftime("%d-%b-%Y")
+        # LAQN's EndDate stops at the start of that day, so ask for the day after
+        # to include today's readings.
+        end_str = (end_date + timedelta(days=1)).strftime("%d-%b-%Y")
         
         # Use Data/Site endpoint (not Data/SiteSpecies)
         endpoint = f"Data/Site/SiteCode={site_code}/StartDate={start_str}/EndDate={end_str}"

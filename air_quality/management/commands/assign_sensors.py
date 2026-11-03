@@ -21,6 +21,8 @@ from django.core.management.base import BaseCommand
 from air_quality.models import Sensor
 from schools.models import School
 from math import radians, sin, cos, sqrt, atan2
+from datetime import timedelta
+from django.utils import timezone
 import logging
 
 logger = logging.getLogger(__name__)
@@ -71,7 +73,12 @@ class Command(BaseCommand):
         dry_run = options['dry_run']
         
         schools = School.objects.all()
-        all_sensors = Sensor.objects.filter(is_active=True)
+        # Only sensors that have sent a reading in the last 7 days.
+        # A site can be officially open but silent (e.g. LB5).
+        recent = timezone.now() - timedelta(days=7)
+        all_sensors = Sensor.objects.filter(
+            is_active=True, readings__timestamp__gte=recent
+        ).distinct()
         laqn_sensors = all_sensors.filter(network='LAQN')
         
         self.stdout.write(f'\nHybrid Sensor Assignment')

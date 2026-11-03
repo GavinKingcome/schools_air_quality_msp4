@@ -153,7 +153,11 @@ class Command(BaseCommand):
         
         # Show coverage summary
         total_sensors = Sensor.objects.filter(network='LAQN', is_active=True).count()
-        sensors_with_stats = SensorAnnualStats.objects.values('sensor').distinct().count()
+        sensors_with_stats = (
+            SensorAnnualStats.objects
+            .filter(sensor__network='LAQN', sensor__is_active=True)
+            .values('sensor').distinct().count()
+        )
         
         self.stdout.write('')
         self.stdout.write(f'LAQN sensors with annual stats: {sensors_with_stats}/{total_sensors}')
