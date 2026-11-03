@@ -32,8 +32,8 @@ staticfiles/
 # OS
 .DS_Store
 
-# LAEI pollution data files (too large for GitHub)
-LAEI/ASCII/*.asc
+# LAEI pollution data (large; extraction now happens in the analysis repo)
+LAEI/
 
 # Generated pollution output files
 schools_with_laei.json
