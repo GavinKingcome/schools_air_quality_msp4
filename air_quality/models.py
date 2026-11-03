@@ -25,8 +25,11 @@ class Sensor(models.Model):
     
     NETWORK_CHOICES = [
         ('LAQN', 'London Air Quality Network'),
+        ('AQE', 'Air Quality England'),
         ('BREATHE', 'Breathe London'),
     ]
+    # Networks whose readings count as reference grade
+    REFERENCE_NETWORKS = ['LAQN', 'AQE']
     
     SITE_TYPE_CHOICES = [
         ('roadside', 'Roadside'),
@@ -54,6 +57,11 @@ class Sensor(models.Model):
     is_active = models.BooleanField(default=True)
     date_opened = models.DateField(null=True, blank=True)
     date_closed = models.DateField(null=True, blank=True)
+    successor = models.ForeignKey(
+        'self', null=True, blank=True,
+        on_delete=models.SET_NULL, related_name='predecessors',
+        help_text='Replacement sensor when a site moved network or code',
+    )
     
     # Network-specific metadata (JSON)
     metadata = models.JSONField(default=dict, blank=True)
@@ -75,8 +83,8 @@ class Sensor(models.Model):
     
     @property
     def is_reference_grade(self) -> bool:
-        """LAQN sensors are reference-grade instruments."""
-        return self.network == 'LAQN'
+        """LAQN and AQE sensors are reference-grade instruments."""
+        return self.network in self.REFERENCE_NETWORKS
     
     @property
     def is_urban_background(self) -> bool:

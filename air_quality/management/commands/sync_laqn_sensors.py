@@ -9,10 +9,16 @@ Usage:
 from django.core.management.base import BaseCommand
 from air_quality.models import Sensor
 from air_quality.services.laqn_api import LAQNApi
+from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
 
+def parse_laqn_date(value):
+    """'2025-03-31 00:00:00' -> date(2025, 3, 31); '' -> None."""
+    if not value:
+        return None
+    return datetime.strptime(value[:10], "%Y-%m-%d").date()
 
 class Command(BaseCommand):
     help = 'Sync LAQN monitoring sites from the London Air API'
@@ -81,6 +87,9 @@ class Command(BaseCommand):
                     site_type = 'suburban'
                 else:
                     site_type = 'urban_background'
+                    
+                date_opened = parse_laqn_date(site.get('@DateOpened'))
+                date_closed = parse_laqn_date(site.get('@DateClosed'))
                 
                 # Create or update
                 sensor, created = Sensor.objects.update_or_create(
@@ -92,7 +101,9 @@ class Command(BaseCommand):
                         'network': 'LAQN',
                         'site_type': site_type,
                         'borough': site.get('@LocalAuthorityName', borough),
-                        'is_active': site.get('@IsClosed', 'false').lower() != 'true',
+                        'date_opened': date_opened,
+                        'date_closed': date_closed,
+                        'is_active': date_closed is None,
                         'metadata': {
                             'local_authority_id': site.get('@LocalAuthorityId'),
                             'site_link': site.get('@SiteLink'),
