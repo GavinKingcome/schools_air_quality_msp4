@@ -46,6 +46,7 @@ def map_view(request):
             'postcode': school.postcode,
             'borough': school.borough,
             'school_type': school.get_school_type_display(),
+            'has_pre_reception_provision': school.has_pre_reception_provision,
             'student_count': school.student_count,
             'latitude': float(school.latitude),
             'longitude': float(school.longitude),

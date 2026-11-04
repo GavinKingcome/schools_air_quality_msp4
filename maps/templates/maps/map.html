@@ -382,6 +382,12 @@
       }
   });
 
+  // Which borough cluster a school's marker belongs to
+  const clusterFor = school => school.borough === 'Southwark' ? southwarkCluster : lambethCluster;
+
+  // True while "Early years only" is ticked
+  let earlyYearsOnly = false;
+
   // Add clusters to map
   map.addLayer(southwarkCluster);
   map.addLayer(lambethCluster);
@@ -500,14 +506,18 @@
       const div = L.DomUtil.create('div', 'sensor-toggle-control');
       div.style.cssText = 'background: rgba(255, 255, 255, 0.5); padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-top: 10px;';
       div.innerHTML = `
+
           <label style="display: flex; align-items: center; cursor: pointer; font-size: 0.9rem;">
               <input type="checkbox" id="sensorToggle" style="margin-right: 8px; cursor: pointer;">
-              <span>Show Active Sensors</span>
+              <span>Active Sensors</span>
           </label>
-
+          <label style="display: flex; align-items: center; cursor: pointer; font-size: 0.9rem; margin-top: 6px;">
+              <input type="checkbox" id="earlyYearsToggle" style="margin-right: 8px; cursor: pointer;">
+              <span>Schools with nursery classes</span>
+          </label>
           <label style="display: flex; align-items: center; cursor: pointer; font-size: 0.9rem; margin-top: 6px;">
               <input type="checkbox" id="childcareToggle" style="margin-right: 8px; cursor: pointer;">
-              <span>Show childcare settings</span>
+              <span>Childcare settings</span>
           </label>
       `;
 
@@ -537,6 +547,20 @@
                   } else {
                       map.removeLayer(childcareCluster);
                   }
+              });
+          }
+          const earlyYearsToggle = document.getElementById('earlyYearsToggle');
+          if (earlyYearsToggle) {
+              earlyYearsToggle.addEventListener('change', function() {
+                  earlyYearsOnly = this.checked;
+                  markersMap.forEach(({marker, school}) => {
+                      if (school.has_pre_reception_provision) return;  // always shown
+                      if (earlyYearsOnly) {
+                          clusterFor(school).removeLayer(marker);
+                      } else {
+                          clusterFor(school).addLayer(marker);
+                      }
+                  });
               });
           }
       }, 100);
@@ -615,9 +639,11 @@
 
         // Filter schools
         const matches = schools.filter(school =>
-            school.name.toLowerCase().includes(searchTerm) ||
-            school.postcode.toLowerCase().includes(searchTerm) ||
-            school.city.toLowerCase().includes(searchTerm)
+            (!earlyYearsOnly || school.has_pre_reception_provision) && (
+                school.name.toLowerCase().includes(searchTerm) ||
+                school.postcode.toLowerCase().includes(searchTerm) ||
+                school.city.toLowerCase().includes(searchTerm)
+            )
         );
 
         // Show results in dropdown
