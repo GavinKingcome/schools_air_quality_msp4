@@ -491,14 +491,28 @@
                       ${c.places ? `<p class="mb-1"><strong>Places:</strong> ${c.places}</p>` : ''}
                       <p class="mb-1"><strong>Borough:</strong> ${esc(c.borough)}</p>
                       <p class="mb-1"><strong>Postcode:</strong> ${esc(c.postcode)}</p>
-                      <p class="small text-muted mt-2 mb-0">Ofsted registered early years setting. Air quality estimates coming soon.</p>
+                      <p class="small text-muted mt-2 mb-0">Ofsted registered early years setting.</p>
+                       ${c.no2_2022 !== null ? `
+                          <hr class="my-3">
+                          <h6 class="mb-2">Modelled annual averages (LAEI 2022)</h6>
+                          ${createPollutantDisplay('NO₂', c.no2_2022, 10, 20, 40, 'baseline')}
+                          ${c.pm25_2022 !== null ? createPollutantDisplay('PM2.5', c.pm25_2022, 5, 10, 25, 'baseline') : ''}
+                          ${c.pm10_mean_2022 !== null ? createPollutantDisplay('PM10', c.pm10_mean_2022, 15, 20, 40, 'baseline') : ''}
+                          <p class="small text-muted mt-2 mb-0">Estimated for the postcode area, not the building itself.</p>
+                      ` : ''}
                   </div>
               </div>
           </div>
-      `, { autoClose: false, closeOnClick: false, className: 'childcare-popup' });
+      
+        `, {
+            autoClose: false,
+            closeOnClick: false,
+            className: 'childcare-popup',
+            maxHeight: window.innerWidth <= 768 ? 300 : 500
+            });
 
-      childcareCluster.addLayer(marker);
-  });
+        childcareCluster.addLayer(marker);
+    });
 
   // Add sensor toggle control
   const sensorToggleControl = L.control({ position: 'topleft' });

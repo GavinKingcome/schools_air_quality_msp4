@@ -5,6 +5,10 @@ from django.conf import settings
 from childcare.models import ChildcareSetting
 import json
 
+def as_float(value):
+    """Decimal -> float for JavaScript; None stays None."""
+    return float(value) if value is not None else None
+
 def map_view(request):
     """Display all schools and sensors on a map"""
     schools = School.objects.all()
@@ -96,6 +100,9 @@ def map_view(request):
             'borough': c.borough,
             'latitude': c.latitude,
             'longitude': c.longitude,
+            'no2_2022': as_float(c.no2_2022),
+            'pm25_2022': as_float(c.pm25_2022),
+            'pm10_mean_2022': as_float(c.pm10_mean_2022),
         }
         for c in ChildcareSetting.objects.filter(
             latitude__isnull=False, longitude__isnull=False
