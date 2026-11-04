@@ -1,5 +1,5 @@
 """
-Fetch readings from all sensor networks (LAQN and Breathe London).
+Fetch readings from all sensor networks (LAQN and Breathe London and AQE).
 
 This combines both fetch commands for easy scheduling via cron.
 
@@ -35,7 +35,7 @@ class Command(BaseCommand):
         )
         
         # Fetch LAQN readings
-        self.stdout.write('\n[1/2] Fetching LAQN readings...')
+        self.stdout.write('\n[1/3] Fetching LAQN readings...')
         try:
             call_command('fetch_laqn_readings', hours=hours)
             self.stdout.write(self.style.SUCCESS('✓ LAQN fetch complete\n'))
@@ -43,12 +43,20 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR(f'✗ LAQN fetch failed: {e}\n'))
         
         # Fetch Breathe London readings
-        self.stdout.write('[2/2] Fetching Breathe London readings...')
+        self.stdout.write('[2/3] Fetching Breathe London readings...')
         try:
             call_command('fetch_breathe_readings', hours=hours)
             self.stdout.write(self.style.SUCCESS('✓ Breathe London fetch complete\n'))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'✗ Breathe London fetch failed: {e}\n'))
+            
+        # Fetch Air Quality England readings
+        self.stdout.write('[3/3] Fetching Air Quality England readings...')
+        try:
+            call_command('fetch_aqe_readings')
+            self.stdout.write(self.style.SUCCESS('✓ AQE fetch complete\n'))
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f'✗ AQE fetch failed: {e}\n'))
         
         self.stdout.write(
             self.style.SUCCESS(

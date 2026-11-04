@@ -1,5 +1,5 @@
 """
-Django management command to fetch annual statistics from LAQN sensors.
+Django management command to fetch annual statistics from LAQN and AQE sensors.
 
 These statistics are used to calculate adjustment factors:
     adjustment = sensor_now / sensor_annual_mean
@@ -13,6 +13,7 @@ Usage:
 from django.core.management.base import BaseCommand
 from air_quality.models import Sensor, SensorAnnualStats
 from air_quality.services.laqn_api import LAQNApi
+from air_quality.services.aqe_api import AQEApi
 from datetime import datetime
 import logging
 
@@ -20,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-    help = 'Fetch annual statistics from LAQN sensors for adjustment factor calculations'
+    help = 'Fetch annual statistics from reference sensors (LAQN and AQE) for adjustment factor calculations'
     
     def add_arguments(self, parser):
         parser.add_argument(
@@ -42,28 +43,29 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
         api = LAQNApi()
+        aqe = AQEApi()
         
         # Determine years to fetch
         years = options.get('year') or [datetime.now().year - 1]
         
-        # Get LAQN sensors
+        # Get reference sensors (LAQN and AQE)
         if options['sensor']:
             sensors = Sensor.objects.filter(
                 site_code=options['sensor'],
-                network='LAQN',
+                network__in=Sensor.REFERENCE_NETWORKS,
                 is_active=True
             )
         else:
             sensors = Sensor.objects.filter(
-                network='LAQN',
+                network__in=Sensor.REFERENCE_NETWORKS,
                 is_active=True
             )
         
         if not sensors.exists():
-            self.stdout.write(self.style.WARNING('No active LAQN sensors found.'))
+            self.stdout.write(self.style.WARNING('No active reference sensors (LAQN/AQE) found.'))
             return
         
-        self.stdout.write(f'Fetching annual statistics for {sensors.count()} LAQN sensors')
+        self.stdout.write(f'Fetching annual statistics for {sensors.count()} reference sensors')
         self.stdout.write(f'Years: {", ".join(map(str, years))}')
         self.stdout.write('')
         
@@ -89,10 +91,17 @@ class Command(BaseCommand):
                 
                 # Fetch each pollutant
                 try:
-                    no2_mean = api.get_annual_mean(sensor.site_code, year, 'NO2')
-                    pm25_mean = api.get_annual_mean(sensor.site_code, year, 'PM25')
-                    pm10_mean = api.get_annual_mean(sensor.site_code, year, 'PM10')
-                    o3_mean = api.get_annual_mean(sensor.site_code, year, 'O3')
+                    if sensor.network == 'AQE':
+                        means = aqe.get_annual_means(sensor.site_code, year)
+                        no2_mean = means.get('no2')
+                        pm25_mean = means.get('pm25')
+                        pm10_mean = means.get('pm10')
+                        o3_mean = means.get('o3')
+                    else:
+                        no2_mean = api.get_annual_mean(sensor.site_code, year, 'NO2')
+                        pm25_mean = api.get_annual_mean(sensor.site_code, year, 'PM25')
+                        pm10_mean = api.get_annual_mean(sensor.site_code, year, 'PM10')
+                        o3_mean = api.get_annual_mean(sensor.site_code, year, 'O3')
                     
                     # Check if we got any data
                     if not any([no2_mean, pm25_mean, pm10_mean, o3_mean]):
@@ -152,12 +161,15 @@ class Command(BaseCommand):
         self.stdout.write(f'  Errors:  {error_count}')
         
         # Show coverage summary
-        total_sensors = Sensor.objects.filter(network='LAQN', is_active=True).count()
+        total_sensors = Sensor.objects.filter(
+            network__in=Sensor.REFERENCE_NETWORKS, is_active=True
+        ).count()
         sensors_with_stats = (
             SensorAnnualStats.objects
-            .filter(sensor__network='LAQN', sensor__is_active=True)
+            .filter(sensor__network__in=Sensor.REFERENCE_NETWORKS, sensor__is_active=True, year__in=years)
             .values('sensor').distinct().count()
         )
         
         self.stdout.write('')
-        self.stdout.write(f'LAQN sensors with annual stats: {sensors_with_stats}/{total_sensors}')
+        self.stdout.write(f'Reference sensors with {", ".join(map(str, years))} annual stats: {sensors_with_stats}/{total_sensors}')
+        
