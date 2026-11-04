@@ -35,6 +35,14 @@ class ChildcareSetting(models.Model):
     northing = models.IntegerField(null=True, blank=True)
     lsoa21 = models.CharField(max_length=12, blank=True,
                               help_text='2021-boundary LSOA code, for IMD/IDACI joins')
+    # LAEI 2022 modelled annual concentrations at the provider's postcode (µg/m³).
+    # Postcode centre, not the building, so less precise than for schools.
+    no2_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    nox_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    pm25_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    pm10_mean_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    pm10_days_2022 = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    laei_data_available = models.BooleanField(default=False)
     constituency = models.CharField(max_length=100, blank=True)
     deprivation_band = models.CharField(
         max_length=20, blank=True,

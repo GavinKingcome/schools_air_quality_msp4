@@ -12,8 +12,11 @@ Re-running with the same file is safe: existing rows update, nothing duplicates.
 import pandas as pd
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
+from decimal import Decimal
 
 from childcare.models import ChildcareSetting
+
+LAEI_COLS = ["no2_2022", "nox_2022", "pm25_2022", "pm10_mean_2022", "pm10_days_2022"]
 
 # NOTE: "Provider URN" is the establishment's own id, published for ALL
 # providers. Do not confuse with "Registered person URN", which Ofsted
@@ -34,6 +37,7 @@ REQUIRED_COLS = [
     "Parliamentary constituency",
     "Deprivation band",
 ]
+REQUIRED_COLS += LAEI_COLS
 
 PROVIDER_TYPE_MAP = {
     "Childcare on non-domestic premises": "non_domestic",
@@ -73,6 +77,7 @@ class Command(BaseCommand):
         created = updated = 0
         with transaction.atomic():
             for row in df.itertuples(index=False):
+                laei = {col: decimal_or_none(getval(row, df, col)) for col in LAEI_COLS}
                 _, was_created = ChildcareSetting.objects.update_or_create(
                     urn=getval(row, df, "Provider URN"),
                     defaults={
@@ -87,6 +92,8 @@ class Command(BaseCommand):
                         "easting": int_or_none(getval(row, df, "east1m")),
                         "northing": int_or_none(getval(row, df, "north1m")),
                         "lsoa21": none_to_blank(row, df, "lsoa21cd"),
+                        **laei,
+                        "laei_data_available": any(v is not None for v in laei.values()),
                         "constituency": none_to_blank(row, df, "Parliamentary constituency"),
                         "deprivation_band": none_to_blank(row, df, "Deprivation band"),
                     },
@@ -117,3 +124,7 @@ def int_or_none(v):
 def none_to_blank(row, df, col):
     v = getval(row, df, col)
     return "" if pd.isna(v) else str(v)
+
+def decimal_or_none(v):
+    """NaN -> None, 23.55 -> Decimal('23.55')."""
+    return None if pd.isna(v) else Decimal(str(v)).quantize(Decimal("0.01"))
