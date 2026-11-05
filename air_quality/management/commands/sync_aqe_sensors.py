@@ -14,9 +14,31 @@ from django.core.management.base import BaseCommand
 from air_quality.models import Sensor
 from air_quality.services.aqe_api import AQEApi
 import pandas as pd
+import requests
 import logging
 
 logger = logging.getLogger(__name__)
+
+# Home page of the AQE website. When the site is offline for maintenance,
+# every request is redirected to /maintenance/, so a quick check of this
+# page tells us whether it is worth trying to fetch data at all.
+AQE_HOME_URL = 'https://www.airqualityengland.co.uk/'
+AQE_MAINTENANCE_PATH = '/maintenance/'
+
+
+def aqe_in_maintenance(timeout: int = 10) -> bool:
+    """
+    Return True if the AQE website is redirecting to its maintenance page.
+
+    Follows redirects and looks at the final URL. If the site cannot be
+    reached at all, return True as well, since a sync would fail anyway.
+    """
+    try:
+        response = requests.head(AQE_HOME_URL, allow_redirects=True, timeout=timeout)
+    except requests.RequestException as e:
+        logger.warning(f'AQE site not reachable: {e}')
+        return True
+    return AQE_MAINTENANCE_PATH in response.url
 
 
 # Old LAQN code -> new AQE code for Southwark stations that moved in
@@ -75,6 +97,13 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        if aqe_in_maintenance():
+            self.stdout.write(
+                self.style.WARNING('AQE site in maintenance, skipping sync')
+            )
+            logger.info('AQE site in maintenance, skipping sync')
+            return
+
         api = AQEApi()
 
         if options['show_columns']:
