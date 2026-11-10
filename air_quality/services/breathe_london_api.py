@@ -8,11 +8,20 @@ API Documentation: https://www.breathelondon.org/developers
 """
 
 import requests
+import time
 from datetime import datetime, timezone
 from typing import Optional
 import logging
 
 logger = logging.getLogger(__name__)
+# Species names in SensorData rows -> our field names.
+# The index values (NO2Index, PM25Index) aren't in here, so they're ignored.
+SPECIES_MAP = {
+    'NO2': 'no2',
+    'PM2.5': 'pm25',
+    'PM25': 'pm25',
+    'PM10': 'pm10',
+}
 
 
 class BreatheLondonApi:
@@ -69,6 +78,9 @@ class BreatheLondonApi:
         for borough in boroughs:
             params = {"Borough": borough}
             data = self._make_request("ListSensors", params)
+            return data if isinstance(data, list) else []
+        
+
             
             # API returns list directly
             if isinstance(data, list):
@@ -101,8 +113,88 @@ class BreatheLondonApi:
             "RadiusKM": radius_km
         }
         
-        data = self._make_request("ListSensors", params)
+        data = self._make_request("SensorData", params)
         return data if isinstance(data, list) else []
+    
+    def get_period_means(
+        self,
+        site_code: str,
+        start: datetime,
+        end: datetime,
+        min_capture: float = 0.75,
+    ) -> dict:
+        """
+        Average each pollutant over a period, from the hourly data.
+        
+        `end` is not included: 1 Nov 2025 to 1 Nov 2026 covers
+        November 2025 to October 2026.
+        
+        Fetches one month per request. The API includes the end hour, so
+        the first hour of each month comes back twice. Storing values by
+        hour in a dictionary keeps only one copy.
+        
+        A pollutant is only included if at least `min_capture` of the
+        period's hours have a value (75% is the usual rule).
+        
+        Returns e.g.
+        {'no2': 24.3, 'pm25': 8.1, 'capture': {'no2': 0.98, 'pm25': 0.97}}
+        """
+        # One dictionary per pollutant: {hour: value}
+        hourly = {col: {} for col in set(SPECIES_MAP.values())}
+        
+        month_start = start
+        while month_start < end:
+            # First day of the next month (December rolls over to January)
+            if month_start.month == 12:
+                month_end = month_start.replace(year=month_start.year + 1, month=1)
+            else:
+                month_end = month_start.replace(month=month_start.month + 1)
+            month_end = min(month_end, end)
+            
+            # The API sometimes answers 500 (server error) after many requests
+            # in a row. Wait and try again, up to 3 tries in all.
+            for attempt in range(3):
+                try:
+                    rows = self.get_sensor_data(
+                        site_code=site_code, start_time=month_start, end_time=month_end
+                    )
+                    break
+                except requests.exceptions.HTTPError:
+                    if attempt == 2:
+                        raise
+                    time.sleep(10 * (attempt + 1))
+            time.sleep(1)  # be gentle: about one request a second
+            
+            for row in rows:
+                col = SPECIES_MAP.get(row.get('Species'))
+                value = row.get('ScaledValue')
+                stamp = row.get('DateTime')
+                if col is None or value is None or not stamp:
+                    continue
+                hour = datetime.fromisoformat(stamp.replace('Z', '+00:00'))
+                hour = hour.replace(minute=0, second=0, microsecond=0)
+                if start <= hour < end:
+                    hourly[col][hour] = float(value)
+            
+            month_start = month_end
+        
+        hours_in_period = (end - start).total_seconds() / 3600
+        means = {}
+        capture = {}
+        for col, values in hourly.items():
+            if not values:
+                continue
+            capture[col] = round(len(values) / hours_in_period, 3)
+            if capture[col] >= min_capture:
+                means[col] = round(sum(values.values()) / len(values), 2)
+            else:
+                logger.info(
+                    f"Breathe {site_code} {col}: capture {capture[col]:.0%} "
+                    f"below {min_capture:.0%}, skipped"
+                )
+        
+        means['capture'] = capture
+        return means
     
     def get_sensor_data(
         self,

@@ -120,7 +120,7 @@ class Command(BaseCommand):
                     if value is not None:
                         if species == 'NO2':
                             readings_by_time[hour_key]['no2'] = float(value)
-                        elif species == 'PM2.5':
+                        elif species in ('PM2.5', 'PM25'):
                             readings_by_time[hour_key]['pm25'] = float(value)
                         elif species == 'PM10':
                             readings_by_time[hour_key]['pm10'] = float(value)
