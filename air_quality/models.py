@@ -157,6 +157,10 @@ class SensorAnnualStats(models.Model):
     
     # Data capture rate (0-100%)
     capture_rate = models.FloatField(null=True, blank=True)
+    # Only filled in when the average isn't a calendar year
+    # (e.g. Breathe London's last 12 months). Empty = Jan to Dec of `year`.
+    period_start = models.DateField(null=True, blank=True)
+    period_end = models.DateField(null=True, blank=True)
     
     class Meta:
         unique_together = ['sensor', 'year']
