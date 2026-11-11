@@ -1,11 +1,12 @@
 """
 Django management command to assign sensors to schools using hybrid approach.
-Fetch readings from all sensor networks (LAQN, Breathe London and AQE).
 
 Methodology:
 1. Direct sensor: Urban background sensor within 150m → direct readings
-2. Reference sensor: Nearest reference (LAQN or AQE) for adjustment factors
-3. LAEI only: Schools without reference sensor coverage
+2. Reference sensor: Nearest reference (LAQN or AQE) for adjustment factors.
+   If none is in range, the nearest Breathe London sensor with a
+   12-month average is used instead (lower confidence).
+3. LAEI only: Schools with no sensor in range
 
 The hybrid approach:
 - Preserves LAEI's 20m spatial resolution (street-level variation)
@@ -89,13 +90,25 @@ class Command(BaseCommand):
             annual_stats__isnull=False,
         ).distinct()
         reference_ids = set(reference_sensors.values_list('id', flat=True))
+        
+        # Fallback: Breathe London sensors with a 12-month average.
+        # Only used when no reference site is within range.
+        breathe_sensors = all_sensors.filter(
+            network='BREATHE',
+            annual_stats__isnull=False,
+        ).distinct()
+        breathe_ids = set(breathe_sensors.values_list('id', flat=True))
 
         self.stdout.write(f'\nHybrid Sensor Assignment')
         self.stdout.write('=' * 50)
         self.stdout.write(f'Schools to process: {schools.count()}')
-        self.stdout.write(f'Available sensors: {all_sensors.count()} total, {reference_sensors.count()} reference (LAQN/AQE)')
+        self.stdout.write(
+            f'Available sensors: {all_sensors.count()} total, '
+            f'{reference_sensors.count()} reference (LAQN/AQE), '
+            f'{breathe_sensors.count()} Breathe fallback'
+        )
         self.stdout.write(f'Direct threshold: {direct_threshold}m (urban background only)')
-        self.stdout.write(f'Reference threshold: {reference_threshold}m (LAQN or AQE)')
+        self.stdout.write(f'Reference threshold: {reference_threshold}m (LAQN or AQE, then Breathe fallback)')
         if dry_run:
             self.stdout.write(self.style.WARNING('\n** DRY RUN - no changes will be saved **\n'))
 
@@ -105,6 +118,8 @@ class Command(BaseCommand):
             'laei_only': 0,
             'direct_reference': 0,
             'direct_breathe': 0,
+            'adjusted_reference': 0,
+            'adjusted_breathe': 0,
         }
 
         for school in schools:
@@ -154,18 +169,38 @@ class Command(BaseCommand):
             reference_sensor = None
             reference_distance = None
 
-            ref_distances = [sd for sd in sensor_distances if sd['sensor'].id in reference_ids]
+            # The spare must be a different sensor from the direct one,
+            # or it goes quiet at the same time and is no help.
+            ref_distances = [
+                sd for sd in sensor_distances
+                if sd['sensor'].id in reference_ids and sd['sensor'] != direct_sensor
+            ]
             if ref_distances and ref_distances[0]['distance'] <= reference_threshold:
                 reference_sensor = ref_distances[0]['sensor']
                 reference_distance = round(ref_distances[0]['distance'], 1)
+                
+            # Fallback: nearest Breathe sensor, only if no reference site is in range
+            if reference_sensor is None:
+                breathe_distances = [
+                    sd for sd in sensor_distances
+                    if sd['sensor'].id in breathe_ids and sd['sensor'] != direct_sensor
+                ]
+                if breathe_distances and breathe_distances[0]['distance'] <= reference_threshold:
+                    reference_sensor = breathe_distances[0]['sensor']
+                    reference_distance = round(breathe_distances[0]['distance'], 1)
 
             # === DETERMINE DATA SOURCE ===
             if direct_sensor:
                 data_source = 'DIRECT'
                 stats['direct'] += 1
+                
             elif reference_sensor:
                 data_source = 'ADJUSTED'
                 stats['adjusted'] += 1
+                if reference_sensor.id in reference_ids:
+                    stats['adjusted_reference'] += 1
+                else:
+                    stats['adjusted_breathe'] += 1
             else:
                 data_source = 'LAEI'
                 stats['laei_only'] += 1
@@ -209,7 +244,13 @@ class Command(BaseCommand):
             f'{stats["adjusted"]:3d} ({100*stats["adjusted"]/total:.1f}%)'
         )
         self.stdout.write(
-            f'  LAEI ONLY (no nearby reference):                '
+            f'    - Reference:      {stats["adjusted_reference"]:3d}'
+        )
+        self.stdout.write(
+            f'    - Breathe London: {stats["adjusted_breathe"]:3d}'
+        )
+        self.stdout.write(
+            f'  LAEI ONLY (no sensor in range):                 '
             f'{stats["laei_only"]:3d} ({100*stats["laei_only"]/total:.1f}%)'
         )
 

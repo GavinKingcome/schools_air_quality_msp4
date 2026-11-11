@@ -12,7 +12,7 @@ Less than you might expect, because of **what** the method takes from the sensor
 
 ## The sensor isn't telling you the school's pollution level
 
-In the "adjusted" method, the school's pollution level comes from **LAEI** (the London Atmospheric Emissions Inventory), at the school's own 20 m square. That's where the street-by-street detail lives.
+In the "adjusted" method, the school's pollution level comes from **LAEI** (the London Atmospheric Emissions Inventory), at the school's own 20 m square. That's where the street-by-street detail is found.
 
 The sensor only supplies a **ratio**: how pollution right now compares with a normal day at that sensor.
 
@@ -20,7 +20,7 @@ The sensor only supplies a **ratio**: how pollution right now compares with a no
 school estimate = LAEI value at the school × (sensor now ÷ sensor annual average)
 ```
 
-So a sensor 2 km away isn't saying "the school has 48 µg/m³ of NO₂". It's saying "right now, pollution is about 20% above normal". That's a very different claim, and it holds over a much wider area.
+So a sensor 2 km away isn't saying "the school has 48 µg/m³ of NO₂". It's saying "right now, pollution is about 20% above normal". That's different, and it holds over a much wider area.
 
 ## Why the ratio holds over a distance
 
@@ -58,8 +58,6 @@ Four "direct" schools each have a Breathe London sensor within 62 metres, so for
 | Sunnyhill Primary | BL0100 | 44.7 m |
 
 For each one, work out what the adjusted method **would have** estimated, using LAEI and the nearest reference site. Then compare it with what the school's own Breathe sensor measured. Do that over a few weeks, and there's real evidence of how well the method works. The same test can compare a background reference against a roadside one.
-
-That turns "the method uses a sensor 2 km away" into "here's how accurate that turned out to be".
 
 ## Added 10 November 2026: Breathe London sensors as a fallback
 
