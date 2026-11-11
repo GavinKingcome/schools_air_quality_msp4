@@ -150,6 +150,9 @@ class School(models.Model):
                     'method': 'direct',
                     'confidence': 'high' if self.direct_sensor.is_reference_grade else 'medium-high',
                     'sensor_code': self.direct_sensor.site_code,
+                    'sensor_network': self.direct_sensor.get_network_display(),
+                    'sensor_site_type': self.direct_sensor.get_site_type_display(),
+                    'sensor_is_reference': self.direct_sensor.is_reference_grade,
                     'sensor_distance': float(self.direct_sensor_distance) if self.direct_sensor_distance else None,
                     'reading_timestamp': reading.timestamp,
                 })
@@ -164,8 +167,18 @@ class School(models.Model):
                     'pm25': self._apply_adjustment(self.pm25_2022, adjustment.get('pm25')),
                     'pm10': self._apply_adjustment(self.pm10_mean_2022, adjustment.get('pm10')),
                     'method': 'laei_adjusted',
-                    'confidence': 'medium',
+                    # Reference sensors leave less error in the ratio than Breathe ones
+                    'confidence': 'medium' if self.reference_sensor.is_reference_grade else 'medium-low',
                     'adjustment_factors': adjustment,
+                    # Same names as the direct method, so the view can read either
+                    'sensor_code': self.reference_sensor.site_code,
+                    'sensor_network': self.reference_sensor.get_network_display(),
+                    'sensor_site_type': self.reference_sensor.get_site_type_display(),
+                    'sensor_is_reference': self.reference_sensor.is_reference_grade,
+                    'sensor_distance': float(self.reference_sensor_distance) if self.reference_sensor_distance else None,
+                    # Pollutants with no factor, so shown as the plain LAEI value
+                    # (e.g. Breathe sensors have no PM10)
+                    'unadjusted': [p for p in ('no2', 'pm25', 'pm10') if p not in adjustment],
                     'reference_sensor': self.reference_sensor.site_code,
                     'reference_distance': float(self.reference_sensor_distance) if self.reference_sensor_distance else None,
                     'laei_baseline': {

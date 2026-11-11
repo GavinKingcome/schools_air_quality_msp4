@@ -71,6 +71,13 @@ def map_view(request):
             'data_source': data_source,
             'direct_sensor': school.direct_sensor.site_code if school.direct_sensor else None,
             'reference_sensor': school.reference_sensor.site_code if school.reference_sensor else None,
+            # The sensor actually used for this reading (direct or adjusted)
+            'sensor_code': current_reading.get('sensor_code'),
+            'sensor_network': current_reading.get('sensor_network'),
+            'sensor_site_type': current_reading.get('sensor_site_type'),
+            'sensor_is_reference': current_reading.get('sensor_is_reference'),
+            'sensor_distance': current_reading.get('sensor_distance'),
+            'unadjusted': current_reading.get('unadjusted', []),
             'reading_timestamp': reading_timestamp.isoformat() if reading_timestamp else None,
             'is_school_hours': is_school_hours,
         })
