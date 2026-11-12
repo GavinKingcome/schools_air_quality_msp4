@@ -30,7 +30,7 @@ from pathlib import Path
 # ============================================================================
 
 # Folder containing the extracted LAEI ASCII files
-LAEI_FOLDER = "/Users/GK/Documents/vscode-projects/schools_air_quality_msp4/LAEI/ASCII"
+LAEI_FOLDER = "/Users/GK/Projects/schools_air_quality_msp4/LAEI/ASCII"
 
 # Map of pollutants to their .asc filenames
 ASC_FILES = {
@@ -42,12 +42,12 @@ ASC_FILES = {
 }
 
 # Your schools GeoJSON file
-SCHOOLS_GEOJSON = "/Users/GK/Documents/vscode-projects/schools_air_quality_msp4/schools.geojson"
+SCHOOLS_GEOJSON = "/Users/GK/Projects/schools_air_quality_msp4/schools.geojson"
 
 # Output files
-OUTPUT_JSON = "/Users/GK/Documents/vscode-projects/schools_air_quality_msp4/schools_with_laei.json"
-OUTPUT_CSV = "/Users/GK/Documents/vscode-projects/schools_air_quality_msp4/schools_with_laei.csv"
-OUTPUT_SUMMARY = "/Users/GK/Documents/vscode-projects/schools_air_quality_msp4/laei_summary.json"
+OUTPUT_JSON = "/Users/GK/Projects/schools_air_quality_msp4/schools_with_laei.json"
+OUTPUT_CSV = "/Users/GK/Projects/schools_air_quality_msp4/schools_with_laei.csv"
+OUTPUT_SUMMARY = "/Users/GK/Projects/schools_air_quality_msp4/laei_summary.json"
 
 # ============================================================================
 # COORDINATE CONVERSION
