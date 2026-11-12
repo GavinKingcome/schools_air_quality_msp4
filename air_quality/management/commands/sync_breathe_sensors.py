@@ -14,6 +14,16 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+def is_newer(a, b):
+    """True if installation a should replace installation b."""
+    a_running = a.get('EndDate') is None
+    b_running = b.get('EndDate') is None
+    if a_running != b_running:
+        return a_running          # one still running beats one that ended
+    # Otherwise the later start wins. The dates are text like
+    # '2025-03-07T00:00:00Z', which sort correctly as text.
+    return (a.get('StartDate') or '') > (b.get('StartDate') or '')
+
 
 class Command(BaseCommand):
     help = 'Sync Breathe London sensor locations from OpenAQ API'
@@ -50,7 +60,21 @@ class Command(BaseCommand):
             self.stderr.write(self.style.ERROR(f'API error: {e}'))
             return
         
-        self.stdout.write(f'Found {len(sensors)} Breathe London sensors')
+        # The API lists each site's past installations too, all under the
+        # same site code. Keep only the current one for each site.
+        current = {}
+        for s in sensors:
+            code = s.get('SiteCode')
+            if not code:
+                continue
+            kept = current.get(code)
+            if kept is None or is_newer(s, kept):
+                current[code] = s
+        
+        self.stdout.write(
+            f'Found {len(sensors)} installations for {len(current)} Breathe London sites'
+        )
+        sensors = list(current.values())
         
         created_count = 0
         updated_count = 0
