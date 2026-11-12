@@ -78,10 +78,7 @@ class BreatheLondonApi:
         for borough in boroughs:
             params = {"Borough": borough}
             data = self._make_request("ListSensors", params)
-            return data if isinstance(data, list) else []
-        
-
-            
+              
             # API returns list directly
             if isinstance(data, list):
                 all_sensors.extend(data)
