@@ -1,1 +1,2 @@
 0 * * * * echo "=== $(date)" >> /tmp/sensor_fetch.log; cd /Users/GK/Projects/schools_air_quality_msp4 && /Users/GK/Projects/schools_air_quality_msp4/venv/bin/python manage.py fetch_all_readings --hours=48 >> /tmp/sensor_fetch.log 2>&1
+10 * * * * echo "=== assign $(date)" >> /tmp/sensor_fetch.log; cd /Users/GK/Projects/schools_air_quality_msp4 && /Users/GK/Projects/schools_air_quality_msp4/venv/bin/python manage.py assign_sensors >> /tmp/sensor_fetch.log 2>&1
