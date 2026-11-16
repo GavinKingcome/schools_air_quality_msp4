@@ -2,8 +2,16 @@ from django.db import models
 from django.utils import timezone
 from air_quality.models import Sensor
 from django.contrib.auth.models import User
-
-
+# Limits and guidelines for ANNUAL averages (µg/m³).
+# Only compare these with an annual figure, never with an hourly reading.
+#   UK: Air Quality Standards Regulations 2010 (PM2.5: 20 since 1 January 2020)
+#   EU 2024: revised Ambient Air Quality Directive, limit values from 2030
+#   WHO: 2021 air quality guidelines
+ANNUAL_LIMITS = {
+    'no2':  {'uk': 40, 'eu_2024': 20, 'who': 10},
+    'pm25': {'uk': 20, 'eu_2024': 10, 'who': 5},
+    'pm10': {'uk': 40, 'eu_2024': 20, 'who': 15},
+}
 class School(models.Model):
     """Model representing a school location with air quality data."""
     
@@ -155,7 +163,13 @@ class School(models.Model):
                     'sensor_is_reference': self.direct_sensor.is_reference_grade,
                     'sensor_distance': float(self.direct_sensor_distance) if self.direct_sensor_distance else None,
                     'reading_timestamp': reading.timestamp,
+                    # ç÷ this sensor's own annual average, e.g. {'no2': 1.2}
+                    'compared_with_usual': {
+                        p: f for p, f in self._sensor_factors(self.direct_sensor).items()
+                        if p in ('no2', 'pm25', 'pm10')
+                    },
                 })
+                return result
                 return result
         
         # Method 2: LAEI baseline × adjustment factor
@@ -179,6 +193,10 @@ class School(models.Model):
                     # Pollutants with no factor, so shown as the plain LAEI value
                     # (e.g. Breathe sensors have no PM10)
                     'unadjusted': [p for p in ('no2', 'pm25', 'pm10') if p not in adjustment],
+                    # Now ÷ the spare sensor's annual average, e.g. {'no2': 1.2}
+                    'compared_with_usual': {
+                        p: adjustment[p] for p in ('no2', 'pm25', 'pm10') if p in adjustment
+                    },
                     'reference_sensor': self.reference_sensor.site_code,
                     'reference_distance': float(self.reference_sensor_distance) if self.reference_sensor_distance else None,
                     'laei_baseline': {
@@ -229,8 +247,15 @@ class School(models.Model):
         """
         if not self.reference_sensor:
             return {}
+        return self._sensor_factors(self.reference_sensor)
     
-        reading = self.reference_sensor.get_latest_reading()
+    def _sensor_factors(self, sensor) -> dict:
+        """
+        How a sensor's latest reading compares with its own annual average:
+        reading now ÷ annual average, for each pollutant it can.
+        1.2 means 20% above usual; 0.8 means 20% below.
+        """
+        reading = sensor.get_latest_reading()
         if not reading or not self._is_reading_fresh(reading):
             return {}
     
@@ -238,7 +263,7 @@ class School(models.Model):
         reading_hour = reading.timestamp.hour
         is_school_hours = 7 <= reading_hour < 19
     
-        stats = self.reference_sensor.annual_stats.order_by('-year').first()
+        stats = sensor.annual_stats.order_by('-year').first()
         if not stats:
             return {}
         
@@ -259,31 +284,38 @@ class School(models.Model):
         return factors
     
     def get_threshold_status(self) -> dict:
-        """Compare current reading against UK, EU 2024, and WHO thresholds."""
-        reading = self.get_current_reading()
-        
-        thresholds = {
-            'no2': {'uk': 40, 'eu_2024': 20, 'who': 10},
-            'pm25': {'uk': 25, 'eu_2024': 10, 'who': 5},
-            'pm10': {'uk': 40, 'eu_2024': 20, 'who': 15},
+        """
+        Compare the school's typical year with the UK, EU 2024 and WHO
+        annual limits.
+
+        The typical year is the LAEI 2022 annual average at the school.
+        These limits are for annual averages, so they are never compared
+        with a single hourly reading.
+        """
+        annual = {
+            'no2': self.no2_2022,
+            'pm25': self.pm25_2022,
+            'pm10': self.pm10_mean_2022,
         }
-        
+
         status = {}
-        for pollutant in ['no2', 'pm25', 'pm10']:
-            value = reading.get(pollutant)
+        for pollutant, value in annual.items():
             if value is None:
                 continue
-            
-            t = thresholds[pollutant]
+            value = float(value)
+            t = ANNUAL_LIMITS[pollutant]
             status[pollutant] = {
                 'value': round(value, 1),
+                'uk': t['uk'],
+                'eu_2024': t['eu_2024'],
+                'who': t['who'],
                 'meets_uk': value <= t['uk'],
                 'meets_eu_2024': value <= t['eu_2024'],
                 'meets_who': value <= t['who'],
             }
-        
+
         return status
-    
+
     # School Notes
 class SchoolNote(models.Model):
     """
