@@ -217,6 +217,8 @@
     const sensors = {{ sensors_json|safe }};
 
     const childcare = JSON.parse(document.getElementById('childcare-data').textContent);
+    // Annual limits from schools/models.py, e.g. LIMITS.pm25.uk is 20
+    const LIMITS = JSON.parse(document.getElementById('annual-limits').textContent);
 
     const childcareIcon = L.icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
@@ -269,31 +271,28 @@
       }
   });
 
-  // Helper function to create pollution display with guidelines
-    const createPollutantDisplay = (name, value, whoLimit, euLimit, ukLimit, dataSource = null) => {
+    // One pollutant's ANNUAL figure against the annual limits (µg/m³).
+  // limits is one entry of LIMITS, e.g. LIMITS.no2
+    const createPollutantDisplay = (name, value, limits) => {
       if (value === null) return '';
+
+      const whoLimit = limits.who;
+      const euLimit = limits.eu_2024;
+      const ukLimit = limits.uk;
 
       const meetsWHO = value <= whoLimit;
       const meetsEU = value <= euLimit;
       const meetsUK = value <= ukLimit;
 
-      // Data source badge
-      let sourceBadge = '';
-      if (dataSource === 'live') {
-          sourceBadge = '<span style="display: inline-block; padding: 2px 8px; background: #28a745; color: white; border-radius: 3px; font-size: 0.75em; margin-left: 8px;">Live</span>';
-      } else if (dataSource === 'baseline') {
-          sourceBadge = '<span style="display: inline-block; padding: 2px 8px; background: #6c757d; color: white; border-radius: 3px; font-size: 0.75em; margin-left: 8px;">LAEI Baseline</span>';
-      }
-
       return `
           <div style="margin: 15px 0; padding: 12px; background: #f8f9fa; border-radius: 6px;">
-              <div style="font-weight: 600; margin-bottom: 8px;">${name}: ${value.toFixed(1)} µg/m³${sourceBadge}</div>
+              <div style="font-weight: 600; margin-bottom: 8px;">${name}: ${value.toFixed(1)} µg/m³</div>
               <div style="font-size: 0.85em; line-height: 1.6;">
                   <div style="color: ${meetsWHO ? '#28a745' : '#dc3545'};">
                       ${meetsWHO ? 'Meets' : 'Exceeds'} WHO guideline (${whoLimit})
                   </div>
                   <div style="color: ${meetsEU ? '#28a745' : '#dc3545'};">
-                      ${meetsEU ? 'Meets' : 'Exceeds'} EU 2024 standard (${euLimit})
+                      ${meetsEU ? 'Meets' : 'Exceeds'} EU limit from 2030 (${euLimit})
                   </div>
                   <div style="color: ${meetsUK ? '#28a745' : '#dc3545'};">
                       ${meetsUK ? 'Meets' : 'Exceeds'} UK legal limit (${ukLimit})
@@ -327,20 +326,40 @@
       if (school.sensor_distance !== null) parts.push(`${formatDistance(school.sensor_distance)} away`);
       return parts.join(', ');
   };
-
-  // Badge for each pollutant: "Live" for a direct reading,
-  // "LAEI Baseline" when the sensor had no factor for it (e.g. PM10 with Breathe)
-  const pollutantBadge = (school, key) => {
-      if (school.data_source === 'DIRECT') return 'live';
-      if (school.data_source === 'LAEI_ONLY') return 'baseline';
-      if (school.unadjusted.includes(key)) return 'baseline';
-      return null;
-  };
-
-  const CONFIDENCE_LABELS = {
+    const CONFIDENCE_LABELS = {
       'high': 'High', 'medium-high': 'Medium-high', 'medium': 'Medium',
       'medium-low': 'Medium-low', 'low': 'Low',
   };
+
+    // compared_with_usual figure in plain words, e.g. 0.7 -> "30% below usual"
+    const describeVsUsual = (factor) => {
+        if (factor === undefined || factor === null) return 'no usual level to compare with yet';
+        if (factor < 0.2 || factor > 5) return 'far from usual: may be a sensor fault';
+        if (factor >= 2) return `about ${factor.toFixed(1)} times the usual level`;
+        const pct = Math.round((factor - 1) * 100);
+        if (Math.abs(pct) < 5) return 'about the usual level';
+        return pct > 0 ? `${pct}% above usual` : `${-pct}% below usual`;
+    };
+
+    // One line of "Latest reading", e.g. "NO₂: 23.4 µg/m³, 30% below usual"
+    const rightNowRow = (school, key, name) => {
+        const value = school['current_' + key];
+        if (value === null || school.unadjusted.includes(key)) {
+            return `<p class="small mb-1"><strong>${name}:</strong> <span class="text-muted">no current reading from this sensor</span></p>`;
+        }
+        return `<p class="small mb-1"><strong>${name}:</strong> ${value.toFixed(1)} µg/m³, ${describeVsUsual(school.compared_with_usual[key])}</p>`;
+    };
+    // e.g. "Reading at 12:00 today (4 hours ago)", with a warning if it's old
+    const describeAge = (iso) => {
+        const t = new Date(iso);
+        const hours = Math.floor((Date.now() - t) / 3600000);
+        const time = t.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+        const day = t.toDateString() === new Date().toDateString()
+            ? 'today' : t.toLocaleDateString([], {weekday: 'long', day: 'numeric', month: 'short'});
+        const ago = hours < 1 ? 'less than an hour ago' : hours === 1 ? '1 hour ago' : `${hours} hours ago`;
+        const warning = hours >= 6 ? ' <strong>This reading is more than 6 hours old.</strong>' : '';
+        return `Reading at ${time} ${day} (${ago}).${warning}`;
+    };
 
   // Add markers for each school with borough-specific colors
   schools.forEach(school => {
@@ -368,18 +387,30 @@
                       <p class="small fw-semibold mb-0">${describeSensor(school)}${school.is_school_hours === false && school.reading_timestamp ? ' (latest reading from outside school hours)' : ''}</p>
                       ` : `
                       <p class="mb-1"><strong>Data source:</strong> LAEI 2022 modelled annual average</p>
-                      <p class="small text-muted mb-0">No sensor within 2 km for current data</p>
+                      <p class="small text-muted mb-0">${school.direct_sensor || school.reference_sensor ? 'Its sensor has sent no reading in the last 48 hours' : 'No sensor within 2 km for current data'}</p>
                       `}
                       <p class="small mb-0"><strong>Confidence:</strong> ${CONFIDENCE_LABELS[school.reading_confidence] || 'Low'}</p>
                       
-                      ${school.current_no2 !== null || school.current_pm25 !== null || school.current_pm10 !== null || school.laei_data_available ? `
-                          <hr class="my-3">
-                          <h6 class="mb-2">Current Estimates</h6>
-                          ${school.current_no2 !== null ? createPollutantDisplay('NO₂', school.current_no2, 10, 20, 40, pollutantBadge(school, 'no2')) : school.no2_2022 !== null ? createPollutantDisplay('NO₂', school.no2_2022, 10, 20, 40, 'baseline') : ''}
-                          ${school.current_pm25 !== null ? createPollutantDisplay('PM2.5', school.current_pm25, 5, 10, 25, pollutantBadge(school, 'pm25')) : school.pm25_2022 !== null ? createPollutantDisplay('PM2.5', school.pm25_2022, 5, 10, 25, 'baseline') : ''}
-                          ${school.current_pm10 !== null ? createPollutantDisplay('PM10', school.current_pm10, 15, 20, 40, pollutantBadge(school, 'pm10')) : school.pm10_mean_2022 !== null ? createPollutantDisplay('PM10', school.pm10_mean_2022, 15, 20, 40, 'baseline') : ''}
-                          ${school.reading_timestamp && (school.data_source === 'DIRECT' || school.data_source === 'ADJUSTED') ? `<p class="small text-muted mt-2 mb-0">Sensor last updated: ${new Date(school.reading_timestamp).toLocaleString()}</p>` : ''}
-                      ` : '<p class="text-muted fst-italic mt-2 mb-0">No air quality data available</p>'}
+                                            <hr class="my-3">
+                      <h6 class="mb-1">Latest reading</h6>
+                      ${school.data_source === 'DIRECT' || school.data_source === 'ADJUSTED' ? `
+                          <p class="small text-muted mb-2">${school.data_source === 'DIRECT' ? 'Measured by the sensor at the school' : 'Estimated using the nearby sensor'}, compared with that sensor's usual level (its average over a recent year). Legal limits are for annual averages, so they aren't used here.</p>
+                          ${rightNowRow(school, 'no2', 'NO₂')}
+                          ${rightNowRow(school, 'pm25', 'PM2.5')}
+                          ${rightNowRow(school, 'pm10', 'PM10')}
+                          ${school.reading_timestamp ? `<p class="small text-muted mt-2 mb-0">${describeAge(school.reading_timestamp)}</p>` : ''}
+                      ` : `
+                          <p class="small text-muted mb-0">No current reading for this school.</p>
+                      `}
+
+                      <hr class="my-3">
+                      <h6 class="mb-1">Typical year</h6>
+                      ${school.laei_data_available ? `
+                          <p class="small text-muted mb-2">Modelled annual average at the school (LAEI 2022, the latest available), compared with annual limits. Pollution has generally fallen since 2022.</p>
+                          ${school.no2_2022 !== null ? createPollutantDisplay('NO₂', school.no2_2022, LIMITS.no2) : ''}
+                          ${school.pm25_2022 !== null ? createPollutantDisplay('PM2.5', school.pm25_2022, LIMITS.pm25) : ''}
+                          ${school.pm10_mean_2022 !== null ? createPollutantDisplay('PM10', school.pm10_mean_2022, LIMITS.pm10) : ''}
+                      ` : '<p class="small text-muted mb-0">No modelled annual average for this location.</p>'}
                   </div>
               </div>
           </div>
@@ -526,9 +557,9 @@
                        ${c.no2_2022 !== null ? `
                           <hr class="my-3">
                           <h6 class="mb-2">Modelled annual averages (LAEI 2022)</h6>
-                          ${createPollutantDisplay('NO₂', c.no2_2022, 10, 20, 40, 'baseline')}
-                          ${c.pm25_2022 !== null ? createPollutantDisplay('PM2.5', c.pm25_2022, 5, 10, 25, 'baseline') : ''}
-                          ${c.pm10_mean_2022 !== null ? createPollutantDisplay('PM10', c.pm10_mean_2022, 15, 20, 40, 'baseline') : ''}
+                          ${createPollutantDisplay('NO₂', c.no2_2022, LIMITS.no2)}
+                          ${c.pm25_2022 !== null ? createPollutantDisplay('PM2.5', c.pm25_2022, LIMITS.pm25) : ''}
+                          ${c.pm10_mean_2022 !== null ? createPollutantDisplay('PM10', c.pm10_mean_2022, LIMITS.pm10) : ''}
                           <p class="small text-muted mt-2 mb-0">Estimated for the postcode area, not the building itself.</p>
                       ` : ''}
                   </div>
