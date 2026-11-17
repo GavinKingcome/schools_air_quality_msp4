@@ -131,6 +131,7 @@
 {% endblock %} {% block extra_js %}
 
 {{ childcare_data|json_script:"childcare-data" }}
+{{ annual_limits|json_script:"annual-limits" }}
 
 <!-- Leaflet MarkerCluster JS -->
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>

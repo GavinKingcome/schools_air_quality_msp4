@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from schools.models import School
+from schools.models import School, ANNUAL_LIMITS
 from air_quality.models import Sensor
 from django.conf import settings
 from childcare.models import ChildcareSetting
@@ -78,6 +78,8 @@ def map_view(request):
             'sensor_is_reference': current_reading.get('sensor_is_reference'),
             'sensor_distance': current_reading.get('sensor_distance'),
             'unadjusted': current_reading.get('unadjusted', []),
+            # Now ÷ the sensor's own annual average, e.g. {'no2': 0.99}; {} if there's no average
+            'compared_with_usual': current_reading.get('compared_with_usual', {}),
             'reading_timestamp': reading_timestamp.isoformat() if reading_timestamp else None,
             'is_school_hours': is_school_hours,
         })
@@ -121,6 +123,7 @@ def map_view(request):
         'sensors_json': json.dumps(sensors_data),
         'childcare_data': childcare_data,
         'carto_key': settings.CARTO_API_KEY,
+        'annual_limits': ANNUAL_LIMITS,
     }
     
     return render(request, 'maps/map.html', context)
