@@ -284,6 +284,10 @@
       const meetsEU = value <= euLimit;
       const meetsUK = value <= ukLimit;
 
+      // Bar scale runs up to the UK limit, or further if the value is higher
+      const scaleMax = Math.max(ukLimit, value);
+      const pos = v => (v / scaleMax * 100).toFixed(1) + '%';
+
       return `
           <div style="margin: 15px 0; padding: 12px; background: #f8f9fa; border-radius: 6px;">
               <div style="font-weight: 600; margin-bottom: 8px;">${name}: ${value.toFixed(1)} µg/m³</div>
@@ -298,15 +302,16 @@
                       ${meetsUK ? 'Meets' : 'Exceeds'} UK legal limit (${ukLimit})
                   </div>
               </div>
-              <div style="margin-top: 8px; height: 8px; background: #e9ecef; border-radius: 4px; position: relative;">
-                  <div style="position: absolute; left: ${(whoLimit/ukLimit*100)}%; top: 0; bottom: 0; width: 1px; background: #28a745;" title="WHO"></div>
-                  <div style="position: absolute; left: ${(euLimit/ukLimit*100)}%; top: 0; bottom: 0; width: 1px; background: #ffc107;" title="EU"></div>
-                  <div style="position: absolute; left: 0; top: 0; bottom: 0; width: ${Math.min(value/ukLimit*100, 100)}%; background: ${meetsEU ? '#28a745' : meetsUK ? '#ffc107' : '#dc3545'}; border-radius: 4px;"></div>
+                  <div style="margin-top: 10px; height: 8px; background: #e9ecef; border-radius: 4px; position: relative;">
+                  <div style="position: absolute; left: 0; top: 0; bottom: 0; width: ${pos(value)}; background: ${meetsEU ? '#28a745' : meetsUK ? '#ffc107' : '#dc3545'}; border-radius: 4px;"></div>
+                  <div style="position: absolute; left: ${pos(whoLimit)}; top: -3px; bottom: -3px; width: 2px; background: #495057;" title="WHO guideline"></div>
+                  <div style="position: absolute; left: ${pos(euLimit)}; top: -3px; bottom: -3px; width: 2px; background: #495057;" title="EU limit from 2030"></div>
+                  <div style="position: absolute; left: ${pos(ukLimit)}; top: -3px; bottom: -3px; width: 2px; background: #495057; transform: translateX(-2px);" title="UK legal limit"></div>
               </div>
-              <div style="font-size: 0.75em; color: #6c757d; margin-top: 4px; display: flex; justify-content: space-between;">
-                  <span>WHO (${whoLimit})</span>
-                  <span>EU (${euLimit})</span>
-                  <span>UK (${ukLimit})</span>
+              <div style="position: relative; height: 1.3em; font-size: 0.75em; color: #6c757d; margin-top: 4px;">
+                  <span style="position: absolute; left: ${pos(whoLimit)}; transform: translateX(-50%);">${whoLimit}</span>
+                  <span style="position: absolute; left: ${pos(euLimit)}; transform: translateX(-50%);">${euLimit}</span>
+                  <span style="position: absolute; left: ${pos(ukLimit)}; transform: translateX(${ukLimit === scaleMax ? '-100%' : '-50%'});">${ukLimit}</span>
               </div>
           </div>
       `;
@@ -331,17 +336,17 @@
       'medium-low': 'Medium-low', 'low': 'Low',
   };
 
-    // compared_with_usual figure in plain words, e.g. 0.7 -> "30% below usual"
+    // compared_with_usual figure in plain words, e.g. 0.7 -> "30% below its yearly average"
     const describeVsUsual = (factor) => {
-        if (factor === undefined || factor === null) return 'no usual level to compare with yet';
-        if (factor < 0.2 || factor > 5) return 'far from usual: may be a sensor fault';
-        if (factor >= 2) return `about ${factor.toFixed(1)} times the usual level`;
+        if (factor === undefined || factor === null) return 'no yearly average to compare with yet';
+        if (factor < 0.2 || factor > 5) return 'far from its yearly average: may be a sensor fault';
+        if (factor >= 2) return `about ${factor.toFixed(1)} times its yearly average`;
         const pct = Math.round((factor - 1) * 100);
-        if (Math.abs(pct) < 5) return 'about the usual level';
-        return pct > 0 ? `${pct}% above usual` : `${-pct}% below usual`;
+        if (Math.abs(pct) < 5) return 'about its yearly average';
+        return pct > 0 ? `${pct}% above its yearly average` : `${-pct}% below its yearly average`;
     };
 
-    // One line of "Latest reading", e.g. "NO₂: 23.4 µg/m³, 30% below usual"
+    // One line of "Latest reading", e.g. "NO₂: 23.4 µg/m³, 30% below its yearly average"
     const rightNowRow = (school, key, name) => {
         const value = school['current_' + key];
         if (value === null || school.unadjusted.includes(key)) {
@@ -394,7 +399,7 @@
                                             <hr class="my-3">
                       <h6 class="mb-1">Latest reading</h6>
                       ${school.data_source === 'DIRECT' || school.data_source === 'ADJUSTED' ? `
-                          <p class="small text-muted mb-2">${school.data_source === 'DIRECT' ? 'Measured by the sensor at the school' : 'Estimated using the nearby sensor'}, compared with that sensor's usual level (its average over a recent year). Legal limits are for annual averages, so they aren't used here.</p>
+                          <p class="small text-muted mb-2">${school.data_source === 'DIRECT' ? 'Measured by the sensor at the school' : 'Estimated using the nearby sensor'}, compared with that sensor's yearly average (its average over a recent 12 months). Readings are often above average at rush hour and below it at night. Legal limits are for yearly averages, so they aren't used here..</p>
                           ${rightNowRow(school, 'no2', 'NO₂')}
                           ${rightNowRow(school, 'pm25', 'PM2.5')}
                           ${rightNowRow(school, 'pm10', 'PM10')}
