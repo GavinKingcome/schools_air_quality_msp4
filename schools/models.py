@@ -163,13 +163,12 @@ class School(models.Model):
                     'sensor_is_reference': self.direct_sensor.is_reference_grade,
                     'sensor_distance': float(self.direct_sensor_distance) if self.direct_sensor_distance else None,
                     'reading_timestamp': reading.timestamp,
-                    # ç÷ this sensor's own annual average, e.g. {'no2': 1.2}
+                    # Now ÷ this sensor's own annual average, e.g. {'no2': 1.2}
                     'compared_with_usual': {
                         p: f for p, f in self._sensor_factors(self.direct_sensor).items()
                         if p in ('no2', 'pm25', 'pm10')
                     },
                 })
-                return result
                 return result
         
         # Method 2: LAEI baseline × adjustment factor

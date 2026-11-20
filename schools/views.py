@@ -16,9 +16,63 @@ from django.http import HttpResponseForbidden
 from django.db import models  # needed for Q lookups in search
 from subscriptions.decorators import subscription_required
 
+from django.utils import timezone
+
 from .models import School, SchoolNote
 from .forms import SchoolContactForm, SchoolNoteForm
 
+
+# Shown in this order on the school page
+POLLUTANTS = [('no2', 'NO₂'), ('pm25', 'PM2.5'), ('pm10', 'PM10')]
+
+CONFIDENCE_LABELS = {
+    'high': 'High', 'medium-high': 'Medium-high', 'medium': 'Medium',
+    'medium-low': 'Medium-low', 'low': 'Low',
+}
+
+
+def describe_vs_average(factor):
+    """
+    compared_with_usual in plain words, matching the map popup.
+    e.g. 0.7 -> '30% below its yearly average'
+    """
+    if factor is None:
+        return 'no yearly average to compare with yet'
+    if factor < 0.2 or factor > 5:
+        return 'far from its yearly average: may be a sensor fault'
+    if factor >= 2:
+        return f'about {factor:.1f} times its yearly average'
+    pct = round((factor - 1) * 100)
+    if abs(pct) < 5:
+        return 'about its yearly average'
+    return f'{pct}% above its yearly average' if pct > 0 else f'{-pct}% below its yearly average'
+
+
+def describe_age(timestamp):
+    """
+    When the reading was taken, in plain words, and whether it's old.
+    e.g. ('Reading at 14:00 today (2 hours ago).', False)
+    """
+    if not timestamp:
+        return None, False
+    local = timezone.localtime(timestamp)
+    now = timezone.localtime()
+    hours = int((now - local).total_seconds() // 3600)
+    day = 'today' if local.date() == now.date() else f'{local:%A} {local.day} {local:%b}'
+    if hours < 1:
+        ago = 'less than an hour ago'
+    elif hours == 1:
+        ago = '1 hour ago'
+    else:
+        ago = f'{hours} hours ago'
+    return f'Reading at {local:%H:%M} {day} ({ago}).', hours >= 6
+
+
+def format_distance(metres):
+    """e.g. 368 -> '368 m', 1820 -> '1.8 km'"""
+    if metres is None:
+        return ''
+    return f'{round(metres)} m' if metres < 1000 else f'{metres / 1000:.1f} km'
 
 def schools_list(request):
     """List all schools with search and filter functionality."""
@@ -72,18 +126,53 @@ def schools_list(request):
 def school_detail(request, pk):
     """Display detailed information about a single school."""
     school = get_object_or_404(School, pk=pk)
-    
-    # Get air quality reading
+
     current_reading = school.get_current_reading()
     threshold_status = school.get_threshold_status()
-    
-    # Get notes for this school
+
+    # Latest reading: one row per pollutant, compared with the sensor's yearly average
+    latest_rows = []
+    if current_reading.get('method') in ('direct', 'laei_adjusted'):
+        compared = current_reading.get('compared_with_usual', {})
+        unadjusted = current_reading.get('unadjusted', [])
+        for key, name in POLLUTANTS:
+            value = current_reading.get(key)
+            if value is None or key in unadjusted:
+                latest_rows.append({'name': name, 'value': None,
+                                    'text': 'no current reading from this sensor'})
+            else:
+                latest_rows.append({'name': name, 'value': value,
+                                    'text': describe_vs_average(compared.get(key))})
+
+    # The adjusted method keeps its reading time inside adjustment_factors
+    timestamp = (current_reading.get('reading_timestamp')
+                 or current_reading.get('adjustment_factors', {}).get('reading_timestamp'))
+    reading_age, reading_is_old = describe_age(timestamp)
+
+    # Why there's no latest reading, if there isn't one
+    if school.direct_sensor or school.reference_sensor:
+        no_reading_reason = 'Its sensor has sent no reading in the last 48 hours.'
+    else:
+        no_reading_reason = "There's no sensor within 2 km."
+
+    # Typical year: one row per pollutant, in the same order
+    typical_rows = [
+        {'name': name, **threshold_status[key]}
+        for key, name in POLLUTANTS if key in threshold_status
+    ]
+
     notes = school.notes.all()
-    
+
     context = {
         'school': school,
         'current_reading': current_reading,
-        'threshold_status': threshold_status,
+        'latest_rows': latest_rows,
+        'reading_age': reading_age,
+        'reading_is_old': reading_is_old,
+        'sensor_distance_text': format_distance(current_reading.get('sensor_distance')),
+        'confidence_label': CONFIDENCE_LABELS.get(current_reading.get('confidence'), ''),
+        'no_reading_reason': no_reading_reason,
+        'typical_rows': typical_rows,
         'notes': notes,
     }
     return render(request, 'schools/school_detail.html', context)

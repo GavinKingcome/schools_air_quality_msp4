@@ -32,119 +32,83 @@
     <!-- Left Column: Air Quality Data -->
     <div class="col-lg-8">
 
-      <!-- Current Air Quality Reading -->
+            <!-- Latest reading -->
       <div class="card mb-4">
         <div class="card-header">
-          <h3 class="mb-0">Current Air Quality</h3>
+          <h3 class="mb-0">Latest reading</h3>
         </div>
         <div class="card-body">
-          {% if current_reading.method %}
-          <div class="row text-center g-3">
-            {% if current_reading.no2 is not None %}
-            <div class="col-md-4">
-              <div class="p-3 border rounded">
-                <h4 class="text-muted">NO&#8322;</h4>
-                <p class="display-6 mb-0">{{ current_reading.no2 }}</p>
-                <small class="text-muted">&micro;g/m&sup3;</small>
+          {% if latest_rows %}
+          <p class="small text-muted">
+            {% if current_reading.method == 'direct' %}Measured by the sensor at the school{% else %}Estimated using the nearby sensor{% endif %},
+            compared with that sensor's yearly average (its average over a recent 12 months).
+            Readings are often above average at rush hour and below it at night.
+            Legal limits are for yearly averages, so they aren't used here.
+          </p>
+          <div class="row g-3">
+            {% for row in latest_rows %}
+            <div class="col-12 col-md-4">
+              <div class="p-3 border rounded h-100">
+                <h4 class="h6 text-muted mb-1">{{ row.name }}</h4>
+                {% if row.value is not None %}
+                <p class="fs-3 fw-semibold mb-0">{{ row.value|floatformat:1 }} <small class="fs-6 text-muted">&micro;g/m&sup3;</small></p>
+                <p class="small mb-0">{{ row.text }}</p>
+                {% else %}
+                <p class="small text-muted mb-0">{{ row.text }}</p>
+                {% endif %}
               </div>
             </div>
-            {% endif %}
-            {% if current_reading.pm25 is not None %}
-            <div class="col-md-4">
-              <div class="p-3 border rounded">
-                <h4 class="text-muted">PM2.5</h4>
-                <p class="display-6 mb-0">{{ current_reading.pm25 }}</p>
-                <small class="text-muted">&micro;g/m&sup3;</small>
-              </div>
-            </div>
-            {% endif %}
-            {% if current_reading.pm10 is not None %}
-            <div class="col-md-4">
-              <div class="p-3 border rounded">
-                <h4 class="text-muted">PM10</h4>
-                <p class="display-6 mb-0">{{ current_reading.pm10 }}</p>
-                <small class="text-muted">&micro;g/m&sup3;</small>
-              </div>
-            </div>
-            {% endif %}
+            {% endfor %}
           </div>
-
-          <!-- Data Source Info -->
-          <div class="mt-3 p-2 bg-light rounded">
-            <small class="text-muted">
-              <strong>Data source:</strong>
-              {% if current_reading.method == 'direct' %}
-                Direct sensor reading ({{ current_reading.sensor_code }}, {{ current_reading.sensor_distance|floatformat:0 }}m away)
-              {% elif current_reading.method == 'laei_adjusted' %}
-                LAEI baseline adjusted by {{ current_reading.reference_sensor }} sensor
-              {% else %}
-                LAEI 2022 modelled annual average
-              {% endif %}
-              &middot;
-              <strong>Confidence:</strong> {{ current_reading.confidence }}
-            </small>
+          {% if reading_age %}
+          <p class="small text-muted mt-3 mb-0">
+            {{ reading_age }}
+            {% if reading_is_old %}<strong>This reading is more than 6 hours old.</strong>{% endif %}
+          </p>
+          {% endif %}
+          <div class="mt-3 p-2 bg-light rounded small text-muted">
+            <strong>Sensor:</strong> {{ current_reading.sensor_code }}, {{ current_reading.sensor_network }}{% if not current_reading.sensor_is_reference %} (low-cost, calibrated){% endif %}, {{ current_reading.sensor_site_type }}{% if sensor_distance_text %}, {{ sensor_distance_text }} away{% endif %}
+            &middot; <strong>Confidence:</strong> {{ confidence_label }}
           </div>
           {% else %}
-          <p class="text-muted">No air quality data currently available for this school.</p>
+          <p class="text-muted mb-0">No current reading for this school. {{ no_reading_reason }}</p>
           {% endif %}
         </div>
       </div>
 
-      <!-- Threshold Comparison -->
-      {% if threshold_status %}
+      <!-- Typical year -->
       <div class="card mb-4">
         <div class="card-header">
-          <h3 class="mb-0">Guideline Comparison</h3>
+          <h3 class="mb-0">Typical year</h3>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-sm">
-              <thead>
-                <tr>
-                  <th>Pollutant</th>
-                  <th>Value (&micro;g/m&sup3;)</th>
-                  <th>UK Limit</th>
-                  <th>EU 2024</th>
-                  <th>WHO</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for pollutant, data in threshold_status.items %}
-                <tr>
-                  <td>
-                    {% if pollutant == 'no2' %}NO&#8322;{% elif pollutant == 'pm25' %}PM2.5{% else %}PM10{% endif %}
-                  </td>
-                  <td><strong>{{ data.value }}</strong></td>
-                  <td>
-                    {% if data.meets_uk %}
-                      <span class="badge bg-success">Pass</span>
-                    {% else %}
-                      <span class="badge bg-danger">Exceeds</span>
-                    {% endif %}
-                  </td>
-                  <td>
-                    {% if data.meets_eu_2024 %}
-                      <span class="badge bg-success">Pass</span>
-                    {% else %}
-                      <span class="badge bg-warning text-dark">Exceeds</span>
-                    {% endif %}
-                  </td>
-                  <td>
-                    {% if data.meets_who %}
-                      <span class="badge bg-success">Pass</span>
-                    {% else %}
-                      <span class="badge bg-danger">Exceeds</span>
-                    {% endif %}
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+          {% if typical_rows %}
+          <p class="small text-muted">
+            Modelled annual average at the school (LAEI 2022, the latest available), compared with annual limits.
+            Pollution has generally fallen since 2022.
+          </p>
+          {% for row in typical_rows %}
+          <div class="border rounded p-3 mb-2">
+            <h4 class="h6 mb-2">{{ row.name }}: {{ row.value }} &micro;g/m&sup3;</h4>
+            <ul class="list-unstyled small mb-0">
+              <li class="{% if row.meets_who %}text-success{% else %}text-danger{% endif %}">
+                {% if row.meets_who %}Meets{% else %}Exceeds{% endif %} WHO guideline ({{ row.who }})
+              </li>
+              <li class="{% if row.meets_eu_2024 %}text-success{% else %}text-danger{% endif %}">
+                {% if row.meets_eu_2024 %}Meets{% else %}Exceeds{% endif %} EU limit from 2030 ({{ row.eu_2024 }})
+              </li>
+              <li class="{% if row.meets_uk %}text-success{% else %}text-danger{% endif %}">
+                {% if row.meets_uk %}Meets{% else %}Exceeds{% endif %} UK legal limit ({{ row.uk }})
+              </li>
+            </ul>
           </div>
+          {% endfor %}
+          {% else %}
+          <p class="text-muted mb-0">No modelled annual average for this location.</p>
+          {% endif %}
         </div>
       </div>
-      {% endif %}
-
+      
       <!-- Notes Section -->
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
@@ -212,23 +176,6 @@
           {% endif %}
           {% if school.website %}
           <p class="mb-2"><strong>Website:</strong> <a href="{{ school.website }}" target="_blank" rel="noopener noreferrer">Visit site</a></p>
-          {% endif %}
-          
-          <hr />
-
-          <p class="mb-2"><strong>Data source:</strong> 
-            {% if current_reading.method == 'direct' %}
-              Direct sensor reading
-            {% elif current_reading.method == 'laei_adjusted' %}
-              LAEI adjusted by LAQN sensor
-            {% else %}
-              LAEI baseline only
-            {% endif %}
-          </p>
-          {% if school.direct_sensor %}
-          <p class="mb-2"><strong>Nearest sensor:</strong> {{ school.direct_sensor.name }} ({{ school.direct_sensor_distance|floatformat:0 }}m)</p>
-          {% elif school.reference_sensor %}
-          <p class="mb-2"><strong>Reference sensor:</strong> {{ school.reference_sensor.name }} ({{ school.reference_sensor_distance|floatformat:0 }}m)</p>
           {% endif %}
         </div>
       </div>
