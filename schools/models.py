@@ -314,8 +314,47 @@ class School(models.Model):
             }
 
         return status
+    
+class SchoolSensor(models.Model):
+    """
+    One nearby sensor on a school's ranked list (rank 1 = first choice).
 
-    # School Notes
+    assign_sensors rebuilds every school's list each hour: sensors within
+    2 km that have reported in the last 7 days and have a yearly average,
+    urban background first, then other site types, nearest first within
+    each group. A school's own direct sensor is never on its list.
+    When a page opens, each pollutant uses the first sensor on the list
+    with a fresh reading and a yearly average for that pollutant.
+    """
+    school = models.ForeignKey(
+        School,
+        on_delete=models.CASCADE,
+        related_name='sensor_list',
+    )
+    sensor = models.ForeignKey(
+        Sensor,
+        on_delete=models.CASCADE,
+        related_name='school_lists',
+    )
+    rank = models.PositiveSmallIntegerField(help_text='1 = first choice')
+    distance_m = models.DecimalField(
+        max_digits=7,
+        decimal_places=1,
+        help_text='Distance from the school, in metres',
+    )
+
+    class Meta:
+        ordering = ['school', 'rank']
+        constraints = [
+            models.UniqueConstraint(fields=['school', 'sensor'], name='unique_school_sensor'),
+            models.UniqueConstraint(fields=['school', 'rank'], name='unique_school_rank'),
+        ]
+
+    def __str__(self):
+        return f'{self.school.name}: {self.rank}. {self.sensor.site_code} ({self.distance_m} m)'
+
+
+
 class SchoolNote(models.Model):
     """
     User-submitted notes about a school's air quality environment.
