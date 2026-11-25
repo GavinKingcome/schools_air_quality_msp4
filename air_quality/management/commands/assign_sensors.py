@@ -1,267 +1,255 @@
 """
-Django management command to assign sensors to schools using hybrid approach.
+Django management command to assign sensors to schools.
 
-Methodology:
-1. Direct sensor: Urban background sensor within 150m → direct readings
-2. Reference sensor: Nearest reference (LAQN or AQE) for adjustment factors.
-   If none is in range, the nearest Breathe London sensor with a
-   12-month average is used instead (lower confidence).
-3. LAEI only: Schools with no sensor in range
+For each school it decides:
+1. Direct sensor: the nearest urban background sensor within 150 m.
+   Its reading is used as measured at the school.
+2. Sensor list: up to 6 nearby sensors (within 2 km) that have reported
+   in the last 7 days and have a yearly average, saved as SchoolSensor
+   rows in ranked order:
+     - urban background sensors first, then other site types
+       (site type comes before network, decided 22 November 2026)
+     - nearest first within each group, whatever the network
+   A school's own direct sensor is never on its list.
+   When a page opens, each pollutant uses the first sensor on the list
+   with a fresh reading and a yearly average for that pollutant.
+3. Data source: DIRECT (has a direct sensor), ADJUSTED (has a list)
+   or LAEI (nothing in range).
 
-The hybrid approach:
-- Preserves LAEI's 20m spatial resolution (street-level variation)
-- Adds temporal variation from nearest reference sensor
-- Only uses direct readings when sensor is genuinely local (≤150m) AND
-  is urban background type (not influenced by immediate roadside emissions)
+reference_sensor is kept, set to the first sensor on the list, until
+get_current_reading uses the lists.
 
 Usage:
+    python manage.py assign_sensors --dry-run
     python manage.py assign_sensors
-    python manage.py assign_sensors --direct-threshold=150 --reference-threshold=2000
+    python manage.py assign_sensors --direct-threshold=150 --reference-threshold=2000 --list-size=6
 """
 
-from django.core.management.base import BaseCommand
-from air_quality.models import Sensor
-from schools.models import School
-from math import radians, sin, cos, sqrt, atan2
+from collections import Counter
 from datetime import timedelta
-from django.utils import timezone
 import logging
+
+from django.core.management.base import BaseCommand
+from django.db import transaction
+from django.utils import timezone
+
+from air_quality.models import Sensor
+from air_quality.geo import haversine_distance
+from schools.models import School, SchoolSensor
 
 logger = logging.getLogger(__name__)
 
 
-def haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-    """
-    Calculate the great-circle distance between two points in meters.
-    """
-    R = 6371000  # Earth's radius in meters
-    
-    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
-    
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-    
-    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-    c = 2 * atan2(sqrt(a), sqrt(1-a))
-    
-    return R * c
+def rank_key(entry):
+    """Urban background first, then other site types; nearest first in each."""
+    is_background = entry['sensor'].site_type == 'urban_background'
+    return (0 if is_background else 1, entry['distance'])
+
+
+def describe(sensor):
+    """e.g. 'reference, urban background' -- used for the summary counts."""
+    network = 'reference' if sensor.network in Sensor.REFERENCE_NETWORKS else 'Breathe'
+    kind = 'urban background' if sensor.site_type == 'urban_background' else 'roadside or other'
+    return f'{network}, {kind}'
 
 
 class Command(BaseCommand):
-    help = 'Assign sensors to schools using hybrid approach'
-    
+    help = 'Assign each school a direct sensor (if any) and a ranked list of nearby sensors'
+
     def add_arguments(self, parser):
         parser.add_argument(
             '--direct-threshold',
             type=int,
             default=150,
-            help='Maximum distance (m) for direct sensor assignment (default: 150)'
+            help='Maximum distance (m) for a direct sensor (default: 150)'
         )
         parser.add_argument(
             '--reference-threshold',
             type=int,
             default=2000,
-            help='Maximum distance (m) for reference sensor (default: 2000)'
+            help='Maximum distance (m) for a sensor on the list (default: 2000)'
+        )
+        parser.add_argument(
+            '--list-size',
+            type=int,
+            default=6,
+            help='Most sensors kept on each school\'s list (default: 6)'
         )
         parser.add_argument(
             '--dry-run',
             action='store_true',
             help='Show what would be assigned without saving'
         )
-    
+
     def handle(self, *args, **options):
         direct_threshold = options['direct_threshold']
-        reference_threshold = options['reference_threshold']
+        list_threshold = options['reference_threshold']
+        list_size = options['list_size']
         dry_run = options['dry_run']
 
-        schools = School.objects.all()
+        schools = list(School.objects.all())
+        total = len(schools)
 
         # Only sensors that have sent a reading in the last 7 days.
         # A site can be officially open but silent (e.g. LB5).
         recent = timezone.now() - timedelta(days=7)
-        all_sensors = Sensor.objects.filter(
-            is_active=True, readings__timestamp__gte=recent
-        ).distinct()
-
-        # Reference sites: LAQN or AQE, and only those with an annual average,
-        # since the adjustment needs one (reading now ÷ annual average).
-        reference_sensors = all_sensors.filter(
-            network__in=Sensor.REFERENCE_NETWORKS,
-            annual_stats__isnull=False,
-        ).distinct()
-        reference_ids = set(reference_sensors.values_list('id', flat=True))
-        
-        # Fallback: Breathe London sensors with a 12-month average.
-        # Only used when no reference site is within range.
-        breathe_sensors = all_sensors.filter(
-            network='BREATHE',
-            annual_stats__isnull=False,
-        ).distinct()
-        breathe_ids = set(breathe_sensors.values_list('id', flat=True))
-
-        self.stdout.write(f'\nHybrid Sensor Assignment')
-        self.stdout.write('=' * 50)
-        self.stdout.write(f'Schools to process: {schools.count()}')
-        self.stdout.write(
-            f'Available sensors: {all_sensors.count()} total, '
-            f'{reference_sensors.count()} reference (LAQN/AQE), '
-            f'{breathe_sensors.count()} Breathe fallback'
+        recent_sensors = list(
+            Sensor.objects.filter(is_active=True, readings__timestamp__gte=recent).distinct()
         )
-        self.stdout.write(f'Direct threshold: {direct_threshold}m (urban background only)')
-        self.stdout.write(f'Reference threshold: {reference_threshold}m (LAQN or AQE, then Breathe fallback)')
+
+        # A sensor on a list also needs a yearly average, since the
+        # adjustment needs one (reading now ÷ yearly average).
+        with_average = set(
+            Sensor.objects.filter(
+                id__in=[s.id for s in recent_sensors],
+                annual_stats__isnull=False,
+            ).values_list('id', flat=True)
+        )
+        usable = Counter(
+            describe(s).split(',')[0] for s in recent_sensors if s.id in with_average
+        )
+
+        self.stdout.write('\nSensor Assignment')
+        self.stdout.write('=' * 50)
+        self.stdout.write(f'Schools to process: {total}')
+        self.stdout.write(f'Sensors that reported in the last 7 days: {len(recent_sensors)}')
+        self.stdout.write(
+            f'  ...of which have a yearly average: {len(with_average)} '
+            f'({usable["reference"]} reference, {usable["Breathe"]} Breathe)'
+        )
+        self.stdout.write(f'Direct sensor: urban background, within {direct_threshold} m')
+        self.stdout.write(
+            f'Sensor list: up to {list_size} within {list_threshold} m, '
+            f'urban background first, then nearest'
+        )
         if dry_run:
             self.stdout.write(self.style.WARNING('\n** DRY RUN - no changes will be saved **\n'))
 
-        stats = {
-            'direct': 0,
-            'adjusted': 0,
-            'laei_only': 0,
-            'direct_reference': 0,
-            'direct_breathe': 0,
-            'adjusted_reference': 0,
-            'adjusted_breathe': 0,
-        }
+        stats = Counter()          # data sources
+        first_choice = Counter()   # what kind of sensor is first on each list
+        list_lengths = Counter()   # how many sensors each list has
+        updated_schools = []
+        new_rows = []
 
         for school in schools:
             if not school.latitude or not school.longitude:
                 logger.warning(f'School {school.name} has no coordinates')
                 continue
 
-            # Calculate distances to all sensors
-            sensor_distances = []
-            for sensor in all_sensors:
-                distance = haversine_distance(
-                    school.latitude, school.longitude,
-                    sensor.latitude, sensor.longitude
-                )
-                sensor_distances.append({
-                    'sensor': sensor,
-                    'distance': distance,
-                })
+            distances = sorted(
+                (
+                    {
+                        'sensor': sensor,
+                        'distance': haversine_distance(
+                            school.latitude, school.longitude,
+                            sensor.latitude, sensor.longitude,
+                        ),
+                    }
+                    for sensor in recent_sensors
+                ),
+                key=lambda e: e['distance'],
+            )
 
-            # Sort by distance
-            sensor_distances.sort(key=lambda x: x['distance'])
+            # === DIRECT SENSOR ===
+            # The nearest urban background sensor within the direct threshold
+            direct = next(
+                (e for e in distances
+                 if e['distance'] <= direct_threshold
+                 and e['sensor'].site_type == 'urban_background'),
+                None,
+            )
+            direct_sensor = direct['sensor'] if direct else None
 
-            # === DIRECT SENSOR ASSIGNMENT ===
-            # Only urban background sensors within 150m qualify
-            direct_sensor = None
-            direct_distance = None
-
-            for sd in sensor_distances:
-                sensor = sd['sensor']
-                distance = sd['distance']
-
-                if distance > direct_threshold:
-                    break  # No point checking further
-
-                if sensor.site_type == 'urban_background':
-                    direct_sensor = sensor
-                    direct_distance = round(distance, 1)
-
-                    if sensor.network in Sensor.REFERENCE_NETWORKS:
-                        stats['direct_reference'] += 1
-                    else:
-                        stats['direct_breathe'] += 1
-                    break
-
-            # === REFERENCE SENSOR ASSIGNMENT ===
-            # Nearest reference site (LAQN or AQE, with an annual average)
-            reference_sensor = None
-            reference_distance = None
-
-            # The spare must be a different sensor from the direct one,
-            # or it goes quiet at the same time and is no help.
-            ref_distances = [
-                sd for sd in sensor_distances
-                if sd['sensor'].id in reference_ids and sd['sensor'] != direct_sensor
+            # === SENSOR LIST ===
+            # Within range, with a yearly average, never the school's own
+            # direct sensor (it would go quiet at the same time).
+            candidates = [
+                e for e in distances
+                if e['distance'] <= list_threshold
+                and e['sensor'].id in with_average
+                and e['sensor'] != direct_sensor
             ]
-            if ref_distances and ref_distances[0]['distance'] <= reference_threshold:
-                reference_sensor = ref_distances[0]['sensor']
-                reference_distance = round(ref_distances[0]['distance'], 1)
-                
-            # Fallback: nearest Breathe sensor, only if no reference site is in range
-            if reference_sensor is None:
-                breathe_distances = [
-                    sd for sd in sensor_distances
-                    if sd['sensor'].id in breathe_ids and sd['sensor'] != direct_sensor
-                ]
-                if breathe_distances and breathe_distances[0]['distance'] <= reference_threshold:
-                    reference_sensor = breathe_distances[0]['sensor']
-                    reference_distance = round(breathe_distances[0]['distance'], 1)
+            candidates.sort(key=rank_key)
+            ranked = candidates[:list_size]
+            first = ranked[0] if ranked else None
+            list_lengths[len(ranked)] += 1
 
-            # === DETERMINE DATA SOURCE ===
+            # === DATA SOURCE ===
             if direct_sensor:
                 data_source = 'DIRECT'
-                stats['direct'] += 1
-                
-            elif reference_sensor:
+            elif first:
                 data_source = 'ADJUSTED'
-                stats['adjusted'] += 1
-                if reference_sensor.id in reference_ids:
-                    stats['adjusted_reference'] += 1
-                else:
-                    stats['adjusted_breathe'] += 1
             else:
                 data_source = 'LAEI'
-                stats['laei_only'] += 1
+            stats[data_source] += 1
+            if first:
+                first_choice[describe(first['sensor'])] += 1
 
-            # === UPDATE SCHOOL ===
-            if not dry_run:
-                school.direct_sensor = direct_sensor
-                school.direct_sensor_distance = direct_distance
-                school.reference_sensor = reference_sensor
-                school.reference_sensor_distance = reference_distance
-                school.data_source = data_source
-                school.save()
-
-            # Verbose output for direct assignments (they're rare and interesting)
             if direct_sensor:
                 self.stdout.write(
                     f'  ✓ DIRECT: {school.name[:40]:<40} ← '
-                    f'{direct_sensor.site_code} ({direct_distance}m, {direct_sensor.network})'
+                    f'{direct_sensor.site_code} ({direct["distance"]:.1f}m, {direct_sensor.network})'
                 )
+
+            # === PREPARE THE SAVE ===
+            school.direct_sensor = direct_sensor
+            school.direct_sensor_distance = round(direct['distance'], 1) if direct else None
+            school.reference_sensor = first['sensor'] if first else None
+            school.reference_sensor_distance = round(first['distance'], 1) if first else None
+            school.data_source = data_source
+            updated_schools.append(school)
+
+            new_rows.extend(
+                SchoolSensor(
+                    school=school,
+                    sensor=e['sensor'],
+                    rank=rank,
+                    distance_m=round(e['distance'], 1),
+                )
+                for rank, e in enumerate(ranked, start=1)
+            )
+
+        # === SAVE ===
+        # All in one transaction: either every school and list is updated,
+        # or nothing is (the page never sees half-rebuilt lists).
+        if not dry_run:
+            with transaction.atomic():
+                School.objects.bulk_update(
+                    updated_schools,
+                    ['direct_sensor', 'direct_sensor_distance',
+                     'reference_sensor', 'reference_sensor_distance', 'data_source'],
+                )
+                SchoolSensor.objects.all().delete()
+                SchoolSensor.objects.bulk_create(new_rows)
 
         # === SUMMARY ===
         self.stdout.write('\n' + '=' * 50)
         self.stdout.write(self.style.SUCCESS('Assignment Summary'))
         self.stdout.write('=' * 50)
 
-        total = schools.count()
+        self.stdout.write('\nData source breakdown:')
+        for key, label in [
+            ('DIRECT', f'DIRECT (urban background sensor within {direct_threshold} m)'),
+            ('ADJUSTED', 'ADJUSTED (LAEI x a sensor on the list)'),
+            ('LAEI', 'LAEI ONLY (no sensor in range)'),
+        ]:
+            self.stdout.write(f'  {label:<50} {stats[key]:3d} ({100 * stats[key] / total:.1f}%)')
 
-        self.stdout.write(f'\nData source breakdown:')
-        self.stdout.write(
-            f'  DIRECT (sensor ≤{direct_threshold}m, urban background): '
-            f'{stats["direct"]:3d} ({100*stats["direct"]/total:.1f}%)'
-        )
-        self.stdout.write(
-            f'    - Reference:      {stats["direct_reference"]:3d}'
-        )
-        self.stdout.write(
-            f'    - Breathe London: {stats["direct_breathe"]:3d}'
-        )
-        self.stdout.write(
-            f'  ADJUSTED (LAEI × sensor factor):                '
-            f'{stats["adjusted"]:3d} ({100*stats["adjusted"]/total:.1f}%)'
-        )
-        self.stdout.write(
-            f'    - Reference:      {stats["adjusted_reference"]:3d}'
-        )
-        self.stdout.write(
-            f'    - Breathe London: {stats["adjusted_breathe"]:3d}'
-        )
-        self.stdout.write(
-            f'  LAEI ONLY (no sensor in range):                 '
-            f'{stats["laei_only"]:3d} ({100*stats["laei_only"]/total:.1f}%)'
-        )
+        self.stdout.write('\nFirst sensor on each list:')
+        for kind in ['reference, urban background', 'Breathe, urban background',
+                     'reference, roadside or other', 'Breathe, roadside or other']:
+            self.stdout.write(f'  {kind:<50} {first_choice[kind]:3d}')
 
-        real_time = stats['direct'] + stats['adjusted']
-        self.stdout.write(f'\nSchools with real-time capability: {real_time} ({100*real_time/total:.1f}%)')
+        self.stdout.write('\nSchools by number of sensors on their list:')
+        for n in range(list_size + 1):
+            self.stdout.write(f'  {n} sensor{"" if n == 1 else "s"}: {list_lengths[n]:3d}')
+        self.stdout.write(f'  Total list entries: {len(new_rows)}')
 
         self.stdout.write('\n' + '-' * 50)
         self.stdout.write('Methodology:')
-        self.stdout.write(f'  • DIRECT: Sensor reading used as-is (genuinely local)')
-        self.stdout.write(f'  • ADJUSTED: LAEI baseline × (sensor_now / sensor_annual_mean)')
-        self.stdout.write(f'  • LAEI ONLY: Modelled 2022 annual average')
+        self.stdout.write('  • DIRECT: sensor reading used as measured at the school')
+        self.stdout.write('  • ADJUSTED: LAEI baseline x (sensor now / sensor yearly average)')
+        self.stdout.write('  • LAEI ONLY: modelled 2022 annual average')
 
         if dry_run:
             self.stdout.write(self.style.WARNING('\n** DRY RUN - no changes saved **'))
