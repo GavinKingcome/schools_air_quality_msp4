@@ -63,6 +63,21 @@ class Sensor(models.Model):
         help_text='Replacement sensor when a site moved network or code',
     )
     
+    # LAEI 2022 modelled annual averages at the sensor's own location (µg/m³),
+    # from the same 20 m grid as the schools' values. Used by the third method
+    # (sensor now × LAEI at school ÷ LAEI at sensor) and the LAEI similarity check.
+    # Filled by: python manage.py set_sensor_laei
+    laei_no2_2022 = models.FloatField(null=True, blank=True)
+    laei_pm25_2022 = models.FloatField(null=True, blank=True)
+    laei_pm10_2022 = models.FloatField(null=True, blank=True)
+
+    # The same, as the median of the 5 x 5 cells around the sensor (about
+    # 100 m). A road strip in the sensor's own cell barely moves it, so it
+    # describes the air around an urban background sensor more fairly.
+    laei_no2_2022_area = models.FloatField(null=True, blank=True)
+    laei_pm25_2022_area = models.FloatField(null=True, blank=True)
+    laei_pm10_2022_area = models.FloatField(null=True, blank=True)
+
     # Network-specific metadata (JSON)
     metadata = models.JSONField(default=dict, blank=True)
     
