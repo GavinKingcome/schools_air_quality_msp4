@@ -83,9 +83,20 @@ class BreatheLondonApi:
             if isinstance(data, list):
                 all_sensors.extend(data)
             else:
-                logger.warning(f"Unexpected response format for borough {borough}")
+                                logger.warning(f"Unexpected response format for borough {borough}")
         
         return all_sensors
+
+    def get_all_sensors(self) -> list:
+        """
+        Every Breathe London installation, in all boroughs, in one call.
+        Raises an error rather than returning an empty list, so a sync
+        never quietly carries on with no sensors.
+        """
+        data = self._make_request("ListSensors")
+        if not isinstance(data, list):
+            raise ValueError(f"Unexpected response from ListSensors: {type(data).__name__}")
+        return data
     
     def get_sensors_in_radius(
         self,

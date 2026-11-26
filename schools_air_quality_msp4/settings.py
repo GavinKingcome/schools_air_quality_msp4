@@ -152,6 +152,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_REDIRECT_URL = '/map/'
 LOGOUT_REDIRECT_URL = '/'
 
+# Method for calculating reading.
+ESTIMATE_METHOD = 'third'    # value = sensor *(median laei at sensor/laei at school)
+
 # =============================================================================
 # CELERY CONFIGURATION
 # =============================================================================

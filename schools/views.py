@@ -19,6 +19,7 @@ from subscriptions.decorators import subscription_required
 from django.utils import timezone
 
 from .models import School, SchoolNote
+from .estimates import SensorData
 from .forms import SchoolContactForm, SchoolNoteForm
 
 
@@ -97,9 +98,11 @@ def schools_list(request):
         schools = schools.filter(school_type=school_type)
     
     # Add current reading method to each school for accurate badge display
+    schools = list(schools.select_related('direct_sensor', 'reference_sensor'))
+    sensor_data = SensorData.load(schools)  # everything needed, loaded once
     schools_with_method = []
     for school in schools:
-        current_reading = school.get_current_reading()
+        current_reading = school.get_current_reading(sensor_data)
         method = current_reading.get('method', '')
         
         # Map method to data_source for display consistency with map
@@ -144,9 +147,7 @@ def school_detail(request, pk):
                 latest_rows.append({'name': name, 'value': value,
                                     'text': describe_vs_average(compared.get(key))})
 
-    # The adjusted method keeps its reading time inside adjustment_factors
-    timestamp = (current_reading.get('reading_timestamp')
-                 or current_reading.get('adjustment_factors', {}).get('reading_timestamp'))
+    timestamp = current_reading.get('reading_timestamp')
     reading_age, reading_is_old = describe_age(timestamp)
 
     # Why there's no latest reading, if there isn't one
@@ -280,4 +281,3 @@ def note_delete(request, pk):
         'school': note.school,
     }
     return render(request, 'schools/note_confirm_delete.html', context)
-

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from schools.models import School, ANNUAL_LIMITS
+from schools.estimates import SensorData
 from air_quality.models import Sensor
 from django.conf import settings
 from childcare.models import ChildcareSetting
@@ -11,14 +12,16 @@ def as_float(value):
 
 def map_view(request):
     """Display all schools and sensors on a map"""
-    schools = School.objects.all()
+    schools = list(School.objects.select_related('direct_sensor', 'reference_sensor'))
     sensors = Sensor.objects.filter(is_active=True)
+    # Sensor lists, latest readings and yearly averages for every school, in a few queries
+    sensor_data = SensorData.load(schools)
     
     # Prepare school data for JavaScript
     schools_data = []
     for school in schools:
         # Get current reading to determine actual data source
-        current_reading = school.get_current_reading()
+        current_reading = school.get_current_reading(sensor_data)
         method = current_reading.get('method', '')
         
         # Map method to data_source for template
@@ -29,18 +32,9 @@ def map_view(request):
         else:  # laei_only or empty
             data_source = 'LAEI_ONLY'
         
-        # Get timestamp - for DIRECT it's at top level, for ADJUSTED it's in adjustment_factors
+        # When the reading shown was taken, and whether that was in school hours (7:00 to 19:00)
         reading_timestamp = current_reading.get('reading_timestamp')
-        if not reading_timestamp:
-            adjustment_factors = current_reading.get('adjustment_factors', {})
-            reading_timestamp = adjustment_factors.get('reading_timestamp')
-            is_school_hours = adjustment_factors.get('is_school_hours', True)
-        else:
-            # For DIRECT readings, check school hours
-            is_school_hours = True  # Direct sensor readings don't have this check yet
-            if reading_timestamp:
-                reading_hour = reading_timestamp.hour
-                is_school_hours = 7 <= reading_hour < 19
+        is_school_hours = 7 <= reading_timestamp.hour < 19 if reading_timestamp else True
         
         schools_data.append({
             'id': school.id,

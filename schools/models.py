@@ -126,17 +126,33 @@ class School(models.Model):
         return self.name
     
     # =========================================================================
-    # NEW: Methods for Real-Time Data
+    # Latest reading, pollutant by pollutant (see schools/estimates.py)
     # =========================================================================
-    
-    def get_current_reading(self) -> dict:
+
+    def get_current_reading(self, data=None) -> dict:
         """
-        Get current air quality estimate using hybrid approach.
-        
-        1. Direct sensor (urban background ≤150m): Use reading directly
-        2. LAEI × adjustment: Scale baseline by sensor temporal factor
-        3. LAEI only: Fall back to modelled baseline
+        The school's latest figures, worked out separately for each pollutant.
+
+        Each pollutant uses the school's own sensor if it has a value from
+        the last 48 hours, otherwise the first suitable sensor on the
+        school's ranked list. The full detail is in result['pollutants'].
+
+        data: a SensorData from SensorData.load(schools). Pages showing many
+        schools load it once and pass it in; without it, this loads the
+        data for this one school.
+
+        Until the popup and school page show a sensor per pollutant (step 5),
+        the top-level keys describe one sensor only: the one used for the
+        first pollutant that has a figure. Pollutants from other sensors are
+        listed in 'unadjusted', so the page doesn't credit that sensor with
+        them.
         """
+        from schools.estimates import POLLUTANTS, SCHOOL_LAEI_FIELDS, SensorData, estimate_school
+
+        if data is None:
+            data = SensorData.load([self])
+        estimates = estimate_school(self, data)
+
         result = {
             'timestamp': timezone.now(),
             'source': self.data_source,
@@ -145,143 +161,53 @@ class School(models.Model):
             'no2': None,
             'pm25': None,
             'pm10': None,
+            'pollutants': estimates,
         }
-        
-        # Method 1: Direct sensor reading
-        if self.direct_sensor:
-            reading = self.direct_sensor.get_latest_reading()
-            if reading and self._is_reading_fresh(reading):
+
+        shown = next((estimates[p] for p in POLLUTANTS if estimates[p]), None)
+
+        if shown is None:
+            # No sensor figure for any pollutant: LAEI 2022 only
+            if self._has_laei_data():
+                for p in POLLUTANTS:
+                    value = getattr(self, SCHOOL_LAEI_FIELDS[p])
+                    result[p] = float(value) if value is not None else None
                 result.update({
-                    'no2': float(reading.no2) if reading.no2 else None,
-                    'pm25': float(reading.pm25) if reading.pm25 else None,
-                    'pm10': float(reading.pm10) if reading.pm10 else None,
-                    'method': 'direct',
-                    'confidence': 'high' if self.direct_sensor.is_reference_grade else 'medium-high',
-                    'sensor_code': self.direct_sensor.site_code,
-                    'sensor_network': self.direct_sensor.get_network_display(),
-                    'sensor_site_type': self.direct_sensor.get_site_type_display(),
-                    'sensor_is_reference': self.direct_sensor.is_reference_grade,
-                    'sensor_distance': float(self.direct_sensor_distance) if self.direct_sensor_distance else None,
-                    'reading_timestamp': reading.timestamp,
-                    # Now ÷ this sensor's own annual average, e.g. {'no2': 1.2}
-                    'compared_with_usual': {
-                        p: f for p, f in self._sensor_factors(self.direct_sensor).items()
-                        if p in ('no2', 'pm25', 'pm10')
-                    },
+                    'method': 'laei_only',
+                    'note': 'Modelled annual average — current conditions may vary',
                 })
-                return result
-        
-        # Method 2: LAEI baseline × adjustment factor
-        if self.reference_sensor and self._has_laei_data():
-            adjustment = self._calculate_adjustment_factor()
-            if adjustment:
-                result.update({
-                    'no2': self._apply_adjustment(self.no2_2022, adjustment.get('no2')),
-                    'pm25': self._apply_adjustment(self.pm25_2022, adjustment.get('pm25')),
-                    'pm10': self._apply_adjustment(self.pm10_mean_2022, adjustment.get('pm10')),
-                    'method': 'laei_adjusted',
-                    # Reference sensors leave less error in the ratio than Breathe ones
-                    'confidence': 'medium' if self.reference_sensor.is_reference_grade else 'medium-low',
-                    'adjustment_factors': adjustment,
-                    # Same names as the direct method, so the view can read either
-                    'sensor_code': self.reference_sensor.site_code,
-                    'sensor_network': self.reference_sensor.get_network_display(),
-                    'sensor_site_type': self.reference_sensor.get_site_type_display(),
-                    'sensor_is_reference': self.reference_sensor.is_reference_grade,
-                    'sensor_distance': float(self.reference_sensor_distance) if self.reference_sensor_distance else None,
-                    # Pollutants with no factor, so shown as the plain LAEI value
-                    # (e.g. Breathe sensors have no PM10)
-                    'unadjusted': [p for p in ('no2', 'pm25', 'pm10') if p not in adjustment],
-                    # Now ÷ the spare sensor's annual average, e.g. {'no2': 1.2}
-                    'compared_with_usual': {
-                        p: adjustment[p] for p in ('no2', 'pm25', 'pm10') if p in adjustment
-                    },
-                    'reference_sensor': self.reference_sensor.site_code,
-                    'reference_distance': float(self.reference_sensor_distance) if self.reference_sensor_distance else None,
-                    'laei_baseline': {
-                        'no2': float(self.no2_2022) if self.no2_2022 else None,
-                        'pm25': float(self.pm25_2022) if self.pm25_2022 else None,
-                        'pm10': float(self.pm10_mean_2022) if self.pm10_mean_2022 else None,
-                    }
-                })
-                return result
-        
-        # Method 3: LAEI baseline only
-        if self._has_laei_data():
-            result.update({
-                'no2': float(self.no2_2022) if self.no2_2022 else None,
-                'pm25': float(self.pm25_2022) if self.pm25_2022 else None,
-                'pm10': float(self.pm10_mean_2022) if self.pm10_mean_2022 else None,
-                'method': 'laei_only',
-                'confidence': 'low',
-                'note': 'Modelled annual average — current conditions may vary',
-            })
-        
+            return result
+
+        same_sensor = [
+            p for p in POLLUTANTS
+            if estimates[p] and estimates[p]['sensor_code'] == shown['sensor_code']
+        ]
+        for p in same_sensor:
+            result[p] = estimates[p]['value']
+
+        result.update({
+            'method': 'direct' if shown['kind'] == 'measured' else 'laei_adjusted',
+            'confidence': shown['confidence'],
+            'sensor_code': shown['sensor_code'],
+            'sensor_network': shown['sensor_network'],
+            'sensor_site_type': shown['sensor_site_type'],
+            'sensor_is_reference': shown['sensor_is_reference'],
+            'sensor_distance': shown['sensor_distance'],
+            'reading_timestamp': shown['reading_timestamp'],
+            # Pollutants this sensor didn't supply
+            'unadjusted': [p for p in POLLUTANTS if p not in same_sensor],
+            # Reading now ÷ this sensor's yearly average, e.g. {'no2': 1.2}
+            'compared_with_usual': {
+                p: estimates[p]['compared_with_average'] for p in same_sensor
+                if estimates[p]['compared_with_average'] is not None
+            },
+        })
         return result
-    
-    def _is_reading_fresh(self, reading, max_age_seconds: int = 172800) -> bool:
-        """Check if reading is recent enough (default: 48 hours to account for API delays)."""
-        if not reading or not reading.timestamp:
-            return False
-        age = (timezone.now() - reading.timestamp).total_seconds()
-        return age <= max_age_seconds
-    
+
     def _has_laei_data(self) -> bool:
         """Check if school has LAEI baseline data."""
         return any([self.no2_2022, self.pm25_2022, self.pm10_mean_2022])
-    
-    def _apply_adjustment(self, baseline, factor) -> float:
-        """Apply adjustment factor to baseline with safety checks."""
-        if baseline is None or factor is None:
-            return float(baseline) if baseline else None
-        
-        baseline_float = float(baseline)
-        # Cap extreme adjustments (sensor malfunction protection)
-        capped_factor = max(0.2, min(factor, 5.0))
-        return round(baseline_float * capped_factor, 1)
-    
-    def _calculate_adjustment_factor(self) -> dict:
-        """
-        Calculate adjustment factor from reference sensor readings.
-        """
-        if not self.reference_sensor:
-            return {}
-        return self._sensor_factors(self.reference_sensor)
-    
-    def _sensor_factors(self, sensor) -> dict:
-        """
-        How a sensor's latest reading compares with its own annual average:
-        reading now ÷ annual average, for each pollutant it can.
-        1.2 means 20% above usual; 0.8 means 20% below.
-        """
-        reading = sensor.get_latest_reading()
-        if not reading or not self._is_reading_fresh(reading):
-            return {}
-    
-        # Check if reading is from outside school hours (7:00-18:30)
-        reading_hour = reading.timestamp.hour
-        is_school_hours = 7 <= reading_hour < 19
-    
-        stats = sensor.annual_stats.order_by('-year').first()
-        if not stats:
-            return {}
-        
-        factors = {
-            'reading_timestamp': reading.timestamp,
-            'is_school_hours': is_school_hours,
-        }
-        
-        if reading.no2 and stats.no2_mean and float(stats.no2_mean) > 0:
-            factors['no2'] = round(float(reading.no2) / float(stats.no2_mean), 3)
-        
-        if reading.pm25 and stats.pm25_mean and float(stats.pm25_mean) > 0:
-            factors['pm25'] = round(float(reading.pm25) / float(stats.pm25_mean), 3)
-        
-        if reading.pm10 and stats.pm10_mean and float(stats.pm10_mean) > 0:
-            factors['pm10'] = round(float(reading.pm10) / float(stats.pm10_mean), 3)
-        
-        return factors
-    
+
     def get_threshold_status(self) -> dict:
         """
         Compare the school's typical year with the UK, EU 2024 and WHO
