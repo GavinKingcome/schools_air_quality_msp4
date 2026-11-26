@@ -105,9 +105,14 @@ class Command(BaseCommand):
                     
                     # Check if we got any data
                     if not any([no2_mean, pm25_mean, pm10_mean, o3_mean]):
-                        self.stdout.write(
-                            self.style.WARNING(f'    {year}: No data available')
-                        )
+                        # Nothing passes (no data, or under 75% capture). With
+                        # --overwrite, remove old figures so they aren't used.
+                        if existing:
+                            existing.delete()
+                            self.stdout.write(self.style.WARNING(
+                                f'    {year}: No data that passes the 75% rule; old figures removed'))
+                        else:
+                            self.stdout.write(self.style.WARNING(f'    {year}: No data available'))
                         skipped_count += 1
                         continue
                     

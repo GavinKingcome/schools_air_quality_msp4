@@ -222,7 +222,8 @@ class LAQNApi:
         self,
         site_code: str,
         year: int,
-        species: str = "NO2"
+        species: str = "NO2",
+        min_capture: float = 0.75,
     ) -> Optional[float]:
         """
         Get annual mean concentration for a site.
@@ -247,28 +248,41 @@ class LAQNApi:
             if isinstance(objectives, dict):
                 objectives = [objectives]
             
-            # Map species codes to match API response
-            species_map = {
-                "NO2": "NO2",
-                "PM25": "PM2.5",
-                "PM10": "DUST",  # PM10 reported as DUST in API
-                "O3": "O3"
+                      # Species codes as London Air writes them in the annual data
+            # (checked 26 November 2026 for CE2: NO2, PM25, PM10, O3).
+            # Older spellings are accepted too, just in case.
+            species_codes = {
+                "NO2": {"NO2"},
+                "PM25": {"PM25", "PM2.5", "FINE"},
+                "PM10": {"PM10", "DUST"},
+                "O3": {"O3"},
             }
-            
-            target_species = species_map.get(species, species)
-            
-            # Find the annual mean objective (not exceedances or capture rate)
+            codes = species_codes.get(species, {species})
+
+            # Find the annual mean and the capture rate for this pollutant
+            mean, capture = None, None
             for obj in objectives:
-                obj_species = obj.get("@SpeciesCode")
-                obj_name = obj.get("@ObjectiveName", "").lower()
-                
-                if obj_species == target_species and "annual mean" in obj_name:
-                    value = obj.get("@Value")
-                    if value:
-                        try:
-                            return float(value)
-                        except (ValueError, TypeError):
-                            continue
+                if obj.get("@SpeciesCode") not in codes:
+                    continue
+                name = obj.get("@ObjectiveName", "").lower()
+                try:
+                    value = float(obj.get("@Value"))
+                except (TypeError, ValueError):
+                    continue
+                if "annual mean" in name:
+                    mean = value
+                elif "capture rate" in name:
+                    capture = value
+
+            # The 75% rule: only use an annual mean based on at least
+            # 75% of the year's hours
+            if mean is not None and capture is not None and capture < min_capture * 100:
+                logger.info(
+                    f"{site_code} {year} {species}: capture {capture:.0f}% "
+                    f"is under {min_capture:.0%}, so not used"
+                )
+                return None
+            return mean
             
         except Exception as e:
             logger.warning(f"Could not get annual mean for {site_code} {year}: {e}")
