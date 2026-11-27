@@ -12,6 +12,12 @@ ANNUAL_LIMITS = {
     'pm25': {'uk': 20, 'eu_2024': 10, 'who': 5},
     'pm10': {'uk': 40, 'eu_2024': 20, 'who': 15},
 }
+# WHO 2021 air quality guidelines for 24-hour averages (µg/m³). Only compare
+# these with an average over 24 hours, never with a single hour's reading.
+# The WHO says they shouldn't be exceeded on more than 3 or 4 days a year.
+DAILY_GUIDELINES = {'no2': 25, 'pm25': 15, 'pm10': 45}
+
+
 class School(models.Model):
     """Model representing a school location with air quality data."""
     

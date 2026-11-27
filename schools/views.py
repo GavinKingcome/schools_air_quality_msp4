@@ -19,7 +19,7 @@ from subscriptions.decorators import subscription_required
 from django.utils import timezone
 
 from .models import School, SchoolNote
-from .estimates import SensorData
+from .estimates import SensorData, explain
 from .forms import SchoolContactForm, SchoolNoteForm
 
 
@@ -74,6 +74,74 @@ def format_distance(metres):
     if metres is None:
         return ''
     return f'{round(metres)} m' if metres < 1000 else f'{metres / 1000:.1f} km'
+
+def describe_source(e):
+    """
+    The heading for a group of readings, matching the map popup.
+    e.g. 'Estimated for this school, using BL0057: Breathe London, urban background, 174 m away'
+    """
+    parts = [e['sensor_network']]
+    if e['sensor_site_type']:
+        parts.append(e['sensor_site_type'].lower())
+    if e['sensor_distance'] is not None:
+        parts.append(f"{format_distance(e['sensor_distance'])} away")
+    how = 'Measured at the school by' if e['kind'] == 'measured' else 'Estimated for this school, using'
+    return f"{how} {e['sensor_code']}: {', '.join(parts)}"
+
+
+def setting_caveat(e):
+    """A caveat when an estimate comes from a sensor in a different kind of setting."""
+    site = e['sensor_site_type']
+    if e['kind'] == 'measured' or not site or site == 'Urban Background':
+        return ''
+    away = format_distance(e['sensor_distance'])
+    where = (f'beside a main road {away} away' if site in ('Roadside', 'Kerbside')
+             else f'at a {site.lower()} site {away} away')
+    return (f"This sensor is {where}. It shows whether the air across the area is "
+            f"cleaner or dirtier than usual today. It isn't a measurement at the school.")
+
+
+def latest_reading_groups(estimates):
+    """
+    The school's latest figures grouped by the sensor (and hour) they came
+    from, as on the map popup. Returns (groups, missing pollutant names).
+    """
+    groups, missing = [], []
+    for key, name in POLLUTANTS:
+        e = estimates.get(key)
+        if e is None:
+            missing.append(name)
+            continue
+        group = next((g for g in groups if g['code'] == e['sensor_code']
+                      and g['timestamp'] == e['reading_timestamp']), None)
+        if group is None:
+            age, is_old = describe_age(e['reading_timestamp'])
+            group = {
+                'code': e['sensor_code'],
+                'timestamp': e['reading_timestamp'],
+                'source': describe_source(e),
+                'confidence_label': CONFIDENCE_LABELS.get(e['confidence'], ''),
+                'reading_age': age,
+                'reading_is_old': is_old,
+                'caveat': setting_caveat(e),
+                'kind': e['kind'],
+                'workings': [],
+                'rows': [],
+            }
+            groups.append(group)
+        group['rows'].append({
+            'name': name,
+            'value': e['value'],
+            'text': describe_vs_average(e['compared_with_average']),
+            'day_average': e['day_average'],
+            'day_guideline': e['day_guideline'],
+            'day_within_guideline': e['day_within_guideline'],
+        })
+        working = explain(e, name)
+        if working:
+            group['workings'].append(working)
+    return groups, missing
+
 
 def schools_list(request):
     """List all schools with search and filter functionality."""
@@ -133,26 +201,13 @@ def school_detail(request, pk):
     current_reading = school.get_current_reading()
     threshold_status = school.get_threshold_status()
 
-    # Latest reading: one row per pollutant, compared with the sensor's yearly average
-    latest_rows = []
-    if current_reading.get('method') in ('direct', 'laei_adjusted'):
-        compared = current_reading.get('compared_with_usual', {})
-        unadjusted = current_reading.get('unadjusted', [])
-        for key, name in POLLUTANTS:
-            value = current_reading.get(key)
-            if value is None or key in unadjusted:
-                latest_rows.append({'name': name, 'value': None,
-                                    'text': 'no current reading from this sensor'})
-            else:
-                latest_rows.append({'name': name, 'value': value,
-                                    'text': describe_vs_average(compared.get(key))})
-
-    timestamp = current_reading.get('reading_timestamp')
-    reading_age, reading_is_old = describe_age(timestamp)
+    # Latest reading: grouped by the sensor each pollutant came from
+    latest_groups, latest_missing = latest_reading_groups(current_reading['pollutants'])
+    any_estimated = any(g['kind'] == 'estimated' for g in latest_groups)
 
     # Why there's no latest reading, if there isn't one
-    if school.direct_sensor or school.reference_sensor:
-        no_reading_reason = 'Its sensor has sent no reading in the last 48 hours.'
+    if school.direct_sensor_id or school.sensor_list.exists():
+        no_reading_reason = 'Its nearby sensors have sent no reading in the last 48 hours.'
     else:
         no_reading_reason = "There's no sensor within 2 km."
 
@@ -167,11 +222,9 @@ def school_detail(request, pk):
     context = {
         'school': school,
         'current_reading': current_reading,
-        'latest_rows': latest_rows,
-        'reading_age': reading_age,
-        'reading_is_old': reading_is_old,
-        'sensor_distance_text': format_distance(current_reading.get('sensor_distance')),
-        'confidence_label': CONFIDENCE_LABELS.get(current_reading.get('confidence'), ''),
+        'latest_groups': latest_groups,
+        'any_estimated': any_estimated,
+        'latest_missing': ', '.join(latest_missing),
         'no_reading_reason': no_reading_reason,
         'typical_rows': typical_rows,
         'notes': notes,

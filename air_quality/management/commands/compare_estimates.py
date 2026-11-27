@@ -78,8 +78,10 @@ class Command(BaseCommand):
                 sensor = (f"{e['sensor_code']} {e['sensor_site_type'].lower()}, "
                           f"{e['sensor_distance']:.0f} m" if e['sensor_distance'] is not None
                           else e['sensor_code'])
+                day = (f"24h {e['day_average']:.1f} ({e['day_hours']} h)" if e['day_average'] is not None
+                       else f"24h n/a ({e['day_hours']} h)")
                 when = e['reading_timestamp'].strftime('%a %H:%M')
-                line = f"  {NAMES[p]:6} {e['kind']:9} {e['value']:6.1f}  {sensor}, {ratio}, {e['confidence']}, {when}"
+                line = f"  {NAMES[p]:6} {e['kind']:9} {e['value']:6.1f}  {day}  {sensor}, {ratio}, {e['confidence']}, {when}"
                 if e['kind'] == 'estimated':
                     third = e['third_method']
                     third = f'{third:.1f}' if third is not None else 'n/a (no LAEI at sensor)'

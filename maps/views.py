@@ -10,6 +10,33 @@ def as_float(value):
     """Decimal -> float for JavaScript; None stays None."""
     return float(value) if value is not None else None
 
+def estimates_for_js(estimates):
+    """Each pollutant's estimate in a form JSON can carry (times as text)."""
+    out = {}
+    for pollutant, e in estimates.items():
+        if e is None:
+            out[pollutant] = None
+            continue
+        out[pollutant] = {
+            'value': e['value'],
+            'kind': e['kind'],                      # 'measured' or 'estimated'
+            'sensor_code': e['sensor_code'],
+            'sensor_network': e['sensor_network'],
+            'sensor_site_type': e['sensor_site_type'],
+            'sensor_distance': e['sensor_distance'],
+            'reading_timestamp': e['reading_timestamp'].isoformat(),
+            'compared_with_average': e['compared_with_average'],
+            'confidence': e['confidence'],
+            'day_average': e['day_average'],              # None if too few hours
+            'day_hours': e['day_hours'],
+            'day_guideline': e['day_guideline'],
+            'day_within_guideline': e['day_within_guideline'],
+            'method_used': e['method_used'],
+            'workings': e['workings'],                    # None for a measurement
+        }
+    return out
+
+
 def map_view(request):
     """Display all schools and sensors on a map"""
     schools = list(School.objects.select_related('direct_sensor', 'reference_sensor'))
@@ -76,6 +103,10 @@ def map_view(request):
             'compared_with_usual': current_reading.get('compared_with_usual', {}),
             'reading_timestamp': reading_timestamp.isoformat() if reading_timestamp else None,
             'is_school_hours': is_school_hours,
+            # Each pollutant separately: its own sensor, confidence and reading time
+            'pollutants': estimates_for_js(current_reading['pollutants']),
+            # Whether the school has any sensor to draw on, for the "no reading" message
+            'has_nearby_sensors': bool(school.direct_sensor_id or sensor_data.lists.get(school.id)),
         })
     
     # Prepare sensor data for JavaScript

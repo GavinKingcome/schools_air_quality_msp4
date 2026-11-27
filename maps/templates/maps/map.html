@@ -1,5 +1,32 @@
 {% extends 'base.html' %} {% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'maps/css/map.css' %}" />
+<style>
+  /* Leaflet puts space above every paragraph in a popup; keep the reading lines together */
+  .latest-reading p { margin-top: 0; }
+  .latest-reading summary { cursor: pointer; color: #0d6efd; }
+  /* Let long words wrap rather than push a popup wider than a phone screen */
+  .leaflet-popup-content { overflow-wrap: anywhere; }
+
+  /* Phones: the legends and layer checkboxes sit behind one "Key" button,
+     and the button hides while a popup is open, so nothing covers the popup */
+  .key-button-control { display: none; }
+  @media (max-width: 768px) {
+    .key-button-control { display: block; margin-top: 80px !important; }
+    #map:not(.key-open) .sensor-toggle-control,
+    #map:not(.key-open) .map-legend,
+    #map:not(.key-open) .sensor-legend { display: none !important; }
+    #map.key-open .sensor-toggle-control { display: block !important; margin-top: 8px !important; }
+    #map.key-open .map-legend,
+    #map.key-open .sensor-legend { display: block !important; }
+    #map.popup-open .key-button-control,
+    #map.popup-open .sensor-toggle-control,
+    #map.popup-open .map-legend,
+    #map.popup-open .sensor-legend { display: none !important; }
+  }
+  @media (max-width: 480px) {
+    .key-button-control { margin-top: 60px !important; }
+  }
+</style>
 <!-- Leaflet MarkerCluster CSS -->
 <link
   rel="stylesheet"
@@ -322,15 +349,6 @@
       return metres < 1000 ? `${Math.round(metres)} m` : `${(metres / 1000).toFixed(1)} km`;
   };
 
-  // e.g. "BL0001, Breathe London (low-cost, calibrated), Urban Background, 1.5 km away"
-  const describeSensor = (school) => {
-      let network = school.sensor_network;
-      if (school.sensor_is_reference === false) network += ' (low-cost, calibrated)';
-      const parts = [school.sensor_code, network];
-      if (school.sensor_site_type) parts.push(school.sensor_site_type);
-      if (school.sensor_distance !== null) parts.push(`${formatDistance(school.sensor_distance)} away`);
-      return parts.join(', ');
-  };
     const CONFIDENCE_LABELS = {
       'high': 'High', 'medium-high': 'Medium-high', 'medium': 'Medium',
       'medium-low': 'Medium-low', 'low': 'Low',
@@ -346,14 +364,6 @@
         return pct > 0 ? `${pct}% above its yearly average` : `${-pct}% below its yearly average`;
     };
 
-    // One line of "Latest reading", e.g. "NO₂: 23.4 µg/m³, 30% below its yearly average"
-    const rightNowRow = (school, key, name) => {
-        const value = school['current_' + key];
-        if (value === null || school.unadjusted.includes(key)) {
-            return `<p class="small mb-1"><strong>${name}:</strong> <span class="text-muted">no current reading from this sensor</span></p>`;
-        }
-        return `<p class="small mb-1"><strong>${name}:</strong> ${value.toFixed(1)} µg/m³, ${describeVsUsual(school.compared_with_usual[key])}</p>`;
-    };
     // e.g. "Reading at 12:00 today (4 hours ago)", with a warning if it's old
     const describeAge = (iso) => {
         const t = new Date(iso);
@@ -366,6 +376,98 @@
         return `Reading at ${time} ${day} (${ago}).${warning}`;
     };
 
+    const POLLUTANT_NAMES = [['no2', 'NO₂'], ['pm25', 'PM2.5'], ['pm10', 'PM10']];
+
+    // The heading for a group, e.g. "Estimated for this school, using BL0057: Breathe London, urban background, 174 m away"
+    const describeSource = (e) => {
+        const parts = [e.sensor_network];
+        if (e.sensor_site_type) parts.push(e.sensor_site_type.toLowerCase());
+        if (e.sensor_distance !== null) parts.push(`${formatDistance(e.sensor_distance)} away`);
+        const how = e.kind === 'measured' ? 'Measured at the school by' : 'Estimated for this school, using';
+        return `${how} ${e.sensor_code}: ${parts.join(', ')}`;
+    };
+
+    // A caveat when an estimate comes from a sensor in a different kind of setting
+    const settingCaveat = (e) => {
+        if (e.kind === 'measured' || !e.sensor_site_type || e.sensor_site_type === 'Urban Background') return '';
+        const away = formatDistance(e.sensor_distance);
+        const where = ['Roadside', 'Kerbside'].includes(e.sensor_site_type)
+            ? `beside a main road ${away} away`
+            : `at a ${e.sensor_site_type.toLowerCase()} site ${away} away`;
+        return `<p class="small text-muted fst-italic mb-0 mt-1">This sensor is ${where}. It shows whether the air across the area is cleaner or dirtier than usual today. It isn't a measurement at the school.</p>`;
+    };
+
+    // "How is this worked out?" for one estimated pollutant, with the school's own numbers.
+    // schools/estimates.py (explain) builds the same text for the school page; change both together.
+    const explainEstimate = (e, name) => {
+        const w = e.workings;
+        if (!w) return null;
+        const where = w.laei_sensor_kind === 'area' ? 'around the sensor' : "at the sensor's spot";
+        let text;
+        if (e.method_used === 'third') {
+            text = `${e.sensor_code} measured ${w.sensor_value.toFixed(1)} µg/m³ of ${name}. The pollution map (LAEI 2022) gives a yearly average of ${w.laei_school.toFixed(2)} at the school and ${w.laei_sensor.toFixed(2)} ${where}. So the estimate for the school is ${w.sensor_value.toFixed(1)} × ${w.laei_school.toFixed(2)} ÷ ${w.laei_sensor.toFixed(2)} = ${e.value.toFixed(1)} µg/m³.`;
+        } else {
+            text = `${e.sensor_code} measured ${w.sensor_value.toFixed(1)} µg/m³ of ${name}, against its yearly average of ${w.sensor_average.toFixed(1)}. The pollution map (LAEI 2022) gives the school a yearly average of ${w.laei_school.toFixed(2)}. So the estimate for the school is ${w.laei_school.toFixed(2)} × ${w.sensor_value.toFixed(1)} ÷ ${w.sensor_average.toFixed(1)} = ${e.value.toFixed(1)} µg/m³.`;
+        }
+        if (e.day_average !== null) text += " The 24-hour figure is worked out the same way, from the sensor's 24-hour average.";
+        return text;
+    };
+
+    // One pollutant: the latest hour against the sensor's yearly average,
+    // then the 24-hour average against the WHO's 24-hour guideline
+    const pollutantRow = (name, e) => {
+        const day = e.day_average === null
+            ? 'Not enough readings yet for a 24-hour average.'
+            : `Last 24 hours: ${e.day_average.toFixed(1)} µg/m³, ${e.day_within_guideline ? 'within' : 'above'} the WHO's 24-hour guideline (${e.day_guideline})`;
+        return `<div class="mb-1">
+            <p class="small mb-0"><strong>${name}:</strong> ${e.value.toFixed(1)} µg/m³ in the latest hour, ${describeVsUsual(e.compared_with_average)}</p>
+            <p class="small text-muted mb-0 ms-2">${day}</p>
+        </div>`;
+    };
+
+    // "Latest reading": pollutants grouped by the sensor (and hour) they came from
+    const latestReadingSection = (school) => {
+        const groups = [];
+        const missing = [];
+        POLLUTANT_NAMES.forEach(([key, name]) => {
+            const e = school.pollutants[key];
+            if (!e) { missing.push(name); return; }
+            let group = groups.find(g => g.code === e.sensor_code && g.first.reading_timestamp === e.reading_timestamp);
+            if (!group) { group = {code: e.sensor_code, first: e, rows: [], workings: []}; groups.push(group); }
+            group.rows.push(pollutantRow(name, e));
+            const working = explainEstimate(e, name);
+            if (working) group.workings.push(working);
+        });
+
+        if (!groups.length) {
+            return `<p class="small text-muted mb-0">No current reading for this school. ${school.has_nearby_sensors
+                ? 'Its nearby sensors have sent no reading in the last 48 hours.'
+                : "There's no sensor within 2 km."}</p>`;
+        }
+
+        const anyEstimated = groups.some(g => g.first.kind === 'estimated');
+        const intro = `<p class="small text-muted mb-2">The latest hour is compared with its sensor's yearly average: levels change a lot from hour to hour, with traffic and the weather. The 24-hour average is compared with the WHO's 24-hour guideline.</p>`
+            + (anyEstimated ? `<p class="small text-muted mb-2">Where there's no sensor at the school, we estimate its level: a nearby sensor shows how polluted the air is now, and a detailed pollution map adjusts that for the school's own location.</p>` : '');
+        const blocks = groups.map(g => `
+            <div class="mb-2">
+                <p class="small fw-semibold mb-1">${describeSource(g.first)}</p>
+                ${g.rows.join('')}
+                <p class="small text-muted mb-0">Confidence: <strong>${CONFIDENCE_LABELS[g.first.confidence] || 'Low'}</strong> · ${describeAge(g.first.reading_timestamp)}</p>
+                ${settingCaveat(g.first)}
+                ${g.workings.length ? `<details class="small mt-1">
+                    <summary>How is this worked out?</summary>
+                    ${g.workings.map(t => `<p class="mt-1 mb-0">${t}</p>`).join('')}
+                </details>` : ''}
+            </div>`).join('');
+        const none = missing.length
+            ? `<p class="small text-muted mb-0">${missing.join(', ')}: no current reading nearby.</p>` : '';
+        return `<div class="latest-reading">${intro}${blocks}${none}</div>`;
+    };
+
+  // Phone popup width: never wider than the screen allows (Leaflet adds about 45 px of margins)
+  const PHONE_POPUP_MAX = Math.min(260, window.innerWidth - 80);
+  const PHONE_POPUP_MIN = Math.min(250, PHONE_POPUP_MAX);
+
   // Add markers for each school with borough-specific colors
   schools.forEach(school => {
       // Choose icon based on borough field
@@ -374,7 +476,7 @@
       const marker = L.marker([school.latitude, school.longitude], { icon: icon });
 
       const popupContent = `
-          <div class="card border-0" style="min-width: ${window.innerWidth <= 768 ? '250px' : '300px'}; max-width: ${window.innerWidth <= 768 ? '260px' : '400px'};">
+          <div class="card border-0" style="min-width: ${window.innerWidth <= 768 ? PHONE_POPUP_MIN + 'px' : '300px'}; max-width: ${window.innerWidth <= 768 ? PHONE_POPUP_MAX + 'px' : '400px'};">
               <div class="card-body p-3">
                   <h5 class="card-title mb-3">${school.name}</h5>
                   <div class="card-text">
@@ -384,29 +486,9 @@
                       <p class="mb-1"><strong>Postcode:</strong> ${school.postcode}</p>
                       ${school.student_count ? `<p class="mb-2"><strong>Students:</strong> ${school.student_count}</p>` : ''}
                       
-                      ${school.data_source === 'DIRECT' ? `
-                      <p class="mb-1"><strong>Data source:</strong> Sensor at the school</p>
-                      <p class="small text-success mb-0">${describeSensor(school)}</p>
-                      ` : school.data_source === 'ADJUSTED' ? `
-                      <p class="mb-1"><strong>Data source:</strong> LAEI 2022 × ${school.sensor_is_reference ? 'reference' : 'Breathe London'} sensor adjustment</p>
-                      <p class="small fw-semibold mb-0">${describeSensor(school)}${school.is_school_hours === false && school.reading_timestamp ? ' (latest reading from outside school hours)' : ''}</p>
-                      ` : `
-                      <p class="mb-1"><strong>Data source:</strong> LAEI 2022 modelled annual average</p>
-                      <p class="small text-muted mb-0">${school.direct_sensor || school.reference_sensor ? 'Its sensor has sent no reading in the last 48 hours' : 'No sensor within 2 km for current data'}</p>
-                      `}
-                      <p class="small mb-0"><strong>Confidence:</strong> ${CONFIDENCE_LABELS[school.reading_confidence] || 'Low'}</p>
-                      
-                                            <hr class="my-3">
+                      <hr class="my-3">
                       <h6 class="mb-1">Latest reading</h6>
-                      ${school.data_source === 'DIRECT' || school.data_source === 'ADJUSTED' ? `
-                          <p class="small text-muted mb-2">${school.data_source === 'DIRECT' ? 'Measured by the sensor at the school' : 'Estimated using the nearby sensor'}, compared with that sensor's yearly average (its average over a recent 12 months). Readings are often above average at rush hour and below it at night. Legal limits are for yearly averages, so they aren't used here..</p>
-                          ${rightNowRow(school, 'no2', 'NO₂')}
-                          ${rightNowRow(school, 'pm25', 'PM2.5')}
-                          ${rightNowRow(school, 'pm10', 'PM10')}
-                          ${school.reading_timestamp ? `<p class="small text-muted mt-2 mb-0">${describeAge(school.reading_timestamp)}</p>` : ''}
-                      ` : `
-                          <p class="small text-muted mb-0">No current reading for this school.</p>
-                      `}
+                      ${latestReadingSection(school)}
 
                       <hr class="my-3">
                       <h6 class="mb-1">Typical year</h6>
@@ -422,11 +504,12 @@
       `;
 
       marker.bindPopup(popupContent, {
-          maxWidth: window.innerWidth <= 768 ? 260 : 450,
-          minWidth: window.innerWidth <= 768 ? 250 : 300,
+          maxWidth: window.innerWidth <= 768 ? PHONE_POPUP_MAX : 450,
+          minWidth: window.innerWidth <= 768 ? PHONE_POPUP_MIN : 300,
           maxHeight: window.innerWidth <= 768 ? 300 : 500,
           autoPan: true,
           autoPanPadding: window.innerWidth <= 768 ? [10, 10] : [50, 20],
+          autoPanPaddingTopLeft: window.innerWidth <= 768 ? [10, 70] : null,
           offset: window.innerWidth <= 768 ? [-35, -15] : [0, -15],
           closeButton: true,
           autoClose: false,
@@ -518,6 +601,7 @@
           maxHeight: window.innerWidth <= 768 ? 300 : 500,
           autoPan: true,
           autoPanPadding: window.innerWidth <= 768 ? [10, 10] : [50, 20],
+          autoPanPaddingTopLeft: window.innerWidth <= 768 ? [10, 70] : null,
           offset: window.innerWidth <= 768 ? [-35, -15] : [0, -15],
           closeButton: true,
           autoClose: false,
@@ -580,6 +664,24 @@
 
         childcareCluster.addLayer(marker);
     });
+
+  // Phones only: one "Key" button that shows or hides the legends and checkboxes
+  const keyButtonControl = L.control({ position: 'topleft' });
+  keyButtonControl.onAdd = function() {
+      const button = L.DomUtil.create('button', 'key-button-control');
+      button.type = 'button';
+      button.textContent = 'Key and layers';
+      button.setAttribute('aria-expanded', 'false');
+      button.style.cssText = 'background: rgba(255, 255, 255, 0.9); border: none; padding: 8px 12px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.9rem;';
+      L.DomEvent.disableClickPropagation(button);
+      button.addEventListener('click', () => {
+          const open = map.getContainer().classList.toggle('key-open');
+          button.setAttribute('aria-expanded', open ? 'true' : 'false');
+          button.textContent = open ? 'Hide key' : 'Key and layers';
+      });
+      return button;
+  };
+  keyButtonControl.addTo(map);
 
   // Add sensor toggle control
   const sensorToggleControl = L.control({ position: 'topleft' });
@@ -659,6 +761,23 @@
       }
       
       window.currentPopupType = null;
+  });
+
+  // Phones: while any popup is open, close the key and hide its button
+  map.on('popupopen', function() {
+      const container = map.getContainer();
+      container.classList.add('popup-open');
+      container.classList.remove('key-open');
+      const button = document.querySelector('.key-button-control');
+      if (button) { button.textContent = 'Key and layers'; button.setAttribute('aria-expanded', 'false'); }
+  });
+  map.on('popupclose', function() {
+      // Popups can stay open together, so check after this one has gone
+      setTimeout(() => {
+          if (!map.getContainer().querySelector('.leaflet-popup')) {
+              map.getContainer().classList.remove('popup-open');
+          }
+      }, 0);
   });
 
   // Hide legends and controls on mobile when popup opens (so popup appears on top)

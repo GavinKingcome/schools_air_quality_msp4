@@ -38,38 +38,54 @@
           <h3 class="mb-0">Latest reading</h3>
         </div>
         <div class="card-body">
-          {% if latest_rows %}
+          {% if latest_groups %}
           <p class="small text-muted">
-            {% if current_reading.method == 'direct' %}Measured by the sensor at the school{% else %}Estimated using the nearby sensor{% endif %},
-            compared with that sensor's yearly average (its average over a recent 12 months).
-            Readings are often above average at rush hour and below it at night.
-            Legal limits are for yearly averages, so they aren't used here.
+            The latest hour is compared with its sensor's yearly average:
+            levels change a lot from hour to hour, with traffic and the weather.
+            The 24-hour average is compared with the WHO's 24-hour guideline.
           </p>
-          <div class="row g-3">
-            {% for row in latest_rows %}
-            <div class="col-12 col-md-4">
-              <div class="p-3 border rounded h-100">
-                <h4 class="h6 text-muted mb-1">{{ row.name }}</h4>
-                {% if row.value is not None %}
-                <p class="fs-3 fw-semibold mb-0">{{ row.value|floatformat:1 }} <small class="fs-6 text-muted">&micro;g/m&sup3;</small></p>
-                <p class="small mb-0">{{ row.text }}</p>
-                {% else %}
-                <p class="small text-muted mb-0">{{ row.text }}</p>
-                {% endif %}
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-          {% if reading_age %}
-          <p class="small text-muted mt-3 mb-0">
-            {{ reading_age }}
-            {% if reading_is_old %}<strong>This reading is more than 6 hours old.</strong>{% endif %}
+          {% if any_estimated %}
+          <p class="small text-muted">
+            Where there's no sensor at the school, we estimate its level: a nearby sensor shows
+            how polluted the air is now, and a detailed pollution map adjusts that for the
+            school's own location.
           </p>
           {% endif %}
-          <div class="mt-3 p-2 bg-light rounded small text-muted">
-            <strong>Sensor:</strong> {{ current_reading.sensor_code }}, {{ current_reading.sensor_network }}{% if not current_reading.sensor_is_reference %} (low-cost, calibrated){% endif %}, {{ current_reading.sensor_site_type }}{% if sensor_distance_text %}, {{ sensor_distance_text }} away{% endif %}
-            &middot; <strong>Confidence:</strong> {{ confidence_label }}
+          {% for group in latest_groups %}
+          <div class="mb-4">
+            <p class="fw-semibold mb-2">{{ group.source }}</p>
+            <div class="row g-3">
+              {% for row in group.rows %}
+              <div class="col-12 col-md-4">
+                <div class="p-3 border rounded h-100">
+                  <h4 class="h6 text-muted mb-1">{{ row.name }}</h4>
+                  <p class="fs-3 fw-semibold mb-0">{{ row.value|floatformat:1 }} <small class="fs-6 text-muted">&micro;g/m&sup3;</small></p>
+                  <p class="small mb-1">Latest hour, {{ row.text }}</p>
+                  {% if row.day_average is not None %}
+                  <p class="small text-muted mb-0">Last 24 hours: {{ row.day_average|floatformat:1 }} &micro;g/m&sup3;, {% if row.day_within_guideline %}within{% else %}above{% endif %} the WHO's 24-hour guideline ({{ row.day_guideline }})</p>
+                  {% else %}
+                  <p class="small text-muted mb-0">Not enough readings yet for a 24-hour average.</p>
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <p class="small text-muted mt-2 mb-0">
+              Confidence: <strong>{{ group.confidence_label }}</strong> &middot; {{ group.reading_age }}
+              {% if group.reading_is_old %}<strong>This reading is more than 6 hours old.</strong>{% endif %}
+            </p>
+            {% if group.caveat %}<p class="small text-muted fst-italic mt-1 mb-0">{{ group.caveat }}</p>{% endif %}
+            {% if group.workings %}
+            <details class="small mt-2">
+              <summary>How is this worked out?</summary>
+              {% for text in group.workings %}<p class="mt-2 mb-0">{{ text }}</p>{% endfor %}
+            </details>
+            {% endif %}
           </div>
+          {% endfor %}
+          {% if latest_missing %}
+          <p class="small text-muted mb-0">{{ latest_missing }}: no current reading nearby.</p>
+          {% endif %}
           {% else %}
           <p class="text-muted mb-0">No current reading for this school. {{ no_reading_reason }}</p>
           {% endif %}

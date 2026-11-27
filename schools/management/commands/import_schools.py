@@ -111,7 +111,7 @@ class Command(BaseCommand):
                     create_defaults={
                         **fields,
                         "website": web_address(row["SchoolWebsite"]),
-                        "phone": row["TelephoneNum"] or None,
+                        "phone": phone_number(row["TelephoneNum"]),
                     },
                 )
                 created += was_created
